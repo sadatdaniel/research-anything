@@ -1,0 +1,42 @@
+{
+  "counts": {
+    "notes": 12,
+    "complete": 12,
+    "event_scored": 12,
+    "event_ok": 12,
+    "places_true": 12,
+    "places_found": 10,
+    "places_listed": 10,
+    "places_real": 10,
+    "links_stated": 1,
+    "links_captured": 1,
+    "links_made": 1,
+    "links_true": 1,
+    "detail_records": 3,
+    "colour_ok": 3,
+    "direction_ok": 3,
+    "duration_ok": 3,
+    "quiz": 12,
+    "quiz_verbatim": 7
+  },
+  "format_complete": 1.0,
+  "event_accuracy": 1.0,
+  "place_recall": 0.833,
+  "place_precision": 1.0,
+  "link_recall": 1.0,
+  "link_precision": 1.0,
+  "colour_captured": 1.0,
+  "direction_captured": 1.0,
+  "duration_captured": 1.0,
+  "quiz_answer_verbatim": 0.583,
+  "wrong_events": [],
+  "run": {
+    "world": "worlds/test/test-001",
+    "records": 12,
+    "loops": 4,
+    "batch": 2,
+    "seconds": 49.9,
+    "seconds_per_record": 4.16,
+    "peak_gpu_mb": 4007
+  }
+}

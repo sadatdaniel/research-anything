@@ -1,0 +1,17 @@
+[
+  {"type": "periodic",
+   "record_ids": ["r0001", "r0002", "r0010", "r0013", "r0022", "r0026", "r0032", "r0036"],
+   "params": {"period": 32},
+   "prediction": {"year": 658, "description": "A yellow/brassy/golden long-tailed comet ('hairy star', 'bearded light', 'broom of fire', 'fiery sword') should appear low in the west / above the sunset and shine for about ten to twelve nights, around 658 (give or take 2)."},
+   "summary": "A yellowish comet seen in the west for 10-12 nights returns roughly every 32 years (435, 468, 502, 534, 562, 597, 626)."},
+  {"type": "chain",
+   "record_ids": ["r0003", "r0004", "r0006", "r0008", "r0016", "r0017", "r0019", "r0039", "r0040"],
+   "params": {"lags": [1, 2]},
+   "prediction": {"year": 635, "description": "Wugoutour (called Thetynd by the Skebrae chroniclers) should be abandoned, its people scattering to the hills, two years after the 633 sea-breach."},
+   "summary": "A sea storm smashing the boats at Laramirn (= Emdrond) is followed one year later by the sea breaking the dikes at Wugoutour (= Thetynd), and two years after that Wugoutour/Thetynd is abandoned (441-442-444, 525-526-528, 632-633-[635])."},
+  {"type": "cause_effect",
+   "record_ids": ["r0005", "r0007", "r0021", "r0023", "r0024", "r0030", "r0031", "r0041"],
+   "params": {"lag": 1},
+   "prediction": {"year": 635, "description": "A great fire should burn the town of Hawoumia (called Mynyzael at Skebrae), one year after the 634 drought at Stuweisko."},
+   "summary": "A summer-long drought (at Stuweisko = Aenkov) is followed one year later by a fire at Hawoumia (= Mynyzael): 442->443, 533->534, 595->596 (wells of Hawoumia ran dry), 634->[635]."}
+]

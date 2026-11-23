@@ -1,0 +1,32 @@
+{
+  "worlds": 10,
+  "claims": 113,
+  "planted": 43,
+  "found": 4,
+  "true_claims": 4,
+  "duplicates": 0,
+  "decoy_hits": 2,
+  "false_claims": 107,
+  "predictions": 2,
+  "predictions_correct": 2,
+  "recall": 0.09302325581395349,
+  "precision": 0.035398230088495575,
+  "prediction_accuracy": 1.0,
+  "per_type": {
+    "periodic": {
+      "planted": 16,
+      "found": 2,
+      "recall": 0.125
+    },
+    "cause_effect": {
+      "planted": 17,
+      "found": 1,
+      "recall": 0.058823529411764705
+    },
+    "chain": {
+      "planted": 10,
+      "found": 1,
+      "recall": 0.1
+    }
+  }
+}

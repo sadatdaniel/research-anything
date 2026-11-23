@@ -1,0 +1,116 @@
+{
+  "machine": {
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "vram_total_mb": 5772.8125,
+    "torch": "2.8.0+cu128",
+    "python": "3.12.3"
+  },
+  "load": {
+    "seconds": 4.4,
+    "params_m": 1434.7,
+    "allocated_mb": 2736,
+    "process_mb_incl_cuda_context": 2842
+  },
+  "sanity": [
+    {
+      "prompt": "The capital of France is",
+      "continuation": " Paris.\n\n## Step 1: Identify the capital of France\nThe capital of France is Paris.\n\n"
+    },
+    {
+      "prompt": "A comet that returns every 76 years was first predicted by",
+      "continuation": " Halley in 1682.\n\n## Step 2: Identify the comet\nThe comet that returns"
+    }
+  ],
+  "speed": [
+    {
+      "loops": 2,
+      "prompt_tokens": 212,
+      "new_tokens": 128,
+      "seconds": 4.62,
+      "tokens_per_s": 27.7,
+      "peak_allocated_mb": 2894
+    },
+    {
+      "loops": 4,
+      "prompt_tokens": 212,
+      "new_tokens": 128,
+      "seconds": 9.2,
+      "tokens_per_s": 13.9,
+      "peak_allocated_mb": 3049
+    },
+    {
+      "loops": 8,
+      "prompt_tokens": 212,
+      "new_tokens": 128,
+      "seconds": 18.06,
+      "tokens_per_s": 7.1,
+      "peak_allocated_mb": 3339
+    }
+  ],
+  "batch4": {
+    "loops": 4,
+    "new_tokens_each": 48,
+    "seconds": 4.61,
+    "total_tokens_per_s": 41.7,
+    "peak_allocated_mb": 3531,
+    "outputs_match_batch1": [
+      false,
+      false,
+      false,
+      true
+    ],
+    "examples": [
+      {
+        "single": " The pattern is that each event occurred after a star with a long pale tail appeared over the river Dorn for eleven nights, and each event was followed by a har",
+        "batched": " The pattern is that each event occurred after a star with a long pale tail appeared over the river Dorn for eleven nights, and each event was followed by a har"
+      },
+      {
+        "single": " Paris.\n\nThe capital of France is Paris.\n\nThe capital of France is Paris.\n\nThe capital of France is Paris.\n\nThe capital of France is Paris.\n\nThe capital of Fran",
+        "batched": " Paris.\n\n## Step 1: Identify the capital of France\nThe capital of France is Paris.\n\n## Step 2: Match the capital to the given options\nFrom the provided options,"
+      },
+      {
+        "single": " Halley in 1687.\n\n## Step 2: Identify the comet\nThe comet that returns every 76 years and was first predicted by Halley is Halley's Comet.\n\n## Step 3",
+        "batched": " Halley in 1682.\n\n## Step 2: Identify the comet\nThe comet that returns every 76 years is known as Halley's Comet.\n\n## Step 3: Match the comet to"
+      },
+      {
+        "single": " The Battle of Hastings and the Norman Conquest of England\n\nThe year 1066 was a pivotal moment in English history, marked by the Battle of Hastings and the subs",
+        "batched": " The Battle of Hastings and the Norman Conquest of England\n\nThe year 1066 was a pivotal moment in English history, marked by the Battle of Hastings and the subs"
+      }
+    ]
+  },
+  "lora": {
+    "trainable_params_m": 15.14,
+    "runs": [
+      {
+        "loops": 4,
+        "seq_len": 512,
+        "batch": 1,
+        "fits": true,
+        "step_seconds": 1.71,
+        "loss": 0.609,
+        "peak_allocated_mb": 3614,
+        "process_mb_incl_cuda_context": 4050
+      },
+      {
+        "loops": 4,
+        "seq_len": 1024,
+        "batch": 1,
+        "fits": true,
+        "step_seconds": 3.6,
+        "loss": 0.224,
+        "peak_allocated_mb": 4303,
+        "process_mb_incl_cuda_context": 4992
+      },
+      {
+        "loops": 8,
+        "seq_len": 512,
+        "batch": 1,
+        "fits": true,
+        "step_seconds": 3.12,
+        "loss": 0.303,
+        "peak_allocated_mb": 4014,
+        "process_mb_incl_cuda_context": 4468
+      }
+    ]
+  }
+}

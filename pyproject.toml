@@ -1,0 +1,33 @@
+[project]
+name = "sandbox-learner"
+version = "0.0.1"
+description = "A small looped language model that learns from a folder, dreams up connections at night, and checks them against the source."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "torch==2.8.0",
+    # Ouro's model card still says "<4.56", but its bundled code now carries a cache fix written for
+    # >=4.56 and fails on 4.54.1 ("property 'key_cache' ... has no setter"). Measured working: 4.57.1.
+    "transformers==4.57.1",
+    "accelerate>=1.9,<2",
+    "peft>=0.16,<0.18",
+    "safetensors>=0.5",
+    "huggingface_hub>=0.34,<1.0",
+    "psutil>=7.0",
+    "nvidia-ml-py>=12.570",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+# Not packaged yet; run modules from the project root (python -m ...).
+# Becomes an installable package with a `sandbox-learner` command in Phase 7.
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true

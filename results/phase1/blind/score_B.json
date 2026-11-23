@@ -1,0 +1,71 @@
+{
+  "claims": 4,
+  "planted": 4,
+  "found": 4,
+  "recall": 1.0,
+  "precision": 1.0,
+  "true_claims": 4,
+  "duplicates": 0,
+  "decoy_hits": 0,
+  "false_claims": 0,
+  "predictions": 4,
+  "predictions_correct": 3,
+  "per_type": {
+    "periodic": {
+      "planted": 1,
+      "found": 1
+    },
+    "cause_effect": {
+      "planted": 2,
+      "found": 2
+    },
+    "chain": {
+      "planted": 1,
+      "found": 1
+    }
+  },
+  "found_ids": [
+    "p1",
+    "p2",
+    "p3",
+    "p4"
+  ],
+  "rows": [
+    {
+      "claim": 0,
+      "type": "chain",
+      "matched": "p4",
+      "decoy": null,
+      "duplicate": false,
+      "predicted": true,
+      "prediction_correct": true
+    },
+    {
+      "claim": 1,
+      "type": "cause_effect",
+      "matched": "p3",
+      "decoy": null,
+      "duplicate": false,
+      "predicted": true,
+      "prediction_correct": true
+    },
+    {
+      "claim": 2,
+      "type": "cause_effect",
+      "matched": "p2",
+      "decoy": null,
+      "duplicate": false,
+      "predicted": true,
+      "prediction_correct": true
+    },
+    {
+      "claim": 3,
+      "type": "periodic",
+      "matched": "p1",
+      "decoy": null,
+      "duplicate": false,
+      "predicted": true,
+      "prediction_correct": false
+    }
+  ]
+}

@@ -1,0 +1,900 @@
+{
+  "seed": "11",
+  "config": {
+    "span": 250,
+    "n_records": [
+      36,
+      44
+    ],
+    "heldout_fraction": 0.2,
+    "types": [
+      "periodic",
+      "cause_effect",
+      "chain"
+    ],
+    "n_periodic": [
+      1,
+      1
+    ],
+    "n_cause_effect": [
+      1,
+      1
+    ],
+    "n_chain": [
+      1,
+      1
+    ],
+    "n_identity": [
+      1,
+      1
+    ],
+    "period_range": [
+      28,
+      36
+    ],
+    "decoys": [
+      "periodic",
+      "cause_effect"
+    ],
+    "n_chroniclers": [
+      3,
+      4
+    ],
+    "second_recorder_rate": 0.08,
+    "rosetta_rate": 0.12,
+    "flavor_rate": 0.2,
+    "drop_rate": 0.0
+  },
+  "span": [
+    435,
+    685
+  ],
+  "heldout_from": 635,
+  "patterns": [
+    {
+      "id": "p1",
+      "type": "periodic",
+      "kind": "comet",
+      "params": {
+        "period": 32
+      },
+      "signature": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 11
+      },
+      "occurrence_years": [
+        435,
+        468,
+        502,
+        534,
+        562,
+        597,
+        626,
+        662
+      ],
+      "description": "a golden tailed star in the west, seen about 11 nights, returning every 32 years",
+      "record_ids": [
+        "r0001",
+        "r0002",
+        "r0010",
+        "r0013",
+        "r0022",
+        "r0026",
+        "r0032",
+        "r0036"
+      ],
+      "heldout_record_ids": [
+        "r0045"
+      ],
+      "heldout_years": [
+        662
+      ]
+    },
+    {
+      "id": "p2",
+      "type": "cause_effect",
+      "kind": "drought->fire",
+      "params": {
+        "lag": 1
+      },
+      "instances": [
+        {
+          "cause_year": 442,
+          "effect_year": 443
+        },
+        {
+          "cause_year": 533,
+          "effect_year": 534
+        },
+        {
+          "cause_year": 595,
+          "effect_year": 596
+        },
+        {
+          "cause_year": 634,
+          "effect_year": 635
+        }
+      ],
+      "description": "drought at Stuweisko is followed by fire at Hawoumia 1 year(s) later",
+      "record_ids": [
+        "r0005",
+        "r0007",
+        "r0021",
+        "r0023",
+        "r0024",
+        "r0030",
+        "r0031",
+        "r0041"
+      ],
+      "heldout_record_ids": [
+        "r0043"
+      ],
+      "heldout_years": [
+        635
+      ]
+    },
+    {
+      "id": "p3",
+      "type": "chain",
+      "kind": "storm->dike_break->migration",
+      "params": {
+        "lags": [
+          1,
+          2
+        ]
+      },
+      "instances": [
+        {
+          "years": [
+            441,
+            442,
+            444
+          ]
+        },
+        {
+          "years": [
+            525,
+            526,
+            528
+          ]
+        },
+        {
+          "years": [
+            632,
+            633,
+            635
+          ]
+        }
+      ],
+      "description": "storm -> dike break at Wugoutour after 1 -> migration after 2 more",
+      "record_ids": [
+        "r0003",
+        "r0004",
+        "r0006",
+        "r0008",
+        "r0016",
+        "r0017",
+        "r0019",
+        "r0039",
+        "r0040"
+      ],
+      "heldout_record_ids": [
+        "r0042"
+      ],
+      "heldout_years": [
+        635
+      ]
+    }
+  ],
+  "decoys": [
+    {
+      "id": "d1",
+      "type": "periodic",
+      "params": {
+        "period": 9
+      },
+      "why": "a red moon over Dulsold three times, 9 years apart, then never again",
+      "record_ids": [
+        "r0012",
+        "r0014",
+        "r0015"
+      ],
+      "heldout_record_ids": []
+    },
+    {
+      "id": "d2",
+      "type": "cause_effect",
+      "params": {
+        "lag": 1
+      },
+      "why": "a fire followed the fair at Raewaem twice, but four other fairs had no fire",
+      "record_ids": [
+        "r0018",
+        "r0020",
+        "r0034",
+        "r0035"
+      ],
+      "heldout_record_ids": []
+    }
+  ],
+  "places": [
+    {
+      "id": "river1",
+      "kind": "river",
+      "names": [
+        "Boys",
+        "Syewurk"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "river2",
+      "kind": "river",
+      "names": [
+        "Lebren",
+        "Drererdron"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "river3",
+      "kind": "river",
+      "names": [
+        "Aepav",
+        "Wovetaerk"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "region1",
+      "kind": "region",
+      "names": [
+        "Thudevam",
+        "Boviaty"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "region2",
+      "kind": "region",
+      "names": [
+        "Stuweisko",
+        "Aenkov"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "region3",
+      "kind": "region",
+      "names": [
+        "Nulthu",
+        "Rodoudiav"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "coast1",
+      "kind": "coast",
+      "names": [
+        "Emdrond",
+        "Laramirn"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "coast2",
+      "kind": "coast",
+      "names": [
+        "Skebreiv",
+        "Griavute"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "city1",
+      "kind": "city",
+      "names": [
+        "Wugoutour",
+        "Thetynd"
+      ],
+      "river": "river1",
+      "region": "region2",
+      "coast": "coast1"
+    },
+    {
+      "id": "city2",
+      "kind": "city",
+      "names": [
+        "Weskiand",
+        "Thape"
+      ],
+      "river": "river2",
+      "region": "region3",
+      "coast": "coast2"
+    },
+    {
+      "id": "city3",
+      "kind": "city",
+      "names": [
+        "Greifel",
+        "Boudand"
+      ],
+      "river": "river3",
+      "region": "region1",
+      "coast": "coast1"
+    },
+    {
+      "id": "city4",
+      "kind": "city",
+      "names": [
+        "Hawoumia",
+        "Mynyzael"
+      ],
+      "river": "river1",
+      "region": "region2",
+      "coast": null
+    },
+    {
+      "id": "city5",
+      "kind": "city",
+      "names": [
+        "Raewaem",
+        "Simgry"
+      ],
+      "river": "river2",
+      "region": "region3",
+      "coast": null
+    },
+    {
+      "id": "city6",
+      "kind": "city",
+      "names": [
+        "Dulsold",
+        "Skebrae"
+      ],
+      "river": "river3",
+      "region": "region1",
+      "coast": null
+    }
+  ],
+  "chroniclers": [
+    {
+      "id": "c1",
+      "title": "the Annals of Wugoutour Abbey",
+      "register": "florid",
+      "name_pref": 0,
+      "start": 435,
+      "end": 675,
+      "home": "city1"
+    },
+    {
+      "id": "c2",
+      "title": "the Annals of Skebrae Abbey",
+      "register": "florid",
+      "name_pref": 1,
+      "start": 475,
+      "end": 645,
+      "home": "city6"
+    },
+    {
+      "id": "c3",
+      "title": "the Book of the Merchants of Greifel",
+      "register": "terse",
+      "name_pref": 0,
+      "start": 542,
+      "end": 685,
+      "home": "city3"
+    },
+    {
+      "id": "c4",
+      "title": "the Deeds of the Kings, written at Skebrae",
+      "register": "florid",
+      "name_pref": 1,
+      "start": 435,
+      "end": 685,
+      "home": "city6"
+    }
+  ],
+  "people": [],
+  "counts": {
+    "visible": 41,
+    "heldout": 4
+  },
+  "records": {
+    "r0001": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 10
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0002": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 10
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0003": {
+      "kind": "storm",
+      "slots": {
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": [
+        "p3:a"
+      ]
+    },
+    "r0004": {
+      "kind": "storm",
+      "slots": {
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": [
+        "p3:a"
+      ]
+    },
+    "r0005": {
+      "kind": "drought",
+      "slots": {
+        "region": "region2",
+        "city": "city4"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0006": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city1"
+      },
+      "who": null,
+      "tags": [
+        "p3:b"
+      ]
+    },
+    "r0007": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0008": {
+      "kind": "migration",
+      "slots": {
+        "city": "city1"
+      },
+      "who": null,
+      "tags": [
+        "p3:c"
+      ]
+    },
+    "r0009": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0010": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 12
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0011": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0012": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city6"
+      },
+      "who": null,
+      "tags": [
+        "d1"
+      ]
+    },
+    "r0013": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 10
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0014": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city6"
+      },
+      "who": null,
+      "tags": [
+        "d1"
+      ]
+    },
+    "r0015": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city6"
+      },
+      "who": null,
+      "tags": [
+        "d1"
+      ]
+    },
+    "r0016": {
+      "kind": "storm",
+      "slots": {
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": [
+        "p3:a"
+      ]
+    },
+    "r0017": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city1"
+      },
+      "who": null,
+      "tags": [
+        "p3:b"
+      ]
+    },
+    "r0018": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0019": {
+      "kind": "migration",
+      "slots": {
+        "city": "city1"
+      },
+      "who": null,
+      "tags": [
+        "p3:c"
+      ]
+    },
+    "r0020": {
+      "kind": "fire",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0021": {
+      "kind": "drought",
+      "slots": {
+        "region": "region2",
+        "city": "city4"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0022": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 11
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0023": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0024": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0025": {
+      "kind": "comet",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2",
+        "dir": "north",
+        "color": "red",
+        "nights": 4
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0026": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 12
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0027": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0028": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0029": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0030": {
+      "kind": "drought",
+      "slots": {
+        "region": "region2",
+        "city": "city4"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0031": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0032": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 12
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0033": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0034": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0035": {
+      "kind": "fire",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0036": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 11
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0037": {
+      "kind": "famine",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0038": {
+      "kind": "famine",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0039": {
+      "kind": "storm",
+      "slots": {
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": [
+        "p3:a"
+      ]
+    },
+    "r0040": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city1"
+      },
+      "who": null,
+      "tags": [
+        "p3:b"
+      ]
+    },
+    "r0041": {
+      "kind": "drought",
+      "slots": {
+        "region": "region2",
+        "city": "city4"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0042": {
+      "kind": "migration",
+      "slots": {
+        "city": "city1"
+      },
+      "who": null,
+      "tags": [
+        "p3:c"
+      ]
+    },
+    "r0043": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0044": {
+      "kind": "fair",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0045": {
+      "kind": "comet",
+      "slots": {
+        "dir": "west",
+        "color": "golden",
+        "nights": 10
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    }
+  }
+}

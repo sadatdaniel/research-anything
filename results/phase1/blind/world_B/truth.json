@@ -1,0 +1,3615 @@
+{
+  "seed": "0:test:0",
+  "config": {
+    "span": 1000,
+    "n_records": [
+      200,
+      400
+    ],
+    "heldout_fraction": 0.2,
+    "types": [
+      "periodic",
+      "cause_effect",
+      "chain"
+    ],
+    "n_periodic": [
+      1,
+      2
+    ],
+    "n_cause_effect": [
+      1,
+      2
+    ],
+    "n_chain": [
+      1,
+      1
+    ],
+    "n_identity": [
+      1,
+      1
+    ],
+    "period_range": [
+      55,
+      110
+    ],
+    "decoys": [
+      "periodic",
+      "cause_effect"
+    ],
+    "n_chroniclers": [
+      5,
+      8
+    ],
+    "second_recorder_rate": 0.15,
+    "rosetta_rate": 0.12,
+    "flavor_rate": 0.3,
+    "drop_rate": 0.15
+  },
+  "span": [
+    418,
+    1418
+  ],
+  "heldout_from": 1218,
+  "patterns": [
+    {
+      "id": "p1",
+      "type": "periodic",
+      "kind": "comet",
+      "params": {
+        "period": 106
+      },
+      "signature": {
+        "dir": "east",
+        "color": "white",
+        "nights": 11
+      },
+      "occurrence_years": [
+        484,
+        591,
+        699,
+        804,
+        909,
+        1017,
+        1121,
+        1230,
+        1334
+      ],
+      "description": "a white tailed star in the east, seen about 11 nights, returning every 106 years",
+      "record_ids": [
+        "r0022",
+        "r0044",
+        "r0045",
+        "r0080",
+        "r0120",
+        "r0150",
+        "r0151"
+      ],
+      "heldout_record_ids": [
+        "r0227"
+      ],
+      "heldout_years": [
+        1230
+      ]
+    },
+    {
+      "id": "p2",
+      "type": "cause_effect",
+      "kind": "drought->fire",
+      "params": {
+        "lag": 1
+      },
+      "instances": [
+        {
+          "cause_year": 443,
+          "effect_year": 444
+        },
+        {
+          "cause_year": 684,
+          "effect_year": 685
+        },
+        {
+          "cause_year": 881,
+          "effect_year": 882
+        },
+        {
+          "cause_year": 1217,
+          "effect_year": 1218
+        }
+      ],
+      "description": "drought at Deizerk is followed by fire at Breskind 1 year(s) later",
+      "record_ids": [
+        "r0007",
+        "r0010",
+        "r0077",
+        "r0079",
+        "r0139",
+        "r0140",
+        "r0141",
+        "r0214",
+        "r0216"
+      ],
+      "heldout_record_ids": [
+        "r0222"
+      ],
+      "heldout_years": [
+        1218
+      ]
+    },
+    {
+      "id": "p3",
+      "type": "cause_effect",
+      "kind": "hard_winter->plague",
+      "params": {
+        "lag": 1
+      },
+      "instances": [
+        {
+          "cause_year": 592,
+          "effect_year": 593
+        },
+        {
+          "cause_year": 748,
+          "effect_year": 749
+        },
+        {
+          "cause_year": 967,
+          "effect_year": 968
+        },
+        {
+          "cause_year": 1118,
+          "effect_year": 1119
+        },
+        {
+          "cause_year": 1217,
+          "effect_year": 1218
+        },
+        {
+          "cause_year": 1279,
+          "effect_year": 1280
+        }
+      ],
+      "description": "hard winter at Thatham is followed by plague at Draeziatam 1 year(s) later",
+      "record_ids": [
+        "r0046",
+        "r0047",
+        "r0099",
+        "r0100",
+        "r0170",
+        "r0171",
+        "r0197",
+        "r0198",
+        "r0217"
+      ],
+      "heldout_record_ids": [
+        "r0220",
+        "r0221",
+        "r0240",
+        "r0242"
+      ],
+      "heldout_years": [
+        1218,
+        1280
+      ]
+    },
+    {
+      "id": "p4",
+      "type": "chain",
+      "kind": "storm->dike_break->migration",
+      "params": {
+        "lags": [
+          1,
+          1
+        ]
+      },
+      "instances": [
+        {
+          "years": [
+            699,
+            700,
+            701
+          ]
+        },
+        {
+          "years": [
+            1007,
+            1008,
+            1009
+          ]
+        },
+        {
+          "years": [
+            1216,
+            1217,
+            1218
+          ]
+        }
+      ],
+      "description": "storm -> dike break at Heidomask after 1 -> migration after 1 more",
+      "record_ids": [
+        "r0081",
+        "r0082",
+        "r0084",
+        "r0176",
+        "r0177",
+        "r0178",
+        "r0213",
+        "r0215"
+      ],
+      "heldout_record_ids": [
+        "r0219"
+      ],
+      "heldout_years": [
+        1218
+      ]
+    }
+  ],
+  "decoys": [
+    {
+      "id": "d1",
+      "type": "periodic",
+      "params": {
+        "period": 25
+      },
+      "why": "a red moon over Keba three times, 25 years apart, then never again",
+      "record_ids": [
+        "r0043",
+        "r0049",
+        "r0063"
+      ],
+      "heldout_record_ids": []
+    },
+    {
+      "id": "d2",
+      "type": "cause_effect",
+      "params": {
+        "lag": 1
+      },
+      "why": "a fire followed the fair at Steiork twice, but four other fairs had no fire",
+      "record_ids": [
+        "r0035",
+        "r0036",
+        "r0195",
+        "r0196"
+      ],
+      "heldout_record_ids": []
+    }
+  ],
+  "places": [
+    {
+      "id": "river1",
+      "kind": "river",
+      "names": [
+        "Thatham",
+        "Thaebrouth"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "river2",
+      "kind": "river",
+      "names": [
+        "Bostaem",
+        "Kiarend"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "river3",
+      "kind": "river",
+      "names": [
+        "Breitugask",
+        "Nougreind"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "region1",
+      "kind": "region",
+      "names": [
+        "Sonobun",
+        "Tonbrux"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "region2",
+      "kind": "region",
+      "names": [
+        "Pexiarwyth",
+        "Volu"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "region3",
+      "kind": "region",
+      "names": [
+        "Deizerk",
+        "Giasel"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "coast1",
+      "kind": "coast",
+      "names": [
+        "Bernhovou",
+        "Oubomond"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "coast2",
+      "kind": "coast",
+      "names": [
+        "Dretyrk",
+        "Daskeim"
+      ],
+      "river": null,
+      "region": null,
+      "coast": null
+    },
+    {
+      "id": "city1",
+      "kind": "city",
+      "names": [
+        "Draeziatam",
+        "Tholaevol"
+      ],
+      "river": "river1",
+      "region": "region2",
+      "coast": "coast1"
+    },
+    {
+      "id": "city2",
+      "kind": "city",
+      "names": [
+        "Breskind",
+        "Grouka"
+      ],
+      "river": "river2",
+      "region": "region3",
+      "coast": "coast2"
+    },
+    {
+      "id": "city3",
+      "kind": "city",
+      "names": [
+        "Heidomask",
+        "Pysahiax"
+      ],
+      "river": "river3",
+      "region": "region1",
+      "coast": "coast1"
+    },
+    {
+      "id": "city4",
+      "kind": "city",
+      "names": [
+        "Kubryterk",
+        "Lipaskthen"
+      ],
+      "river": "river1",
+      "region": "region2",
+      "coast": null
+    },
+    {
+      "id": "city5",
+      "kind": "city",
+      "names": [
+        "Steiork",
+        "Rogrouv"
+      ],
+      "river": "river2",
+      "region": "region3",
+      "coast": null
+    },
+    {
+      "id": "city6",
+      "kind": "city",
+      "names": [
+        "Keba",
+        "Sazouv"
+      ],
+      "river": "river3",
+      "region": "region1",
+      "coast": null
+    }
+  ],
+  "chroniclers": [
+    {
+      "id": "c1",
+      "title": "the Town Book of Keba",
+      "register": "plain",
+      "name_pref": 0,
+      "start": 418,
+      "end": 1418,
+      "home": "city6"
+    },
+    {
+      "id": "c2",
+      "title": "the Book of the Merchants of Rogrouv",
+      "register": "terse",
+      "name_pref": 1,
+      "start": 498,
+      "end": 1358,
+      "home": "city5"
+    },
+    {
+      "id": "c3",
+      "title": "the Chronicle of Draeziatam",
+      "register": "plain",
+      "name_pref": 0,
+      "start": 606,
+      "end": 1368,
+      "home": "city1"
+    },
+    {
+      "id": "c4",
+      "title": "the Day-Book of the house of Rogrouv",
+      "register": "terse",
+      "name_pref": 1,
+      "start": 719,
+      "end": 1388,
+      "home": "city5"
+    },
+    {
+      "id": "c5",
+      "title": "the Deeds of the Kings, written at Keba",
+      "register": "florid",
+      "name_pref": 0,
+      "start": 418,
+      "end": 1338,
+      "home": "city6"
+    },
+    {
+      "id": "c6",
+      "title": "the Book of the Merchants of Pysahiax",
+      "register": "terse",
+      "name_pref": 1,
+      "start": 781,
+      "end": 1268,
+      "home": "city3"
+    },
+    {
+      "id": "c7",
+      "title": "the Town Book of Draeziatam",
+      "register": "plain",
+      "name_pref": 0,
+      "start": 985,
+      "end": 1398,
+      "home": "city1"
+    },
+    {
+      "id": "c8",
+      "title": "the Book of the Merchants of Lipaskthen",
+      "register": "terse",
+      "name_pref": 1,
+      "start": 1041,
+      "end": 1418,
+      "home": "city4"
+    }
+  ],
+  "people": [],
+  "counts": {
+    "visible": 218,
+    "heldout": 63
+  },
+  "records": {
+    "r0001": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0002": {
+      "kind": "building",
+      "slots": {
+        "city": "city1",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0003": {
+      "kind": "fair",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0004": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0005": {
+      "kind": "drought",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0006": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0007": {
+      "kind": "drought",
+      "slots": {
+        "region": "region3",
+        "city": "city2"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0008": {
+      "kind": "fair",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0009": {
+      "kind": "fair",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0010": {
+      "kind": "fire",
+      "slots": {
+        "city": "city2",
+        "region": "region3"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0011": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0012": {
+      "kind": "storm",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0013": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0014": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0015": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0016": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0017": {
+      "kind": "flood",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0018": {
+      "kind": "embassy",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0019": {
+      "kind": "flood",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0020": {
+      "kind": "plague",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0021": {
+      "kind": "hard_winter",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0022": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 10
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0023": {
+      "kind": "battle",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0024": {
+      "kind": "battle",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0025": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0026": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0027": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0028": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0029": {
+      "kind": "plague",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0030": {
+      "kind": "famine",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0031": {
+      "kind": "drought",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0032": {
+      "kind": "fire",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0033": {
+      "kind": "building",
+      "slots": {
+        "city": "city5",
+        "river": "river1",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0034": {
+      "kind": "battle",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0035": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0036": {
+      "kind": "fire",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0037": {
+      "kind": "flood",
+      "slots": {
+        "city": "city6",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0038": {
+      "kind": "embassy",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0039": {
+      "kind": "battle",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0040": {
+      "kind": "fair",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0041": {
+      "kind": "flood",
+      "slots": {
+        "city": "city4",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0042": {
+      "kind": "flood",
+      "slots": {
+        "city": "city1",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0043": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city6"
+      },
+      "who": null,
+      "tags": [
+        "d1"
+      ]
+    },
+    "r0044": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 12
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0045": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 12
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0046": {
+      "kind": "hard_winter",
+      "slots": {
+        "river": "river1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:cause"
+      ]
+    },
+    "r0047": {
+      "kind": "plague",
+      "slots": {
+        "city": "city1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:effect"
+      ]
+    },
+    "r0048": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0049": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city6"
+      },
+      "who": null,
+      "tags": [
+        "d1"
+      ]
+    },
+    "r0050": {
+      "kind": "building",
+      "slots": {
+        "city": "city4",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0051": {
+      "kind": "building",
+      "slots": {
+        "city": "city4",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0052": {
+      "kind": "fire",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0053": {
+      "kind": "battle",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0054": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0055": {
+      "kind": "fire",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0056": {
+      "kind": "flood",
+      "slots": {
+        "city": "city1",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0057": {
+      "kind": "flood",
+      "slots": {
+        "city": "city1",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0058": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0059": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0060": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0061": {
+      "kind": "fair",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0062": {
+      "kind": "flood",
+      "slots": {
+        "city": "city6",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0063": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city6"
+      },
+      "who": null,
+      "tags": [
+        "d1"
+      ]
+    },
+    "r0064": {
+      "kind": "fire",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0065": {
+      "kind": "drought",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0066": {
+      "kind": "drought",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0067": {
+      "kind": "building",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0068": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0069": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0070": {
+      "kind": "plague",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0071": {
+      "kind": "plague",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0072": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0073": {
+      "kind": "battle",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0074": {
+      "kind": "building",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0075": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0076": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0077": {
+      "kind": "drought",
+      "slots": {
+        "region": "region3",
+        "city": "city2"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0078": {
+      "kind": "migration",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0079": {
+      "kind": "fire",
+      "slots": {
+        "city": "city2",
+        "region": "region3"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0080": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 11
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0081": {
+      "kind": "storm",
+      "slots": {
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": [
+        "p4:a"
+      ]
+    },
+    "r0082": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city3"
+      },
+      "who": null,
+      "tags": [
+        "p4:b"
+      ]
+    },
+    "r0083": {
+      "kind": "battle",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0084": {
+      "kind": "migration",
+      "slots": {
+        "city": "city3"
+      },
+      "who": null,
+      "tags": [
+        "p4:c"
+      ]
+    },
+    "r0085": {
+      "kind": "famine",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0086": {
+      "kind": "famine",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0087": {
+      "kind": "famine",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0088": {
+      "kind": "fair",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0089": {
+      "kind": "famine",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0090": {
+      "kind": "famine",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0091": {
+      "kind": "hard_winter",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0092": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0093": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0094": {
+      "kind": "fair",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0095": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0096": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0097": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0098": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0099": {
+      "kind": "hard_winter",
+      "slots": {
+        "river": "river1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:cause"
+      ]
+    },
+    "r0100": {
+      "kind": "plague",
+      "slots": {
+        "city": "city1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:effect"
+      ]
+    },
+    "r0101": {
+      "kind": "drought",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0102": {
+      "kind": "building",
+      "slots": {
+        "city": "city6",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0103": {
+      "kind": "harvest_fail",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0104": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0105": {
+      "kind": "flood",
+      "slots": {
+        "city": "city1",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0106": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0107": {
+      "kind": "harvest_fail",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0108": {
+      "kind": "harvest_fail",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0109": {
+      "kind": "fire",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0110": {
+      "kind": "migration",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0111": {
+      "kind": "building",
+      "slots": {
+        "city": "city2",
+        "river": "river1",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0112": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0113": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0114": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0115": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0116": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0117": {
+      "kind": "hard_winter",
+      "slots": {
+        "city": "city4",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0118": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0119": {
+      "kind": "comet",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1",
+        "dir": "west",
+        "color": "red",
+        "nights": 3
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0120": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 11
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0121": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0122": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0123": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0124": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0125": {
+      "kind": "battle",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0126": {
+      "kind": "harvest_fail",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0127": {
+      "kind": "harvest_fail",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0128": {
+      "kind": "battle",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0129": {
+      "kind": "building",
+      "slots": {
+        "city": "city6",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0130": {
+      "kind": "famine",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0131": {
+      "kind": "building",
+      "slots": {
+        "city": "city6",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0132": {
+      "kind": "building",
+      "slots": {
+        "city": "city1",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0133": {
+      "kind": "harvest_fail",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0134": {
+      "kind": "flood",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0135": {
+      "kind": "fair",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0136": {
+      "kind": "harvest_fail",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0137": {
+      "kind": "building",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0138": {
+      "kind": "building",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0139": {
+      "kind": "drought",
+      "slots": {
+        "region": "region3",
+        "city": "city2"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0140": {
+      "kind": "fire",
+      "slots": {
+        "city": "city2",
+        "region": "region3"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0141": {
+      "kind": "fire",
+      "slots": {
+        "city": "city2",
+        "region": "region3"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0142": {
+      "kind": "flood",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0143": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0144": {
+      "kind": "flood",
+      "slots": {
+        "city": "city5",
+        "river": "river3",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0145": {
+      "kind": "fair",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0146": {
+      "kind": "locusts",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region3",
+        "coast": "coast1",
+        "color": "brown"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0147": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0148": {
+      "kind": "embassy",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0149": {
+      "kind": "fair",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0150": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 10
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0151": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 10
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0152": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0153": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0154": {
+      "kind": "embassy",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0155": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0156": {
+      "kind": "battle",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0157": {
+      "kind": "migration",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0158": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0159": {
+      "kind": "storm",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0160": {
+      "kind": "storm",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0161": {
+      "kind": "storm",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0162": {
+      "kind": "plague",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0163": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0164": {
+      "kind": "plague",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0165": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0166": {
+      "kind": "embassy",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0167": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0168": {
+      "kind": "flood",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0169": {
+      "kind": "flood",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0170": {
+      "kind": "hard_winter",
+      "slots": {
+        "river": "river1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:cause"
+      ]
+    },
+    "r0171": {
+      "kind": "plague",
+      "slots": {
+        "city": "city1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:effect"
+      ]
+    },
+    "r0172": {
+      "kind": "fair",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0173": {
+      "kind": "locusts",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2",
+        "color": "brown"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0174": {
+      "kind": "building",
+      "slots": {
+        "city": "city4",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0175": {
+      "kind": "flood",
+      "slots": {
+        "city": "city5",
+        "river": "river3",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0176": {
+      "kind": "storm",
+      "slots": {
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": [
+        "p4:a"
+      ]
+    },
+    "r0177": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city3"
+      },
+      "who": null,
+      "tags": [
+        "p4:b"
+      ]
+    },
+    "r0178": {
+      "kind": "migration",
+      "slots": {
+        "city": "city3"
+      },
+      "who": null,
+      "tags": [
+        "p4:c"
+      ]
+    },
+    "r0179": {
+      "kind": "battle",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0180": {
+      "kind": "battle",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0181": {
+      "kind": "hard_winter",
+      "slots": {
+        "city": "city6",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0182": {
+      "kind": "fair",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0183": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0184": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0185": {
+      "kind": "earthquake",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0186": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0187": {
+      "kind": "battle",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0188": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0189": {
+      "kind": "plague",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0190": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0191": {
+      "kind": "battle",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0192": {
+      "kind": "plague",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0193": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0194": {
+      "kind": "flood",
+      "slots": {
+        "city": "city4",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0195": {
+      "kind": "fair",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0196": {
+      "kind": "fire",
+      "slots": {
+        "city": "city5"
+      },
+      "who": null,
+      "tags": [
+        "d2"
+      ]
+    },
+    "r0197": {
+      "kind": "hard_winter",
+      "slots": {
+        "river": "river1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:cause"
+      ]
+    },
+    "r0198": {
+      "kind": "plague",
+      "slots": {
+        "city": "city1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:effect"
+      ]
+    },
+    "r0199": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0200": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0201": {
+      "kind": "building",
+      "slots": {
+        "city": "city1",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0202": {
+      "kind": "fair",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0203": {
+      "kind": "hard_winter",
+      "slots": {
+        "city": "city2",
+        "river": "river3",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0204": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0205": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0206": {
+      "kind": "embassy",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0207": {
+      "kind": "plague",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0208": {
+      "kind": "battle",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0209": {
+      "kind": "fire",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0210": {
+      "kind": "building",
+      "slots": {
+        "city": "city4",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0211": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0212": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0213": {
+      "kind": "storm",
+      "slots": {
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": [
+        "p4:a"
+      ]
+    },
+    "r0214": {
+      "kind": "drought",
+      "slots": {
+        "region": "region3",
+        "city": "city2"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0215": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city3"
+      },
+      "who": null,
+      "tags": [
+        "p4:b"
+      ]
+    },
+    "r0216": {
+      "kind": "drought",
+      "slots": {
+        "region": "region3",
+        "city": "city2"
+      },
+      "who": null,
+      "tags": [
+        "p2:cause"
+      ]
+    },
+    "r0217": {
+      "kind": "hard_winter",
+      "slots": {
+        "river": "river1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:cause"
+      ]
+    },
+    "r0218": {
+      "kind": "locusts",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2",
+        "color": "brown"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0219": {
+      "kind": "migration",
+      "slots": {
+        "city": "city3"
+      },
+      "who": null,
+      "tags": [
+        "p4:c"
+      ]
+    },
+    "r0220": {
+      "kind": "plague",
+      "slots": {
+        "city": "city1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:effect"
+      ]
+    },
+    "r0221": {
+      "kind": "plague",
+      "slots": {
+        "city": "city1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:effect"
+      ]
+    },
+    "r0222": {
+      "kind": "fire",
+      "slots": {
+        "city": "city2",
+        "region": "region3"
+      },
+      "who": null,
+      "tags": [
+        "p2:effect"
+      ]
+    },
+    "r0223": {
+      "kind": "comet",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1",
+        "dir": "south",
+        "color": "pale",
+        "nights": 4
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0224": {
+      "kind": "drought",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0225": {
+      "kind": "drought",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0226": {
+      "kind": "fair",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0227": {
+      "kind": "comet",
+      "slots": {
+        "dir": "east",
+        "color": "white",
+        "nights": 12
+      },
+      "who": null,
+      "tags": [
+        "p1"
+      ]
+    },
+    "r0228": {
+      "kind": "flood",
+      "slots": {
+        "city": "city4",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0229": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0230": {
+      "kind": "red_moon",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0231": {
+      "kind": "battle",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0232": {
+      "kind": "battle",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0233": {
+      "kind": "fire",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0234": {
+      "kind": "new_star",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0235": {
+      "kind": "battle",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0236": {
+      "kind": "comet",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1",
+        "dir": "west",
+        "color": "pale",
+        "nights": 5
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0237": {
+      "kind": "comet",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1",
+        "dir": "west",
+        "color": "pale",
+        "nights": 5
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0238": {
+      "kind": "famine",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0239": {
+      "kind": "locusts",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1",
+        "color": "brown"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0240": {
+      "kind": "hard_winter",
+      "slots": {
+        "river": "river1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:cause"
+      ]
+    },
+    "r0241": {
+      "kind": "famine",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0242": {
+      "kind": "plague",
+      "slots": {
+        "city": "city1",
+        "region": "region2"
+      },
+      "who": null,
+      "tags": [
+        "p3:effect"
+      ]
+    },
+    "r0243": {
+      "kind": "plague",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0244": {
+      "kind": "comet",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1",
+        "dir": "north",
+        "color": "red",
+        "nights": 3
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0245": {
+      "kind": "flood",
+      "slots": {
+        "city": "city6",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0246": {
+      "kind": "building",
+      "slots": {
+        "city": "city1",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0247": {
+      "kind": "battle",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0248": {
+      "kind": "flood",
+      "slots": {
+        "city": "city3",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0249": {
+      "kind": "comet",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2",
+        "dir": "north",
+        "color": "green",
+        "nights": 3
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0250": {
+      "kind": "comet",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2",
+        "dir": "north",
+        "color": "green",
+        "nights": 3
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0251": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0252": {
+      "kind": "building",
+      "slots": {
+        "city": "city5",
+        "river": "river3",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0253": {
+      "kind": "dike_break",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0254": {
+      "kind": "eclipse",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0255": {
+      "kind": "famine",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0256": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0257": {
+      "kind": "death_ruler",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0258": {
+      "kind": "drought",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0259": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0260": {
+      "kind": "drought",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0261": {
+      "kind": "famine",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0262": {
+      "kind": "famine",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0263": {
+      "kind": "hard_winter",
+      "slots": {
+        "city": "city4",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0264": {
+      "kind": "flood",
+      "slots": {
+        "city": "city3",
+        "river": "river2",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0265": {
+      "kind": "famine",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0266": {
+      "kind": "building",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0267": {
+      "kind": "building",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0268": {
+      "kind": "falling_stars",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0269": {
+      "kind": "flood",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0270": {
+      "kind": "flood",
+      "slots": {
+        "city": "city6",
+        "river": "river1",
+        "region": "region1",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0271": {
+      "kind": "comet",
+      "slots": {
+        "city": "city2",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2",
+        "dir": "south",
+        "color": "red",
+        "nights": 2
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0272": {
+      "kind": "famine",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0273": {
+      "kind": "revolt",
+      "slots": {
+        "city": "city5",
+        "river": "river2",
+        "region": "region3",
+        "coast": "coast2"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0274": {
+      "kind": "locusts",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region2",
+        "coast": "coast1",
+        "color": "green"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0275": {
+      "kind": "plague",
+      "slots": {
+        "city": "city3",
+        "river": "river3",
+        "region": "region3",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0276": {
+      "kind": "flood",
+      "slots": {
+        "city": "city4",
+        "river": "river2",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0277": {
+      "kind": "fair",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0278": {
+      "kind": "locusts",
+      "slots": {
+        "city": "city6",
+        "river": "river3",
+        "region": "region1",
+        "coast": "coast1",
+        "color": "brown"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0279": {
+      "kind": "wedding",
+      "slots": {
+        "city": "city1",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0280": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    },
+    "r0281": {
+      "kind": "fire",
+      "slots": {
+        "city": "city4",
+        "river": "river1",
+        "region": "region2",
+        "coast": "coast1"
+      },
+      "who": null,
+      "tags": []
+    }
+  }
+}

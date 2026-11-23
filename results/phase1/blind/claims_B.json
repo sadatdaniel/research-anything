@@ -1,0 +1,22 @@
+[
+  {"type": "chain",
+   "record_ids": ["r0081", "r0082", "r0084", "r0176", "r0177", "r0178", "r0213", "r0215"],
+   "params": {"lags": [1, 1]},
+   "prediction": {"year": 1218, "description": "Heidomask (Pysahiax) is abandoned: its people leave for the hills / the town empties, following the 1216 Bernhovou storm and the 1217 breaking of the Heidomask dikes"},
+   "summary": "A sea storm breaking the boats at Bernhovou (Oubomond) is followed one year later by the sea breaking the dikes at Pysahiax (Heidomask), and one year after that by the people abandoning Pysahiax/Heidomask (699-700-701, 1007-1008-1009, 1216-1217-[1218])."},
+  {"type": "cause_effect",
+   "record_ids": ["r0046", "r0047", "r0099", "r0100", "r0170", "r0171", "r0197", "r0198", "r0217"],
+   "params": {"lag": 1},
+   "prediction": {"year": 1218, "description": "Pestilence in Draeziatam (Tholaevol), following the hard winter when the Thatham froze in 1217"},
+   "summary": "A hard winter on the river Thatham (Thaebrouth), with late snow or the river frozen, is followed the next year by pestilence in Draeziatam (Tholaevol): 592->593, 748->749, 967->968, 1118->1119, 1217->[1218]."},
+  {"type": "cause_effect",
+   "record_ids": ["r0007", "r0010", "r0139", "r0140", "r0141", "r0214", "r0216"],
+   "params": {"lag": 1},
+   "prediction": {"year": 1218, "description": "A great fire in Breskind (Grouka), following the 1217 drought in Deizerk (Giasel)"},
+   "summary": "A summer-long drought in Deizerk (Giasel) is followed the next year by a great fire in Breskind (Grouka): 443->444, 881->882, 1217->[1218]."},
+  {"type": "periodic",
+   "record_ids": ["r0022", "r0044", "r0045", "r0080", "r0120", "r0150", "r0151"],
+   "params": {"period": 106},
+   "prediction": {"year": 1015, "description": "Next return of the white/silver comet ('broom of fire' / 'bearded light') in the east (dawn quarter), visible about 10-12 nights; by extrapolation later returns c. 1121 and c. 1227, though no return is recorded after 909"},
+   "summary": "A white/silver comet in the eastern sky lasting 10-12 nights returns about every 106 years (484, 591, 699, 804, 909); the ruddy, western, 3-night comet of 804 (r0119) is a different object and is excluded."}
+]

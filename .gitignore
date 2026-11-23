@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+learner-data/
+results/runs/
+worlds/
