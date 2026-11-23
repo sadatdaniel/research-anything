@@ -168,7 +168,9 @@ def task_lora(lm, world: Path) -> dict:
     model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     model.enable_input_require_grads()
     names = {n.rsplit(".", 1)[-1] for n, m in model.named_modules() if isinstance(m, torch.nn.Linear)}
-    targets = [t for t in ("q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj") if t in names]
+    # the usual attention and MLP names, plus LFM3's (w1/w2/w3 MLP, in_proj/out_proj convolution blocks)
+    targets = [t for t in ("q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj",
+                           "w1", "w2", "w3", "in_proj", "out_proj") if t in names]
     lora = get_peft_model(model, LoraConfig(r=16, lora_alpha=32, lora_dropout=0.0, task_type="CAUSAL_LM", target_modules=targets))
     text = "\n".join(json.loads(line)["text"] for line in (world / "records.jsonl").read_text().splitlines()[:80])
     ids = lm.tokenizer(text, return_tensors="pt")["input_ids"][0][:512].unsqueeze(0).to("cuda")

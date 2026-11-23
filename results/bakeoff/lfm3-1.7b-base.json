@@ -1,0 +1,171 @@
+{
+  "model": "lfm3-1.7b-base",
+  "hub_id": "LiquidAI/LFM3-1.7B-Base",
+  "label": "lfm3-1.7b-base",
+  "transformers": "5.24.0",
+  "torch": "2.15.0+cu132",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "started": "2026-11-23 21:45:55",
+  "load_seconds": 8.8,
+  "loops": 1,
+  "looped": false,
+  "params_b": 1.73,
+  "weights_gpu_mb": 3297,
+  "notes": {
+    "format_complete": 0.0,
+    "event_accuracy": 0.71,
+    "place_recall": 0.0,
+    "place_precision": null,
+    "link_recall": 0.0,
+    "link_precision": null,
+    "colour_captured": 0.0,
+    "direction_captured": 0.0,
+    "duration_captured": 0.0,
+    "world": "val-003",
+    "records": 100,
+    "batch": 8,
+    "seconds_per_record": 0.25,
+    "records_per_minute": 239.9,
+    "peak_gpu_mb": 3833,
+    "wrong_events": [
+      [
+        "r0002",
+        "storm",
+        "sea"
+      ],
+      [
+        "r0010",
+        "fair",
+        "people"
+      ],
+      [
+        "r0013",
+        "migration",
+        "people"
+      ],
+      [
+        "r0014",
+        "migration",
+        "people"
+      ],
+      [
+        "r0015",
+        "drought",
+        "wells"
+      ],
+      [
+        "r0016",
+        "locusts",
+        "loc"
+      ],
+      [
+        "r0020",
+        "migration",
+        "people"
+      ],
+      [
+        "r0021",
+        "embassy",
+        "en"
+      ],
+      [
+        "r0023",
+        "storm",
+        "sea"
+      ],
+      [
+        "r0026",
+        "flood",
+        "river"
+      ],
+      [
+        "r0031",
+        "locusts",
+        "loc"
+      ],
+      [
+        "r0032",
+        "embassy",
+        "en"
+      ]
+    ],
+    "task_seconds": 25.1
+  },
+  "yesno": [
+    {
+      "world": "val-001",
+      "about": {
+        "questions": 247,
+        "auc": 0.9,
+        "at_0.5": {
+          "yes_when_true": 0.908,
+          "yes_when_false": 0.449
+        },
+        "traps_said_yes": 11,
+        "traps": 18
+      },
+      "same_kind": {
+        "questions": 1176,
+        "auc": 0.685,
+        "at_0.5": {
+          "yes_when_true": 0.712,
+          "yes_when_false": 0.546
+        },
+        "at_0.8": {
+          "yes_when_true": 0.0,
+          "yes_when_false": 0.0
+        }
+      },
+      "questions_per_second": 26.0,
+      "peak_gpu_mb": 4623,
+      "task_seconds": 54.8
+    },
+    {
+      "world": "val-002",
+      "about": {
+        "questions": 240,
+        "auc": 0.961,
+        "at_0.5": {
+          "yes_when_true": 0.966,
+          "yes_when_false": 0.379
+        },
+        "traps_said_yes": 1,
+        "traps": 4
+      },
+      "same_kind": {
+        "questions": 1275,
+        "auc": 0.708,
+        "at_0.5": {
+          "yes_when_true": 0.746,
+          "yes_when_false": 0.541
+        },
+        "at_0.8": {
+          "yes_when_true": 0.0,
+          "yes_when_false": 0.0
+        }
+      },
+      "questions_per_second": 27.2,
+      "peak_gpu_mb": 4599,
+      "task_seconds": 55.8
+    }
+  ],
+  "lora": {
+    "fits": true,
+    "seq_len": 512,
+    "targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "w1",
+      "w2",
+      "w3",
+      "in_proj",
+      "out_proj"
+    ],
+    "step_seconds": 0.45,
+    "peak_gpu_mb": 4289,
+    "task_seconds": 2.7
+  }
+}

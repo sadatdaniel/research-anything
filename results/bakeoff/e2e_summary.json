@@ -1,0 +1,176 @@
+[
+  {
+    "reader": "ouro-1.4b",
+    "checker": "ouro-1.4b",
+    "found": 6,
+    "planted": 10,
+    "claims": 7,
+    "false": 1,
+    "decoys": 0,
+    "dream": 1230.8,
+    "read": 2767,
+    "pred": 4,
+    "predok": 3,
+    "per_type": {
+      "periodic": [
+        3,
+        4
+      ],
+      "cause_effect": [
+        2,
+        4
+      ],
+      "chain": [
+        1,
+        2
+      ]
+    },
+    "events": 0.96,
+    "links": 0.906
+  },
+  {
+    "reader": "qwen3-1.7b-base",
+    "checker": "qwen3-1.7b-base",
+    "found": 7,
+    "planted": 10,
+    "claims": 8,
+    "false": 1,
+    "decoys": 0,
+    "dream": 2074.7,
+    "read": 542,
+    "pred": 6,
+    "predok": 5,
+    "per_type": {
+      "periodic": [
+        3,
+        4
+      ],
+      "cause_effect": [
+        3,
+        4
+      ],
+      "chain": [
+        1,
+        2
+      ]
+    },
+    "events": 0.952,
+    "links": 0.542
+  },
+  {
+    "reader": "qwen3.5-2b-base",
+    "checker": "qwen3.5-2b-base",
+    "found": 5,
+    "planted": 10,
+    "claims": 5,
+    "false": 0,
+    "decoys": 0,
+    "dream": 2158.2,
+    "read": 419,
+    "pred": 5,
+    "predok": 5,
+    "per_type": {
+      "periodic": [
+        3,
+        4
+      ],
+      "cause_effect": [
+        2,
+        4
+      ],
+      "chain": [
+        0,
+        2
+      ]
+    },
+    "events": 0.923,
+    "links": 0.864
+  },
+  {
+    "reader": "lfm3-1.7b-base",
+    "checker": "lfm3-1.7b-base",
+    "found": 0,
+    "planted": 10,
+    "claims": 0,
+    "false": 0,
+    "decoys": 0,
+    "dream": 2301.3,
+    "read": 152,
+    "pred": 0,
+    "predok": 0,
+    "per_type": {
+      "periodic": [
+        0,
+        4
+      ],
+      "cause_effect": [
+        0,
+        4
+      ],
+      "chain": [
+        0,
+        2
+      ]
+    },
+    "events": 0.738,
+    "links": 0.0
+  },
+  {
+    "reader": "qwen3.5-2b-base",
+    "checker": "ouro-1.4b",
+    "found": 4,
+    "planted": 10,
+    "claims": 6,
+    "false": 2,
+    "decoys": 0,
+    "dream": 1749.0,
+    "read": 419,
+    "pred": 3,
+    "predok": 2,
+    "per_type": {
+      "periodic": [
+        2,
+        4
+      ],
+      "cause_effect": [
+        1,
+        4
+      ],
+      "chain": [
+        1,
+        2
+      ]
+    },
+    "events": 0.923,
+    "links": 0.864
+  },
+  {
+    "reader": "lfm3-1.7b-base",
+    "checker": "ouro-1.4b",
+    "found": 1,
+    "planted": 10,
+    "claims": 1,
+    "false": 0,
+    "decoys": 0,
+    "dream": 1714.3,
+    "read": 152,
+    "pred": 1,
+    "predok": 1,
+    "per_type": {
+      "periodic": [
+        1,
+        4
+      ],
+      "cause_effect": [
+        0,
+        4
+      ],
+      "chain": [
+        0,
+        2
+      ]
+    },
+    "events": 0.738,
+    "links": 0.0
+  }
+]

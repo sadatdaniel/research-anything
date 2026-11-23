@@ -153,9 +153,9 @@ def load_ouro(model_dir: str | Path = DEFAULT_MODEL_DIR, loops: int = 4,
     return loaded
 
 
-# Models the learner can use (the model is a swappable stage, like the rest of the pipeline). All are
-# Apache-2.0. Only Ouro runs code from its own repository (its looped architecture isn't in transformers);
-# the others load as ordinary transformers models.   name: (Hugging Face id, folder in learner-data/models)
+# Models the learner can use (the model is a swappable stage, like the rest of the pipeline).
+# name: (Hugging Face id, folder in learner-data/models). All are Apache-2.0 except LFM3 (LFM Open License
+# v1.0: free, but not licensed for commercial use by organisations with $10M+ annual revenue).
 MODELS = {
     "ouro-1.4b": ("ByteDance/Ouro-1.4B", "Ouro-1.4B"),
     "ouro-2.6b": ("ByteDance/Ouro-2.6B", "Ouro-2.6B"),
@@ -163,8 +163,13 @@ MODELS = {
     "minicpm5-2b": ("openbmb/MiniCPM5-2B", "MiniCPM5-2B"),
     "qwen3-1.7b-base": ("Qwen/Qwen3-1.7B-Base", "Qwen3-1.7B-Base"),
     "qwen3.5-2b-base": ("Qwen/Qwen3.5-2B-Base", "Qwen3.5-2B-Base"),   # needs transformers >= 5
+    "lfm3-1.7b-base": ("LiquidAI/LFM3-1.7B-Base", "LFM3-1.7B-Base"),  # needs transformers >= 5
 }
 MODELS_DIR = DEFAULT_MODEL_DIR.parent
+# Models whose architecture isn't in transformers, so their repository's own Python code runs. Each was read
+# before being added (2026-11-23: imports only torch, transformers and triton; no network, file or shell
+# calls). The code runs from the local folder, never fetched at load time.
+REMOTE_CODE = {"lfm3-1.7b-base"}   # Ouro too, through load_ouro
 
 
 def load_model(name: str = "ouro-1.4b", loops: int = 4, device: str = "cuda",
@@ -176,9 +181,10 @@ def load_model(name: str = "ouro-1.4b", loops: int = 4, device: str = "cuda",
     model_dir = MODELS_DIR / folder
     if name.startswith("ouro"):
         return load_ouro(model_dir, loops=loops, device=device, dtype=dtype)
-    tok = AutoTokenizer.from_pretrained(model_dir)
+    remote = name in REMOTE_CODE
+    tok = AutoTokenizer.from_pretrained(model_dir, trust_remote_code=remote)
     tok.pad_token = tok.pad_token or tok.eos_token
     tok.padding_side = "left"
-    model = AutoModelForCausalLM.from_pretrained(model_dir, dtype=dtype, device_map=device)
+    model = AutoModelForCausalLM.from_pretrained(model_dir, dtype=dtype, device_map=device, trust_remote_code=remote)
     model.eval()
     return LoadedModel(model, tok)

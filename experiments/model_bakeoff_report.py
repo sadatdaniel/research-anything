@@ -47,7 +47,8 @@ def fmt(v, pct=False):
 
 
 def main() -> int:
-    rows = [row(json.loads(p.read_text())) for p in sorted(OUT.glob("*.json")) if p.name != "summary.json"]
+    runs = [json.loads(p.read_text()) for p in sorted(OUT.glob("*.json"))]
+    rows = [row(r) for r in runs if isinstance(r, dict) and "label" in r]   # one file per model; skip summaries
     (OUT / "summary.json").write_text(json.dumps(rows, indent=2))
     print("| Model | Looped | Params | Events | Places | Links | Records/min | 'About?' AUC | yes if true / yes if false | Traps said yes | 'Same kind?' AUC | Questions/s | LoRA step fits (peak MB) |")
     print("|---|---|---|---|---|---|---|---|---|---|---|---|---|")

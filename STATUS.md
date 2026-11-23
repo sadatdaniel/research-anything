@@ -164,7 +164,12 @@ All are fixed, and the audit now reports 0 issues. A regression test guards the 
 - **At 2 loops it gets clearly worse,** which is evidence for H3.
 - **Ouro-2.6B is an even better checker,** but it doesn't fit 6 GB for reading or training.
 - **Qwen3.5-2B-Base reads about 6× faster** (98% events, 88% links), but it's a poor checker (falls for all 22 traps).
-- The end-to-end test (`experiments/model_e2e.sh`: Ouro, Qwen3.5, Qwen3-1.7B, and Qwen3.5's notes checked by Ouro on val-003 and val-004) is running.
+- **End to end** (val-003 and val-004, 10 patterns; whole worlds read and dreamt):
+  - Qwen3-1.7B found 7 (7/8 claims true) in 44 minutes; Ouro found 6 (6/7) in 67; Qwen3.5 found 5 (5/5) in 43.
+  - That's a tie at this size. The careful checker didn't turn into more findings, and the fast readers dream longer because their labels are less consistent.
+  - The split design (fast reader, Ouro checking) did worst (4 of 10): the checker re-sorted a locust record into the reader's vocabulary and broke a cycle. So: one model per memory, and a robustness fix for the cycle finder.
+- **LFM3-1.7B** (added at your request) can't follow the shared note format: 0 of 10 found, 41% false yes.
+- **Next:** the deciding comparison on test-v2, Ouro against Qwen3-1.7B.
 - The 8B LittleBit model at 0.55 bits wasn't tested: its own card reports ARC-Challenge at chance, and it's CC BY-NC.
 
 **Next (in order):**
@@ -233,3 +238,4 @@ uv run python experiments/phase0_feasibility.py                     # model spee
   - Phase 3 quality check (results/phase3/QA.md): the UI audit found the theme override bug, nested library grids, unstyled entries, 379 contrast failures and small phone toggles; all fixed (0 issues at 5 widths, light and dark). Ask your own redesigned around one composer. A quality check now ends every phase.
   - Recipe comparison on test-007…009: a tie (9/12 and 9/11 vs 8/12 and 8/10). Model bake-off: Ouro-1.4B at 4 loops is still the best checker; Qwen3.5-2B the fastest good reader; models are now swappable (`--model`). End-to-end comparison running.
   - Bigger evaluation set: 30 new test worlds (test-010…039, 122 patterns, 8,957 records). The generator gained `--start`, which never overwrites a world. Checked: the generator reproduces old worlds byte for byte, and the keyword baseline finds 11.5%. Not read yet: that waits for the model verdict, since the reader decides whether it takes 9 hours or 1.5.
+  - End-to-end model test: Qwen3-1.7B 7/10, Ouro 6/10, Qwen3.5 5/10, split designs 4 and 1, LFM3 0. A tie at this size; fast readers are about 1.5× faster overall. Verdict in results/bakeoff/README.md; the deciding comparison goes on test-v2.

@@ -607,7 +607,7 @@ The learner is a pipeline of stages, and a **recipe** names the implementation u
 
 | Stage | Now (recipe `default@2`) | Worth swapping in (papers and methods to try) |
 |---|---|---|
-| model | Ouro-1.4B at 4 loops; any model in `learner.model.MODELS` can be swapped in (`--model`) | bake-off 2026-11-23 (`results/bakeoff/`): Ouro is the best checker; Qwen3.5-2B reads about 6× faster with good notes; next: a fast reader with Ouro checking, and a 4B model at 4-bit |
+| model | Ouro-1.4B at 4 loops; any model in `learner.model.MODELS` can be swapped in (`--model`) | bake-off 2026-11-23 (`results/bakeoff/`): Ouro is the most careful checker, but end to end Qwen3-1.7B tied it (7 vs 6 of 10) at about 1.5× the speed. Mixing a reader and a checker hurt. Next: Ouro against Qwen3-1.7B on test-v2; later a 4B model at 4-bit |
 | reader | few-shot notes at 4 loops | SEAL-style self-edits (the model writes its own study notes); EntiGraph-style "write how A relates to B" |
 | names | capitalised and never lower case; stated aliases only | entity-resolution models |
 | kinds | label screen, then a majority vote both ways from re-reading | embedding clusters; NLI entailment between descriptions |

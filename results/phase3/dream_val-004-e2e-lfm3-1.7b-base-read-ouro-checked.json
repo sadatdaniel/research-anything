@@ -1,0 +1,1242 @@
+{
+  "world": "worlds/val/val-004",
+  "tag": "e2e-lfm3-1.7b-base-read-ouro-checked",
+  "model": "ouro-1.4b",
+  "notes_from": "lfm3-1.7b-base",
+  "recipe": "default@2",
+  "finished": true,
+  "dream_seconds": 892.0,
+  "model_load_seconds": 11.7,
+  "counts": {
+    "plans": 60,
+    "items": 176,
+    "questions": 3270,
+    "plan_seconds": 252.3,
+    "model_seconds": 639.6
+  },
+  "confirmed": {
+    "claims": 1,
+    "found": 1,
+    "planted": 5,
+    "recall": 0.2,
+    "precision": 1.0,
+    "decoy_hits": 0,
+    "false_claims": 0,
+    "predictions": 1,
+    "predictions_correct": 1,
+    "per_type": {
+      "periodic": {
+        "planted": 2,
+        "found": 1
+      },
+      "cause_effect": {
+        "planted": 2,
+        "found": 0
+      },
+      "chain": {
+        "planted": 1,
+        "found": 0
+      }
+    }
+  },
+  "b1_all_proposals": {
+    "claims": 87,
+    "found": 2,
+    "planted": 5,
+    "recall": 0.4,
+    "precision": 0.034482758620689655,
+    "decoy_hits": 0,
+    "false_claims": 84,
+    "predictions": 2,
+    "predictions_correct": 2,
+    "per_type": {
+      "periodic": {
+        "planted": 2,
+        "found": 2
+      },
+      "cause_effect": {
+        "planted": 2,
+        "found": 0
+      },
+      "chain": {
+        "planted": 1,
+        "found": 0
+      }
+    }
+  },
+  "curve": [
+    {
+      "dream_seconds": 0.0,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 22.3,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 44.6,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 66.9,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 89.2,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 111.5,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 133.8,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 156.1,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 178.4,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 200.7,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 223.0,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 0,
+      "predictions_correct": 0,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 0
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 245.3,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 267.6,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 289.9,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 312.2,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 334.5,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 356.8,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 379.1,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 401.4,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 423.7,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 446.0,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 468.3,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 490.6,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 512.9,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 535.2,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 557.5,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 579.8,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 602.1,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 624.4,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 646.7,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 669.0,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 691.3,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 713.6,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 735.9,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 758.2,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 780.5,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 802.8,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 825.1,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 847.4,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 869.7,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 892.0,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    },
+    {
+      "dream_seconds": 892.0,
+      "claims": 1,
+      "found": 1,
+      "planted": 5,
+      "recall": 0.2,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "false_claims": 0,
+      "predictions": 1,
+      "predictions_correct": 1,
+      "per_type": {
+        "periodic": {
+          "planted": 2,
+          "found": 1
+        },
+        "cause_effect": {
+          "planted": 2,
+          "found": 0
+        },
+        "chain": {
+          "planted": 1,
+          "found": 0
+        }
+      }
+    }
+  ],
+  "theories": [
+    {
+      "id": 51,
+      "type": "periodic",
+      "summary": "loc returns about every 67 years (11 times, 531-1264); next about 1266",
+      "stage": "confirmed",
+      "reason": "all 13 records re-read and support it; quotes are word for word",
+      "dream_seconds": 232.61194354199688
+    },
+    {
+      "id": 78,
+      "type": "cause_effect",
+      "summary": "loc at Thomzaend is followed by famine all 1 year(s) later (2 of 2 times)",
+      "stage": "rejected",
+      "reason": "chance: chance of 2 such coincidences: 1.6e-03",
+      "dream_seconds": 0.0
+    },
+    {
+      "id": 79,
+      "type": "cause_effect",
+      "summary": "no at Kraeveiso is followed by loc 1 year(s) later (2 of 2 times)",
+      "stage": "rejected",
+      "reason": "chance: chance of 2 such coincidences: 2.3e-03",
+      "dream_seconds": 0.0
+    },
+    {
+      "id": 80,
+      "type": "cause_effect",
+      "summary": "bridge at Vyvanos is followed by storm 5 year(s) later (2 of 3 times)",
+      "stage": "rejected",
+      "reason": "prediction: 2 of 3 causes were followed by the effect; not followed in [521]",
+      "dream_seconds": 0.0
+    },
+    {
+      "id": 81,
+      "type": "cause_effect",
+      "summary": "battle at Panzeiluth is followed by people 2 year(s) later (2 of 4 times)",
+      "stage": "rejected",
+      "reason": "prediction: 2 of 4 causes were followed by the effect; not followed in [839, 1171]",
+      "dream_seconds": 0.0
+    },
+    {
+      "id": 82,
+      "type": "cause_effect",
+      "summary": "fire at Methern is followed by storm 3 year(s) later (2 of 4 times)",
+      "stage": "rejected",
+      "reason": "prediction: 2 of 4 causes were followed by the effect; not followed in [694, 974]",
+      "dream_seconds": 0.0
+    },
+    {
+      "id": 83,
+      "type": "cause_effect",
+      "summary": "moon is followed by revolt 3 year(s) later (2 of 4 times)",
+      "stage": "rejected",
+      "reason": "prediction: 2 of 4 causes were followed by the effect; not followed in [727, 816]",
+      "dream_seconds": 485.2019368730107
+    },
+    {
+      "id": 84,
+      "type": "cause_effect",
+      "summary": "pilgr is followed by fire 4 year(s) later (2 of 4 times)",
+      "stage": "rejected",
+      "reason": "prediction: 2 of 4 causes were followed by the effect; not followed in [503, 869]",
+      "dream_seconds": 0.0
+    },
+    {
+      "id": 87,
+      "type": "cause_effect",
+      "summary": "no is followed by frost 1 year(s) later (2 of 4 times)",
+      "stage": "rejected",
+      "reason": "prediction: 2 of 4 causes were followed by the effect; not followed in [601, 987]",
+      "dream_seconds": 622.9087438320566
+    }
+  ],
+  "matched": [
+    {
+      "claim": 0,
+      "matched": "p2",
+      "decoy": null
+    }
+  ]
+}
