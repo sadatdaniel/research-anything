@@ -59,9 +59,12 @@ def main() -> int:
     ap.add_argument("--loops", type=int, default=4)
     ap.add_argument("--fresh", action="store_true", help="start from the plain notebook even if a run exists")
     ap.add_argument("--recipe", default="default", help="a name from learner.recipe.RECIPES (default@1, default@2, ...)")
+    ap.add_argument("--model", default="ouro-1.4b", help="the model that dreams: a name in learner.model.MODELS")
+    ap.add_argument("--notes-from", help="whose day-reading notebook to dream on (default: the same model's)")
     args = ap.parse_args()
     world = Path(args.world)
-    src = RUNS / f"{world.name}.sqlite"
+    reader = args.notes_from or args.model
+    src = RUNS / (f"{world.name}.sqlite" if reader == "ouro-1.4b" else f"{world.name}.{reader}.sqlite")
     db = RUNS / "dream" / f"{world.name}-{args.tag}.sqlite"
     db.parent.mkdir(parents=True, exist_ok=True)
     if args.fresh or not db.exists():
@@ -73,7 +76,7 @@ def main() -> int:
 
     R.use(R.RECIPES[args.recipe])
     R.for_brain(store.conn)  # a fresh brain takes this recipe; a resumed one keeps its own
-    wl = DreamWorkload(loops=args.loops)
+    wl = DreamWorkload(loops=args.loops, model=args.model)
     t_load = time.perf_counter()
     wl.load(State.DREAM)
     load_s = time.perf_counter() - t_load
@@ -116,7 +119,7 @@ def main() -> int:
     k = Knowledge(store.conn)
     b1 = score_world(truth, [c.to_claim() for c in propose(k)])
     report = {
-        "world": str(world), "tag": args.tag, "recipe": f"{R.active()['name']}@{R.active()['version']}",
+        "world": str(world), "tag": args.tag, "model": args.model, "notes_from": reader, "recipe": f"{R.active()['name']}@{R.active()['version']}",
         "finished": active < budget, "dream_seconds": round(active, 1),
         "model_load_seconds": round(load_s, 1), "counts": {k_: round(v, 1) for k_, v in counts.items()},
         "confirmed": summary(final), "b1_all_proposals": summary(b1),

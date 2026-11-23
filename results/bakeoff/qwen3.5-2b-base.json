@@ -1,0 +1,118 @@
+{
+  "model": "qwen3.5-2b-base",
+  "hub_id": "Qwen/Qwen3.5-2B-Base",
+  "label": "qwen3.5-2b-base",
+  "transformers": "5.24.0",
+  "torch": "2.15.0+cu132",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "started": "2026-11-23 18:39:29",
+  "load_seconds": 9.4,
+  "loops": 1,
+  "looped": false,
+  "params_b": 1.88,
+  "weights_gpu_mb": 3589,
+  "notes": {
+    "format_complete": 0.99,
+    "event_accuracy": 0.98,
+    "place_recall": 0.959,
+    "place_precision": 0.935,
+    "link_recall": 0.882,
+    "link_precision": 1.0,
+    "colour_captured": 0.889,
+    "direction_captured": 0.75,
+    "duration_captured": 1.0,
+    "world": "val-003",
+    "records": 100,
+    "batch": 8,
+    "seconds_per_record": 0.61,
+    "records_per_minute": 98.8,
+    "peak_gpu_mb": 4685,
+    "wrong_events": [
+      [
+        "r0026",
+        "flood",
+        "river"
+      ],
+      [
+        "r0043",
+        "dike_break",
+        "sea"
+      ]
+    ],
+    "task_seconds": 60.8
+  },
+  "yesno": [
+    {
+      "world": "val-001",
+      "about": {
+        "questions": 247,
+        "auc": 0.984,
+        "at_0.5": {
+          "yes_when_true": 1.0,
+          "yes_when_false": 0.159
+        },
+        "traps_said_yes": 19,
+        "traps": 18
+      },
+      "same_kind": {
+        "questions": 1176,
+        "auc": 0.832,
+        "at_0.5": {
+          "yes_when_true": 0.904,
+          "yes_when_false": 0.419
+        },
+        "at_0.8": {
+          "yes_when_true": 0.019,
+          "yes_when_false": 0.005
+        }
+      },
+      "questions_per_second": 16.7,
+      "peak_gpu_mb": 4961,
+      "task_seconds": 85.2
+    },
+    {
+      "world": "val-002",
+      "about": {
+        "questions": 240,
+        "auc": 0.995,
+        "at_0.5": {
+          "yes_when_true": 0.991,
+          "yes_when_false": 0.065
+        },
+        "traps_said_yes": 3,
+        "traps": 4
+      },
+      "same_kind": {
+        "questions": 1275,
+        "auc": 0.834,
+        "at_0.5": {
+          "yes_when_true": 0.873,
+          "yes_when_false": 0.369
+        },
+        "at_0.8": {
+          "yes_when_true": 0.016,
+          "yes_when_false": 0.005
+        }
+      },
+      "questions_per_second": 17.1,
+      "peak_gpu_mb": 4946,
+      "task_seconds": 88.8
+    }
+  ],
+  "lora": {
+    "fits": true,
+    "seq_len": 512,
+    "targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "step_seconds": 0.9,
+    "peak_gpu_mb": 5221,
+    "task_seconds": 4.8
+  }
+}

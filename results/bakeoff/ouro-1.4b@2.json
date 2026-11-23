@@ -1,0 +1,117 @@
+{
+  "model": "ouro-1.4b",
+  "hub_id": "ByteDance/Ouro-1.4B",
+  "label": "ouro-1.4b@2",
+  "transformers": "4.57.1",
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "started": "2026-11-23 16:15:22",
+  "load_seconds": 4.6,
+  "loops": 2,
+  "looped": true,
+  "params_b": 1.43,
+  "weights_gpu_mb": 2736,
+  "notes": {
+    "format_complete": 0.99,
+    "event_accuracy": 0.95,
+    "place_recall": 0.934,
+    "place_precision": 0.863,
+    "link_recall": 0.588,
+    "link_precision": 1.0,
+    "colour_captured": 0.889,
+    "direction_captured": 0.5,
+    "duration_captured": 1.0,
+    "world": "val-003",
+    "records": 100,
+    "batch": 4,
+    "seconds_per_record": 1.47,
+    "records_per_minute": 40.7,
+    "peak_gpu_mb": 4312,
+    "wrong_events": [
+      [
+        "r0015",
+        "drought",
+        "wells dried up"
+      ],
+      [
+        "r0033",
+        "drought",
+        "two-headed calf"
+      ],
+      [
+        "r0071",
+        "locusts",
+        "two events"
+      ],
+      [
+        "r0082",
+        "drought",
+        "wells dried up"
+      ],
+      [
+        "r0083",
+        "embassy",
+        "invasion"
+      ]
+    ],
+    "task_seconds": 147.5
+  },
+  "yesno": [
+    {
+      "world": "val-001",
+      "about": {
+        "questions": 247,
+        "auc": 0.986,
+        "at_0.5": {
+          "yes_when_true": 0.991,
+          "yes_when_false": 0.094
+        },
+        "traps_said_yes": 10,
+        "traps": 18
+      },
+      "same_kind": {
+        "questions": 1176,
+        "auc": 0.815,
+        "at_0.5": {
+          "yes_when_true": 0.962,
+          "yes_when_false": 0.62
+        },
+        "at_0.8": {
+          "yes_when_true": 0.231,
+          "yes_when_false": 0.019
+        }
+      },
+      "questions_per_second": 15.3,
+      "peak_gpu_mb": 3390,
+      "task_seconds": 92.8
+    },
+    {
+      "world": "val-002",
+      "about": {
+        "questions": 240,
+        "auc": 0.988,
+        "at_0.5": {
+          "yes_when_true": 0.957,
+          "yes_when_false": 0.056
+        },
+        "traps_said_yes": 3,
+        "traps": 4
+      },
+      "same_kind": {
+        "questions": 1275,
+        "auc": 0.839,
+        "at_0.5": {
+          "yes_when_true": 0.984,
+          "yes_when_false": 0.613
+        },
+        "at_0.8": {
+          "yes_when_true": 0.143,
+          "yes_when_false": 0.014
+        }
+      },
+      "questions_per_second": 16.0,
+      "peak_gpu_mb": 3386,
+      "task_seconds": 94.9
+    }
+  ]
+}

@@ -19,9 +19,10 @@ if TYPE_CHECKING:
 
 
 class FocusedWorkload:
-    def __init__(self, loops: int = 4, max_batch: int = 4, model_dir: str | None = None) -> None:
+    def __init__(self, loops: int = 4, max_batch: int = 4, model_dir: str | None = None, model: str = "ouro-1.4b") -> None:
         self.loops = loops
         self.max_batch = max_batch
+        self.model = model  # a name in learner.model.MODELS (model_dir, if given, is an Ouro folder)
         self.model_dir = model_dir
         self.lm = None  # loaded in the worker only
 
@@ -44,10 +45,11 @@ class FocusedWorkload:
     # worker side (GPU)
     def load(self, state: State) -> None:
         if self.lm is None:
-            from learner.model import DEFAULT_MODEL_DIR, load_ouro
+            from learner.model import load_model, load_ouro
 
-            self.lm = load_ouro(self.model_dir or DEFAULT_MODEL_DIR, loops=self.loops)
-        self.lm.set_loops(self.loops)
+            self.lm = load_ouro(self.model_dir, loops=self.loops) if self.model_dir else load_model(self.model, self.loops)
+        if getattr(self.lm, "looped", True):
+            self.lm.set_loops(self.loops)
 
     def unload(self) -> None:
         self.lm = None  # the worker process exits right after, which frees the GPU completely
@@ -92,11 +94,13 @@ class LearnerWorkload:
     def load(self, state: State) -> None:
         lm = self.day.lm or self.dream.lm
         if lm is None:
-            from learner.model import DEFAULT_MODEL_DIR, load_ouro
+            from learner.model import load_model, load_ouro
 
-            lm = load_ouro(self.day.model_dir or DEFAULT_MODEL_DIR, loops=self.day.loops)
+            lm = (load_ouro(self.day.model_dir, loops=self.day.loops) if self.day.model_dir
+                  else load_model(self.day.model, self.day.loops))
         self.day.lm = self.dream.lm = lm
-        lm.set_loops(self.day.loops if state is State.DAY else self.dream.loops)
+        if getattr(lm, "looped", True):
+            lm.set_loops(self.day.loops if state is State.DAY else self.dream.loops)
 
     def unload(self) -> None:
         self.day.lm = self.dream.lm = None

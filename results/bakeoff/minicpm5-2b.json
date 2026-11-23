@@ -1,0 +1,122 @@
+{
+  "model": "minicpm5-2b",
+  "hub_id": "openbmb/MiniCPM5-2B",
+  "label": "minicpm5-2b",
+  "transformers": "4.57.1",
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "started": "2026-11-23 18:33:27",
+  "load_seconds": 7.7,
+  "loops": 1,
+  "looped": false,
+  "params_b": 2.52,
+  "weights_gpu_mb": 4800,
+  "notes": {
+    "format_complete": 1.0,
+    "event_accuracy": 0.95,
+    "place_recall": 0.86,
+    "place_precision": 0.972,
+    "link_recall": 0.706,
+    "link_precision": 1.0,
+    "colour_captured": 0.778,
+    "direction_captured": 0.75,
+    "duration_captured": 1.0,
+    "world": "val-003",
+    "records": 100,
+    "batch": 5,
+    "seconds_per_record": 0.89,
+    "records_per_minute": 67.7,
+    "peak_gpu_mb": 5166,
+    "wrong_events": [
+      [
+        "r0026",
+        "flood",
+        "river"
+      ],
+      [
+        "r0043",
+        "dike_break",
+        "sea"
+      ],
+      [
+        "r0047",
+        "wedding",
+        "feasting; hunger for war"
+      ],
+      [
+        "r0083",
+        "embassy",
+        "wolves"
+      ],
+      [
+        "r0098",
+        "dike_break",
+        "sea"
+      ]
+    ],
+    "task_seconds": 88.7
+  },
+  "yesno": [
+    {
+      "world": "val-001",
+      "about": {
+        "questions": 247,
+        "auc": 0.984,
+        "at_0.5": {
+          "yes_when_true": 0.972,
+          "yes_when_false": 0.21
+        },
+        "traps_said_yes": 18,
+        "traps": 18
+      },
+      "same_kind": {
+        "questions": 1176,
+        "auc": 0.868,
+        "at_0.5": {
+          "yes_when_true": 0.942,
+          "yes_when_false": 0.401
+        },
+        "at_0.8": {
+          "yes_when_true": 0.673,
+          "yes_when_false": 0.119
+        }
+      },
+      "questions_per_second": 20.9,
+      "peak_gpu_mb": 5468,
+      "task_seconds": 68.3
+    },
+    {
+      "world": "val-002",
+      "about": {
+        "questions": 240,
+        "auc": 0.991,
+        "at_0.5": {
+          "yes_when_true": 0.983,
+          "yes_when_false": 0.089
+        },
+        "traps_said_yes": 3,
+        "traps": 4
+      },
+      "same_kind": {
+        "questions": 1275,
+        "auc": 0.893,
+        "at_0.5": {
+          "yes_when_true": 0.968,
+          "yes_when_false": 0.408
+        },
+        "at_0.8": {
+          "yes_when_true": 0.667,
+          "yes_when_false": 0.112
+        }
+      },
+      "questions_per_second": 22.1,
+      "peak_gpu_mb": 5464,
+      "task_seconds": 68.5
+    }
+  ],
+  "lora": {
+    "fits": false,
+    "error": "out of GPU memory: CUDA out of memory. Tried to allocate 256.00 MiB. GPU 0 has a total capacity of 5.64 GiB of which 131.56 MiB is free. Including non-PyTorch memory, this process",
+    "task_seconds": 1.4
+  }
+}

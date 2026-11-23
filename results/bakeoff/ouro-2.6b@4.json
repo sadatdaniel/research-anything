@@ -1,0 +1,82 @@
+{
+  "model": "ouro-2.6b",
+  "hub_id": "ByteDance/Ouro-2.6B",
+  "label": "ouro-2.6b@4",
+  "transformers": "4.57.1",
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "started": "2026-11-23 16:21:06",
+  "load_seconds": 11.4,
+  "loops": 4,
+  "looped": true,
+  "params_b": 2.67,
+  "weights_gpu_mb": 5089,
+  "notes": {
+    "fits": false,
+    "error": "out of GPU memory: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 5.64 GiB of which 9.56 MiB is free. Including non-PyTorch memory, this process ha",
+    "task_seconds": 1.1
+  },
+  "yesno": [
+    {
+      "world": "val-001",
+      "about": {
+        "questions": 247,
+        "auc": 0.997,
+        "at_0.5": {
+          "yes_when_true": 0.991,
+          "yes_when_false": 0.022
+        },
+        "traps_said_yes": 6,
+        "traps": 18
+      },
+      "same_kind": {
+        "questions": 1176,
+        "auc": 0.922,
+        "at_0.5": {
+          "yes_when_true": 0.654,
+          "yes_when_false": 0.047
+        },
+        "at_0.8": {
+          "yes_when_true": 0.5,
+          "yes_when_false": 0.017
+        }
+      },
+      "questions_per_second": 4.0,
+      "peak_gpu_mb": 5464,
+      "task_seconds": 359.9
+    },
+    {
+      "world": "val-002",
+      "about": {
+        "questions": 240,
+        "auc": 0.999,
+        "at_0.5": {
+          "yes_when_true": 0.966,
+          "yes_when_false": 0.016
+        },
+        "traps_said_yes": 1,
+        "traps": 4
+      },
+      "same_kind": {
+        "questions": 1275,
+        "auc": 0.955,
+        "at_0.5": {
+          "yes_when_true": 0.794,
+          "yes_when_false": 0.05
+        },
+        "at_0.8": {
+          "yes_when_true": 0.476,
+          "yes_when_false": 0.013
+        }
+      },
+      "questions_per_second": 4.1,
+      "peak_gpu_mb": 5462,
+      "task_seconds": 371.6
+    }
+  ],
+  "lora": {
+    "fits": false,
+    "error": "out of GPU memory: CUDA out of memory. Tried to allocate 12.00 MiB. GPU 0 has a total capacity of 5.64 GiB of which 15.56 MiB is free. Including non-PyTorch memory, this process h",
+    "task_seconds": 2.2
+  }
+}

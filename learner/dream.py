@@ -316,8 +316,10 @@ def work_fingerprint(conn: sqlite3.Connection) -> str:
 # ---- the workload ------------------------------------------------------------------------------------
 
 class DreamWorkload:
-    def __init__(self, loops: int = 4, model_dir: str | None = None, max_items: int = 3, batch: int = 8) -> None:
+    def __init__(self, loops: int = 4, model_dir: str | None = None, max_items: int = 3, batch: int = 8,
+                 model: str = "ouro-1.4b") -> None:
         self.loops = loops
+        self.model = model  # a name in learner.model.MODELS (model_dir, if given, is an Ouro folder)
         self.model_dir = model_dir
         self.max_items = max_items
         self.batch = batch
@@ -342,10 +344,11 @@ class DreamWorkload:
     # worker side (GPU)
     def load(self, state: State) -> None:
         if self.lm is None:
-            from learner.model import DEFAULT_MODEL_DIR, load_ouro
+            from learner.model import load_model, load_ouro
 
-            self.lm = load_ouro(self.model_dir or DEFAULT_MODEL_DIR, loops=self.loops)
-        self.lm.set_loops(self.loops)
+            self.lm = load_ouro(self.model_dir, loops=self.loops) if self.model_dir else load_model(self.model, self.loops)
+        if getattr(self.lm, "looped", True):
+            self.lm.set_loops(self.loops)
 
     def unload(self) -> None:
         self.lm = None

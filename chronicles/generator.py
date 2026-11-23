@@ -603,14 +603,20 @@ def write_world(out_dir: str | Path, seed: int | str, config: WorldConfig | None
     return truth
 
 
-def write_splits(out_dir: str | Path, counts: dict[str, int], base_seed: int = 0) -> dict[str, list[str]]:
+def write_splits(out_dir: str | Path, counts: dict[str, int], base_seed: int = 0, start: int = 0) -> dict[str, list[str]]:
+    """Worlds <split>-<start> .. <split>-<start + n - 1>, seeded "<base_seed>:<split>:<index>". With start > 0
+    only new worlds are written: an existing world is never overwritten, because notebooks read from it would
+    no longer match its files if the generator has changed since."""
     made: dict[str, list[str]] = {}
     for split, n in counts.items():
         cfg = replace(WorldConfig(), **SPLITS[split])
         made[split] = []
-        for i in range(n):
+        for i in range(start, start + n):
             name = f"{split}-{i:03d}"
-            write_world(Path(out_dir) / split / name, f"{base_seed}:{split}:{i}", cfg)
+            out = Path(out_dir) / split / name
+            if start and out.exists():
+                raise FileExistsError(f"{out} already exists; pick a --start after the last world")
+            write_world(out, f"{base_seed}:{split}:{i}", cfg)
             made[split].append(name)
     return made
 
@@ -660,6 +666,7 @@ def main(argv: list[str] | None = None) -> int:
     many = sub.add_parser("splits", help="write train/val/test/transfer worlds")
     many.add_argument("--out", required=True)
     many.add_argument("--base-seed", type=int, default=0)
+    many.add_argument("--start", type=int, default=0, help="index of the first world; >0 adds new worlds only")
     for split, default in (("train", 20), ("val", 5), ("test", 10), ("transfer", 10)):
         many.add_argument(f"--{split}", type=int, default=default)
     args = ap.parse_args(argv)
@@ -675,7 +682,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"wrote {args.out}: {truth['counts']['visible']} visible + {truth['counts']['heldout']} held-out "
               f"records, {len(truth['patterns'])} patterns, {len(truth['decoys'])} decoys")
     else:
-        made = write_splits(args.out, {s: getattr(args, s) for s in SPLITS}, args.base_seed)
+        made = write_splits(args.out, {s: getattr(args, s) for s in SPLITS if getattr(args, s)}, args.base_seed, args.start)
         print({s: len(v) for s, v in made.items()})
     return 0
 

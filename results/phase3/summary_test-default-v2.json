@@ -1,0 +1,235 @@
+{
+  "split": "test",
+  "tag": "default-v2",
+  "worlds": [
+    "test-007",
+    "test-008",
+    "test-009"
+  ],
+  "dream": {
+    "worlds": 3,
+    "claims": 10,
+    "found": 8,
+    "planted": 12,
+    "recall": 0.667,
+    "precision": 0.8,
+    "decoy_hits": 0,
+    "prediction_accuracy": 1.0,
+    "predictions": 6,
+    "per_type": {
+      "periodic": {
+        "planted": 4,
+        "found": 2,
+        "recall": 0.5
+      },
+      "cause_effect": {
+        "planted": 5,
+        "found": 4,
+        "recall": 0.8
+      },
+      "chain": {
+        "planted": 3,
+        "found": 2,
+        "recall": 0.667
+      }
+    }
+  },
+  "b1_all_proposals": {
+    "worlds": 3,
+    "claims": 143,
+    "found": 10,
+    "planted": 12,
+    "recall": 0.833,
+    "precision": 0.091,
+    "decoy_hits": 1,
+    "prediction_accuracy": 1.0,
+    "predictions": 8,
+    "per_type": {
+      "periodic": {
+        "planted": 4,
+        "found": 4,
+        "recall": 1.0
+      },
+      "cause_effect": {
+        "planted": 5,
+        "found": 4,
+        "recall": 0.8
+      },
+      "chain": {
+        "planted": 3,
+        "found": 2,
+        "recall": 0.667
+      }
+    }
+  },
+  "b2_script": {
+    "worlds": 3,
+    "claims": 36,
+    "planted": 12,
+    "found": 3,
+    "true_claims": 3,
+    "duplicates": 0,
+    "decoy_hits": 0,
+    "false_claims": 33,
+    "predictions": 2,
+    "predictions_correct": 2,
+    "recall": 0.25,
+    "precision": 0.08333333333333333,
+    "prediction_accuracy": 1.0,
+    "per_type": {
+      "periodic": {
+        "planted": 4,
+        "found": 2,
+        "recall": 0.5
+      },
+      "cause_effect": {
+        "planted": 5,
+        "found": 1,
+        "recall": 0.2
+      },
+      "chain": {
+        "planted": 3,
+        "found": 0,
+        "recall": 0.0
+      }
+    }
+  },
+  "b0_just_ask": {
+    "recall": 0.0,
+    "claims": 4,
+    "found": 0,
+    "decoy_hits": 0
+  },
+  "dream_seconds_per_world": [
+    308.4,
+    339.7,
+    308.6
+  ],
+  "questions_per_world": [
+    1373,
+    1647,
+    1460
+  ],
+  "h1_curve": [
+    {
+      "dream_seconds": 0,
+      "worlds": 3,
+      "claims": 0,
+      "found": 0,
+      "planted": 12,
+      "recall": 0.0,
+      "precision": null,
+      "decoy_hits": 0,
+      "prediction_accuracy": null,
+      "predictions": 0
+    },
+    {
+      "dream_seconds": 15,
+      "worlds": 3,
+      "claims": 0,
+      "found": 0,
+      "planted": 12,
+      "recall": 0.0,
+      "precision": null,
+      "decoy_hits": 0,
+      "prediction_accuracy": null,
+      "predictions": 0
+    },
+    {
+      "dream_seconds": 30,
+      "worlds": 3,
+      "claims": 2,
+      "found": 2,
+      "planted": 12,
+      "recall": 0.167,
+      "precision": 1.0,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 1
+    },
+    {
+      "dream_seconds": 60,
+      "worlds": 3,
+      "claims": 9,
+      "found": 7,
+      "planted": 12,
+      "recall": 0.583,
+      "precision": 0.778,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 6
+    },
+    {
+      "dream_seconds": 90,
+      "worlds": 3,
+      "claims": 9,
+      "found": 7,
+      "planted": 12,
+      "recall": 0.583,
+      "precision": 0.778,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 6
+    },
+    {
+      "dream_seconds": 120,
+      "worlds": 3,
+      "claims": 9,
+      "found": 7,
+      "planted": 12,
+      "recall": 0.583,
+      "precision": 0.778,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 6
+    },
+    {
+      "dream_seconds": 180,
+      "worlds": 3,
+      "claims": 9,
+      "found": 7,
+      "planted": 12,
+      "recall": 0.583,
+      "precision": 0.778,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 6
+    },
+    {
+      "dream_seconds": 240,
+      "worlds": 3,
+      "claims": 9,
+      "found": 7,
+      "planted": 12,
+      "recall": 0.583,
+      "precision": 0.778,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 6
+    },
+    {
+      "dream_seconds": 300,
+      "worlds": 3,
+      "claims": 8,
+      "found": 6,
+      "planted": 12,
+      "recall": 0.5,
+      "precision": 0.75,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 6
+    },
+    {
+      "dream_seconds": 339.7,
+      "worlds": 3,
+      "claims": 10,
+      "found": 8,
+      "planted": 12,
+      "recall": 0.667,
+      "precision": 0.8,
+      "decoy_hits": 0,
+      "prediction_accuracy": 1.0,
+      "predictions": 6
+    }
+  ]
+}

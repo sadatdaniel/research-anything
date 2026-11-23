@@ -145,6 +145,16 @@ Keyboard and mouse idle detection is optional. It may not be available on Waylan
 
 ## Evaluation tracks (the real content will mostly be ordinary books)
 
+**The evaluation set for reported comparisons: `test-v2`** (made 2026-11-23; manifest in `results/evalset_test-v2.json`)
+- 30 fresh test worlds (test-010…039): 122 planted patterns (48 periodic, 44 cause→effect, 30 chains), 8,957 records.
+- They come from the same generator as the earlier worlds (three of those regenerate byte for byte). The keyword baseline finds 11.5% of the patterns.
+- **Why 30:** comparing two recipes or models on the same worlds, the 95% margin on a recall difference is about ±√(d/n), with n patterns and d the share found by only one side (about 20%). 12 patterns give ±25 points, which is why default@1 and default@2 tied. 122 give about ±8, and 50 worlds would only get to about ±6.
+- **Rules:**
+  - Only reported comparisons run on these worlds, never tuning.
+  - Every comparison is paired (same worlds) and reported with a 95% interval from resampling whole worlds.
+  - The world is the unit, because patterns within a world aren't independent.
+- **Reading them:** about 9 hours with Ouro (17 records a minute), or about 1.5 hours with Qwen3.5-2B as the reader. Which one depends on the end-to-end model test (`results/bakeoff/`).
+
 1. **Fake chronicles** (now): exact answer keys, for building and debugging.
 2. **Public pattern benchmarks:** checks against tests we didn't write. Candidates (license checked before use):
    - HypoBench's synthetic hypothesis tasks;
@@ -597,6 +607,7 @@ The learner is a pipeline of stages, and a **recipe** names the implementation u
 
 | Stage | Now (recipe `default@2`) | Worth swapping in (papers and methods to try) |
 |---|---|---|
+| model | Ouro-1.4B at 4 loops; any model in `learner.model.MODELS` can be swapped in (`--model`) | bake-off 2026-11-23 (`results/bakeoff/`): Ouro is the best checker; Qwen3.5-2B reads about 6× faster with good notes; next: a fast reader with Ouro checking, and a 4B model at 4-bit |
 | reader | few-shot notes at 4 loops | SEAL-style self-edits (the model writes its own study notes); EntiGraph-style "write how A relates to B" |
 | names | capitalised and never lower case; stated aliases only | entity-resolution models |
 | kinds | label screen, then a majority vote both ways from re-reading | embedding clusters; NLI entailment between descriptions |

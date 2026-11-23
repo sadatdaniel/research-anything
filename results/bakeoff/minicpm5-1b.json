@@ -1,0 +1,168 @@
+{
+  "model": "minicpm5-1b",
+  "hub_id": "openbmb/MiniCPM5-1B",
+  "label": "minicpm5-1b",
+  "transformers": "4.57.1",
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "started": "2026-11-23 18:32:37",
+  "load_seconds": 5.4,
+  "loops": 1,
+  "looped": false,
+  "params_b": 1.08,
+  "weights_gpu_mb": 2061,
+  "notes": {
+    "format_complete": 0.99,
+    "event_accuracy": 0.68,
+    "place_recall": 0.86,
+    "place_precision": 0.904,
+    "link_recall": 0.0,
+    "link_precision": null,
+    "colour_captured": 0.444,
+    "direction_captured": 0.25,
+    "duration_captured": 0.75,
+    "world": "val-003",
+    "records": 100,
+    "batch": 8,
+    "seconds_per_record": 0.4,
+    "records_per_minute": 150.7,
+    "peak_gpu_mb": 2455,
+    "wrong_events": [
+      [
+        "r0001",
+        "storm",
+        "grain"
+      ],
+      [
+        "r0005",
+        "earthquake",
+        "an omen"
+      ],
+      [
+        "r0011",
+        "battle",
+        "birth"
+      ],
+      [
+        "r0021",
+        "embassy",
+        "people left"
+      ],
+      [
+        "r0026",
+        "flood",
+        "people left"
+      ],
+      [
+        "r0028",
+        "building",
+        "star of the house of griraem"
+      ],
+      [
+        "r0031",
+        "locusts",
+        "hunger"
+      ],
+      [
+        "r0032",
+        "embassy",
+        "people left"
+      ],
+      [
+        "r0033",
+        "drought",
+        "birth"
+      ],
+      [
+        "r0034",
+        "embassy",
+        "people left"
+      ],
+      [
+        "r0037",
+        "fair",
+        "people left"
+      ],
+      [
+        "r0039",
+        "wedding",
+        "feasting"
+      ]
+    ],
+    "task_seconds": 39.8
+  },
+  "yesno": [
+    {
+      "world": "val-001",
+      "about": {
+        "questions": 247,
+        "auc": 0.889,
+        "at_0.5": {
+          "yes_when_true": 0.743,
+          "yes_when_false": 0.087
+        },
+        "traps_said_yes": 10,
+        "traps": 18
+      },
+      "same_kind": {
+        "questions": 1176,
+        "auc": 0.778,
+        "at_0.5": {
+          "yes_when_true": 1.0,
+          "yes_when_false": 0.959
+        },
+        "at_0.8": {
+          "yes_when_true": 0.577,
+          "yes_when_false": 0.25
+        }
+      },
+      "questions_per_second": 49.4,
+      "peak_gpu_mb": 3384,
+      "task_seconds": 28.9
+    },
+    {
+      "world": "val-002",
+      "about": {
+        "questions": 240,
+        "auc": 0.948,
+        "at_0.5": {
+          "yes_when_true": 0.793,
+          "yes_when_false": 0.024
+        },
+        "traps_said_yes": 1,
+        "traps": 4
+      },
+      "same_kind": {
+        "questions": 1275,
+        "auc": 0.844,
+        "at_0.5": {
+          "yes_when_true": 1.0,
+          "yes_when_false": 0.979
+        },
+        "at_0.8": {
+          "yes_when_true": 0.73,
+          "yes_when_false": 0.237
+        }
+      },
+      "questions_per_second": 53.5,
+      "peak_gpu_mb": 3376,
+      "task_seconds": 28.4
+    }
+  ],
+  "lora": {
+    "fits": true,
+    "seq_len": 512,
+    "targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "step_seconds": 0.27,
+    "peak_gpu_mb": 3010,
+    "task_seconds": 1.9
+  }
+}

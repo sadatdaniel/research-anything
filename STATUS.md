@@ -50,7 +50,7 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
 - **Night rule:** unread material comes first even at night (you can't dream about what you haven't read), and no dream work means REST. Hard stops and the minimum time in a state still apply.
 - **Day reading uses 4 loops.** 2 loops is 2.6× faster but invents details and misses links.
 - **Only *stated* links are facts** (`links.stated = 1`, from `learner/sourcecheck.py`). Inferred links are hypotheses for dream mode to test.
-- **Development hygiene:** prompt and heuristic work uses `val` worlds; reported numbers come from test worlds never tuned on (`test-001` is spent, `test-002` was used for the Phase 2 final).
+- **Development hygiene:** prompt and heuristic work uses `val` worlds; reported numbers come from test worlds never tuned on (`test-001` is spent, `test-002` was used for the Phase 2 final). Since then: test-000 and 002–006 were the first Phase 3 evaluation, and test-007…009 the recipe comparison. **test-010…039 (`test-v2`, 122 patterns) are the evaluation set for every reported comparison from now on** (PLAN.md, Evaluation tracks).
 - **Looped models have a 4× key/value cache:** Ouro stores one entry per layer *per loop*, about 0.8 MB per token per prompt at 4 loops. A 700-token few-shot prompt therefore allows a batch of only about 2–3. `LoadedModel.safe_batch()` sizes batches from free memory, and `read_batch` splits a batch in half when it runs out of memory. Retry **outside** the `except` block, because the traceback keeps the failed attempt's tensors alive.
 - **What's new and what isn't** (see [RELATED_WORK.md](RELATED_WORK.md), checked 2026-11-23):
   - LLM "sleep" with consolidation and dreaming is published (Google 2026, Auto-Dreamer, Lee et al.), and so is "learning how to learn" from self-written training data (SEAL). We cite these; we don't claim them.
@@ -157,6 +157,16 @@ Misses come from the reader: two white locusts written as "the winged plague, sn
 
 All are fixed, and the audit now reports 0 issues. A regression test guards the theme bug. Ask your own was redesigned around one composer. **Every phase now ends with this check** (PLAN.md).
 
+**Recipe comparison on fresh test worlds** (test-007…009): default@1 found 9/12 with 9/11 claims true; default@2 found 8/12 with 8/10 true; 0 decoys for both. That's a tie: 12 patterns can't separate recipes, so the evaluation set needs to grow.
+
+**Model bake-off** ([results/bakeoff/README.md](results/bakeoff/README.md)). Seven candidates were tested on validation worlds.
+- **Ouro-1.4B at 4 loops is still the best checker that fits:** 1% false yes, the fewest figures of speech fooling it, 94% of links found.
+- **At 2 loops it gets clearly worse,** which is evidence for H3.
+- **Ouro-2.6B is an even better checker,** but it doesn't fit 6 GB for reading or training.
+- **Qwen3.5-2B-Base reads about 6× faster** (98% events, 88% links), but it's a poor checker (falls for all 22 traps).
+- The end-to-end test (`experiments/model_e2e.sh`: Ouro, Qwen3.5, Qwen3-1.7B, and Qwen3.5's notes checked by Ouro on val-003 and val-004) is running.
+- The 8B LittleBit model at 0.55 bits wasn't tested: its own card reports ARC-Challenge at chance, and it's CC BY-NC.
+
 **Next (in order):**
 1. When `phase3_v2.sh` finishes: compare default@1 and default@2 on test-007…009 (recall, precision, curves, calibration).
 2. Try BH-FDR across candidates as `default@3` (REFERENCES.md, "To try").
@@ -221,3 +231,5 @@ uv run python experiments/phase0_feasibility.py                     # model spee
   - Question bank and "is A connected to B?" (answers only from findings; otherwise "I don't know"). Calibration check: the score ranks but isn't a probability yet (ECE 0.225). REFERENCES.md added.
   - App: "skills" became **memories** on screen; sidebar has Library, Settings, About only; each memory has five sections (Overview, Explore, Questions, Compare, Journal), at the top on wide screens and at the bottom on narrow ones; cards reflow; Remove moves to the trash; libadwaita's text colours and a high-contrast mode.
   - Phase 3 quality check (results/phase3/QA.md): the UI audit found the theme override bug, nested library grids, unstyled entries, 379 contrast failures and small phone toggles; all fixed (0 issues at 5 widths, light and dark). Ask your own redesigned around one composer. A quality check now ends every phase.
+  - Recipe comparison on test-007…009: a tie (9/12 and 9/11 vs 8/12 and 8/10). Model bake-off: Ouro-1.4B at 4 loops is still the best checker; Qwen3.5-2B the fastest good reader; models are now swappable (`--model`). End-to-end comparison running.
+  - Bigger evaluation set: 30 new test worlds (test-010…039, 122 patterns, 8,957 records). The generator gained `--start`, which never overwrites a world. Checked: the generator reproduces old worlds byte for byte, and the keyword baseline finds 11.5%. Not read yet: that waits for the model verdict, since the reader decides whether it takes 9 hours or 1.5.

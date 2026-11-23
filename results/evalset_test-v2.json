@@ -1,0 +1,434 @@
+{
+  "name": "test-v2",
+  "made": "2026-11-23",
+  "purpose": "the bigger evaluation set: reported comparisons only (recipes, models, sleep); never used for tuning",
+  "regenerate": "uv run python -m chronicles.generator splits --out worlds --start 10 --train 0 --val 0 --transfer 0 --test 30",
+  "generator_fingerprint": "44369f92fb2d62b5",
+  "generator_files": [
+    "chronicles/__init__.py",
+    "chronicles/baseline_b2.py",
+    "chronicles/generator.py",
+    "chronicles/names.py",
+    "chronicles/notes_eval.py",
+    "chronicles/phrasing.py",
+    "chronicles/scorer.py"
+  ],
+  "checks": {
+    "reproduces_old_worlds": "test-000, test-007, test-009 regenerate byte for byte",
+    "keyword_baseline_b2": {
+      "recall": 0.115,
+      "precision": 0.047,
+      "found": 14,
+      "planted": 122
+    }
+  },
+  "totals": {
+    "worlds": 30,
+    "records": 8957,
+    "patterns": 122,
+    "by_type": {
+      "periodic": 48,
+      "cause_effect": 44,
+      "chain": 30
+    }
+  },
+  "other_test_worlds": {
+    "test-001": "spent (Phase 2 development)",
+    "test-000, test-002\u2026006": "first Phase 3 evaluation",
+    "test-007\u2026009": "recipe default@1 vs default@2"
+  },
+  "worlds": [
+    {
+      "name": "test-010",
+      "seed": "0:test:10",
+      "records": 383,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "8c094be3eb73bc64"
+    },
+    {
+      "name": "test-011",
+      "seed": "0:test:11",
+      "records": 323,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "412a17916ef3064a"
+    },
+    {
+      "name": "test-012",
+      "seed": "0:test:12",
+      "records": 347,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "ab8d6cf5cf89b1c7"
+    },
+    {
+      "name": "test-013",
+      "seed": "0:test:13",
+      "records": 220,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "497043a2d8332f70"
+    },
+    {
+      "name": "test-014",
+      "seed": "0:test:14",
+      "records": 262,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "dfb707d0268abbab"
+    },
+    {
+      "name": "test-015",
+      "seed": "0:test:15",
+      "records": 260,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "5b1fb5e586594b91"
+    },
+    {
+      "name": "test-016",
+      "seed": "0:test:16",
+      "records": 317,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "34565d3b0ef0d849"
+    },
+    {
+      "name": "test-017",
+      "seed": "0:test:17",
+      "records": 335,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "24425a8926959f88"
+    },
+    {
+      "name": "test-018",
+      "seed": "0:test:18",
+      "records": 300,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "8ab3293ca66a33e8"
+    },
+    {
+      "name": "test-019",
+      "seed": "0:test:19",
+      "records": 236,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "75fa8a2e30676d23"
+    },
+    {
+      "name": "test-020",
+      "seed": "0:test:20",
+      "records": 260,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "286951866cd7b6c0"
+    },
+    {
+      "name": "test-021",
+      "seed": "0:test:21",
+      "records": 220,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "7abf859efb18c26f"
+    },
+    {
+      "name": "test-022",
+      "seed": "0:test:22",
+      "records": 354,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "36a3bedf80b00473"
+    },
+    {
+      "name": "test-023",
+      "seed": "0:test:23",
+      "records": 243,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "bde34cbe16da184b"
+    },
+    {
+      "name": "test-024",
+      "seed": "0:test:24",
+      "records": 307,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "68fad793ce76a5df"
+    },
+    {
+      "name": "test-025",
+      "seed": "0:test:25",
+      "records": 406,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "3b7eb4ac7779eeda"
+    },
+    {
+      "name": "test-026",
+      "seed": "0:test:26",
+      "records": 307,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "760e7b9d4f3549ca"
+    },
+    {
+      "name": "test-027",
+      "seed": "0:test:27",
+      "records": 281,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "802d7c2fed973208"
+    },
+    {
+      "name": "test-028",
+      "seed": "0:test:28",
+      "records": 359,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "6967e283d88527b6"
+    },
+    {
+      "name": "test-029",
+      "seed": "0:test:29",
+      "records": 246,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "149d40b9207b3e05"
+    },
+    {
+      "name": "test-030",
+      "seed": "0:test:30",
+      "records": 288,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "48be4e19ff120f4b"
+    },
+    {
+      "name": "test-031",
+      "seed": "0:test:31",
+      "records": 388,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "d995d0454a89ab76"
+    },
+    {
+      "name": "test-032",
+      "seed": "0:test:32",
+      "records": 351,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "3c5891ea7ddbcf01"
+    },
+    {
+      "name": "test-033",
+      "seed": "0:test:33",
+      "records": 281,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "e79ea1e40addd6fe"
+    },
+    {
+      "name": "test-034",
+      "seed": "0:test:34",
+      "records": 342,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "103cd5a57a70b1cd"
+    },
+    {
+      "name": "test-035",
+      "seed": "0:test:35",
+      "records": 323,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "203848386b26e81f"
+    },
+    {
+      "name": "test-036",
+      "seed": "0:test:36",
+      "records": 221,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "4ab0844dfaf09baa"
+    },
+    {
+      "name": "test-037",
+      "seed": "0:test:37",
+      "records": 275,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "3e41afe02d9ebb3c"
+    },
+    {
+      "name": "test-038",
+      "seed": "0:test:38",
+      "records": 274,
+      "patterns": [
+        "periodic",
+        "cause_effect",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "9feff6b4ac49117e"
+    },
+    {
+      "name": "test-039",
+      "seed": "0:test:39",
+      "records": 248,
+      "patterns": [
+        "periodic",
+        "periodic",
+        "cause_effect",
+        "chain"
+      ],
+      "decoys": 2,
+      "records_sha256": "7fa22d187b03f647"
+    }
+  ]
+}

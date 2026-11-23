@@ -71,23 +71,35 @@ class LoadedModel:
     tokenizer: object
 
     @property
+    def looped(self) -> bool:
+        return hasattr(self.model.config, "total_ut_steps")
+
+    @property
     def loops(self) -> int:
-        return int(self.model.config.total_ut_steps)
+        return int(getattr(self.model.config, "total_ut_steps", 1))
 
     def set_loops(self, n: int) -> None:
-        """How many times the model runs its 24 layers per token (Ouro was trained with 4)."""
+        """How many times the model runs its 24 layers per token (Ouro was trained with 4). An ordinary
+        model always runs its layers once, so only 1 is allowed for it."""
         if n < 1:
             raise ValueError("loops must be >= 1")
+        if not self.looped:
+            if n != 1:
+                raise ValueError("this model doesn't loop; loops must be 1")
+            return
         base = self.model.get_base_model() if hasattr(self.model, "get_base_model") else self.model
         base.config.total_ut_steps = n  # sizes the key/value cache
         base.model.total_ut_steps = n  # the loop itself
 
     def cache_bytes_per_token(self) -> int:
         """Key/value cache cost per token per prompt. A looped model stores one entry per layer per loop:
-        at 4 loops Ouro-1.4B needs 96 entries, about 0.8 MB per token (4x a normal model)."""
-        cfg = self.model.config
-        head_dim = getattr(cfg, "head_dim", cfg.hidden_size // cfg.num_attention_heads)
-        return self.loops * cfg.num_hidden_layers * 2 * cfg.num_key_value_heads * head_dim * 2  # bf16
+        at 4 loops Ouro-1.4B needs 96 entries, about 0.8 MB per token (4x a normal model). Hybrid models
+        (linear + full attention, like Qwen3.5) only keep a growing cache in their full-attention layers."""
+        cfg = getattr(self.model.config, "text_config", None) or self.model.config
+        head_dim = getattr(cfg, "head_dim", None) or cfg.hidden_size // cfg.num_attention_heads
+        layer_types = getattr(cfg, "layer_types", None)
+        layers = sum(t == "full_attention" for t in layer_types) if layer_types else cfg.num_hidden_layers
+        return self.loops * layers * 2 * cfg.num_key_value_heads * head_dim * 2  # bf16
 
     def safe_batch(self, tokens_per_prompt: int, cap: int = 8, margin_mb: int = 600) -> int:
         """How many prompts of this length fit in the GPU memory that's free right now."""
@@ -100,6 +112,7 @@ class LoadedModel:
                  do_sample: bool = False, **kwargs) -> list[str]:
         tok = self.tokenizer
         enc = tok(prompts, return_tensors="pt", padding=True).to(self.model.device)
+        enc.pop("token_type_ids", None)  # some tokenizers (MiniCPM5) add these; decoder-only models don't take them
         out = self.model.generate(**enc, max_new_tokens=max_new_tokens, min_new_tokens=min_new_tokens,
                                   do_sample=do_sample, pad_token_id=tok.pad_token_id, **kwargs)
         return tok.batch_decode(out[:, enc["input_ids"].shape[1]:], skip_special_tokens=True)
@@ -114,6 +127,7 @@ class LoadedModel:
         out: list[float] = []
         for i in range(0, len(prompts), batch):
             enc = tok(prompts[i:i + batch], return_tensors="pt", padding=True).to(self.model.device)
+            enc.pop("token_type_ids", None)
             logits = self.model(**enc, use_cache=False).logits[:, -1, :].float()
             probs = torch.softmax(logits, dim=-1)
             py = probs[:, list(yes)].sum(-1)
@@ -137,3 +151,34 @@ def load_ouro(model_dir: str | Path = DEFAULT_MODEL_DIR, loops: int = 4,
     loaded = LoadedModel(model, tok)
     loaded.set_loops(loops)
     return loaded
+
+
+# Models the learner can use (the model is a swappable stage, like the rest of the pipeline). All are
+# Apache-2.0. Only Ouro runs code from its own repository (its looped architecture isn't in transformers);
+# the others load as ordinary transformers models.   name: (Hugging Face id, folder in learner-data/models)
+MODELS = {
+    "ouro-1.4b": ("ByteDance/Ouro-1.4B", "Ouro-1.4B"),
+    "ouro-2.6b": ("ByteDance/Ouro-2.6B", "Ouro-2.6B"),
+    "minicpm5-1b": ("openbmb/MiniCPM5-1B", "MiniCPM5-1B"),
+    "minicpm5-2b": ("openbmb/MiniCPM5-2B", "MiniCPM5-2B"),
+    "qwen3-1.7b-base": ("Qwen/Qwen3-1.7B-Base", "Qwen3-1.7B-Base"),
+    "qwen3.5-2b-base": ("Qwen/Qwen3.5-2B-Base", "Qwen3.5-2B-Base"),   # needs transformers >= 5
+}
+MODELS_DIR = DEFAULT_MODEL_DIR.parent
+
+
+def load_model(name: str = "ouro-1.4b", loops: int = 4, device: str = "cuda",
+               dtype: torch.dtype = torch.bfloat16) -> LoadedModel:
+    """Load any model in MODELS by name. Ouro gets its fixes and its loop count; the others run once."""
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    _, folder = MODELS[name]
+    model_dir = MODELS_DIR / folder
+    if name.startswith("ouro"):
+        return load_ouro(model_dir, loops=loops, device=device, dtype=dtype)
+    tok = AutoTokenizer.from_pretrained(model_dir)
+    tok.pad_token = tok.pad_token or tok.eos_token
+    tok.padding_side = "left"
+    model = AutoModelForCausalLM.from_pretrained(model_dir, dtype=dtype, device_map=device)
+    model.eval()
+    return LoadedModel(model, tok)
