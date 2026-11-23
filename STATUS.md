@@ -93,7 +93,14 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
   - **Status bar.**
   - **Skill view:** Overview (big numbers, strongest findings, start-here questions, open questions, "nothing new for N minutes"), Explore (Timeline and an **Obsidian-style Graph** with filters, search, zoom and backlinks), Connections (confidence score with parts, tests, evidence), Ask (search across the loaded skills until Phase 6), Compare (themes only here, in both, only there), and Journal.
   - **Settings** (Learning, Machine limits, Appearance, Recipes, Updates and privacy, Storage, About) are saved to `config.toml`; the engine reads `[engine]`.
-  - **Themes** are one block of variables each in `app/web/themes.css`, seven so far: Instrument, Swiss, Brutalist, Terminal, Blueprint, Mono, Synthwave. The picker previews each in its own colours.
+  - **Themes** are one block of variables each in `app/web/themes.css`. The default follows the system and uses **Adwaita**, light or dark (GNOME's libadwaita look), with seven more available. The picker previews each theme in its own colours.
+  - **Layout is the GNOME pattern:**
+    - a flat header bar showing the title and what the engine is doing, a Pause pill, and a main menu (style switcher, Preferences, Keyboard Shortcuts, About);
+    - a sidebar with rounded rows;
+    - a view switcher for the skill tabs, toggle groups, soft cards, switches;
+    - Preferences as a **fixed-size window** (680×620) with pages: Appearance, Learning, Machine, Recipes, Privacy, Storage.
+    - On a phone, the sidebar becomes a drawer and the tabs move to a bottom view switcher.
+  - A classic three-pane desktop layout (menu bar, list, reading pane) was tried and dropped at your request.
   - Not-yet-working parts carry a "preview" tag.
   - **Obsidian export** (`python -m app.export_obsidian`, or the zip button) writes linked Markdown notes for every connection, record, kind and place.
 

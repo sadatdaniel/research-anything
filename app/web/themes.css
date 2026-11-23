@@ -18,11 +18,44 @@
    --glow                         a CSS filter for confirmed lines and big numbers ("none" for none)
    --grid                         background image for canvases (a grid, scanlines, or none)
    --swatch                       three colours shown in the theme picker
+   Optional, for a desktop look (defaults come from the colours above):
+   --headerbar, --sidebar, --card  header bar, sidebar and card backgrounds
+   --card-border                  card edge (Adwaita uses a soft shadow instead: 0px)
+   --fill, --fill-2               button and entry fill, and its hover
+   --sel-soft                     a selected row in the sidebar or a list
 */
 
 :root {
   --sans: system-ui, -apple-system, "Segoe UI", "Noto Sans", "Liberation Sans", sans-serif;
   --monof: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "DejaVu Sans Mono", Menlo, Consolas, monospace;
+}
+
+/* Adwaita: the GNOME look (libadwaita). Flat header bar, soft cards with a 12px radius, pill buttons,
+   neutral selection, blue accent. Uses the GNOME fonts when they're installed. */
+[data-theme="adwaita"] {
+  --bg: #fafafb; --surface: #f0f0f2; --raised: #ffffff; --ink: #2e2e33; --ink-2: #6e6e75; --ink-3: #a5a5ab;
+  --line: #e1e1e4; --line-2: #ececef; --accent: #3584e4; --accent-2: #e66100; --on-accent: #ffffff;
+  --confirmed: #1c71d8; --prediction-tested: #c88800; --rejected: #a5a5ab; --superseded: #9141ac; --proposed: #26a269; --key: #c01c28;
+  --font-ui: "Adwaita Sans", "Cantarell", "Inter", system-ui, sans-serif; --font-data: "Adwaita Sans", "Cantarell", "Inter", system-ui, sans-serif;
+  --border: 1px; --radius: 12px; --h-weight: 800; --h-case: none; --h-track: -0.01em;
+  --shadow: 0 0 0 1px rgba(0, 0, 6, .03), 0 1px 3px 1px rgba(0, 0, 6, .07), 0 2px 6px 2px rgba(0, 0, 6, .03);
+  --glow: none; --grid: none;
+  --headerbar: #ffffff; --sidebar: #ebebed; --card: #ffffff; --card-border: 0px;
+  --fill: rgba(0, 0, 6, .07); --fill-2: rgba(0, 0, 6, .11); --sel-soft: rgba(0, 0, 6, .08);
+  --swatch: #fafafb, #3584e4, #ebebed; color-scheme: light;
+}
+
+[data-theme="adwaita-dark"] {
+  --bg: #222226; --surface: #2a2a2e; --raised: #36363a; --ink: #ffffff; --ink-2: #a6a6ab; --ink-3: #6c6c72;
+  --line: #3a3a3f; --line-2: #2e2e33; --accent: #3584e4; --accent-2: #ffa348; --on-accent: #ffffff;
+  --confirmed: #78aeed; --prediction-tested: #f8e45c; --rejected: #6c6c72; --superseded: #dc8add; --proposed: #8ff0a4; --key: #f66151;
+  --font-ui: "Adwaita Sans", "Cantarell", "Inter", system-ui, sans-serif; --font-data: "Adwaita Sans", "Cantarell", "Inter", system-ui, sans-serif;
+  --border: 1px; --radius: 12px; --h-weight: 800; --h-case: none; --h-track: -0.01em;
+  --shadow: 0 0 0 1px rgba(0, 0, 0, .25), 0 1px 3px 1px rgba(0, 0, 0, .2);
+  --glow: none; --grid: none;
+  --headerbar: #2e2e32; --sidebar: #2e2e32; --card: #333337; --card-border: 0px;
+  --fill: rgba(255, 255, 255, .1); --fill-2: rgba(255, 255, 255, .15); --sel-soft: rgba(255, 255, 255, .1);
+  --swatch: #222226, #3584e4, #2e2e32; color-scheme: dark;
 }
 
 [data-theme="instrument"] {
