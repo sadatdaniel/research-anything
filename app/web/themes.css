@@ -1,0 +1,101 @@
+/* Sandbox Learner themes.
+
+   A theme is one block of variables. To make a new one: copy a block, give it a new data-theme name,
+   change the values, and add one line to THEMES at the top of index.html's script (its name and a
+   short description). Nothing else in the app has colours, fonts, borders or shadows written into it.
+   The selectors work on any element, so the theme picker previews each theme in its own colours.
+
+   --bg, --surface, --raised      page, panels, controls (darkest to lightest, or the reverse)
+   --ink, --ink-2, --ink-3        text: main, secondary, faint
+   --line, --line-2               borders, faint rules
+   --accent, --accent-2           main highlight; second highlight (warnings, selection)
+   --on-accent                    text on an accent background
+   --confirmed ... --proposed     one colour per theory stage
+   --key                          the answer-key overlay (fake worlds only)
+   --font-ui, --font-data         body text; numbers, labels, years
+   --border, --radius, --shadow   shape of every panel and control
+   --h-weight, --h-case, --h-track  headings: weight, text-transform, letter-spacing
+   --glow                         a CSS filter for confirmed lines and big numbers ("none" for none)
+   --grid                         background image for canvases (a grid, scanlines, or none)
+   --swatch                       three colours shown in the theme picker
+*/
+
+:root {
+  --sans: system-ui, -apple-system, "Segoe UI", "Noto Sans", "Liberation Sans", sans-serif;
+  --monof: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "DejaVu Sans Mono", Menlo, Consolas, monospace;
+}
+
+[data-theme="instrument"] {
+  --bg: #07090c; --surface: #0c1016; --raised: #121822; --ink: #e6edf3; --ink-2: #7d8794; --ink-3: #4b5563;
+  --line: #1c2430; --line-2: #121821; --accent: #3ee6ff; --accent-2: #b6ff3b; --on-accent: #001318;
+  --confirmed: #3ee6ff; --prediction-tested: #b6ff3b; --rejected: #4b5563; --superseded: #a78bfa; --proposed: #f0abfc; --key: #fbbf24;
+  --font-ui: var(--sans); --font-data: var(--monof);
+  --border: 1px; --radius: 2px; --shadow: none; --h-weight: 800; --h-case: none; --h-track: -0.02em;
+  --glow: drop-shadow(0 0 3px rgba(62, 230, 255, .6));
+  --grid: linear-gradient(#121821 1px, transparent 1px), linear-gradient(90deg, #121821 1px, transparent 1px);
+  --swatch: #07090c, #3ee6ff, #b6ff3b; color-scheme: dark;
+}
+
+[data-theme="swiss"] {
+  --bg: #ffffff; --surface: #f5f6f8; --raised: #ffffff; --ink: #0a0a0b; --ink-2: #5a616d; --ink-3: #a3a9b4;
+  --line: #dfe2e7; --line-2: #eef0f3; --accent: #1f4bff; --accent-2: #ff4d00; --on-accent: #ffffff;
+  --confirmed: #1f4bff; --prediction-tested: #ff4d00; --rejected: #a3a9b4; --superseded: #7a5cff; --proposed: #00a37a; --key: #00a37a;
+  --font-ui: var(--sans); --font-data: var(--monof);
+  --border: 1px; --radius: 0; --shadow: none; --h-weight: 800; --h-case: none; --h-track: -0.03em;
+  --glow: none; --grid: none;
+  --swatch: #ffffff, #0a0a0b, #1f4bff; color-scheme: light;
+}
+
+[data-theme="brutalist"] {
+  --bg: #ffffff; --surface: #ffe14d; --raised: #ffffff; --ink: #000000; --ink-2: #2b2b2b; --ink-3: #7a7a7a;
+  --line: #000000; --line-2: #000000; --accent: #3d5afe; --accent-2: #ff5da2; --on-accent: #ffffff;
+  --confirmed: #3d5afe; --prediction-tested: #ff5da2; --rejected: #9e9e9e; --superseded: #00c853; --proposed: #ff9100; --key: #00c853;
+  --font-ui: var(--sans); --font-data: var(--monof);
+  --border: 3px; --radius: 0; --shadow: 5px 5px 0 #000; --h-weight: 900; --h-case: uppercase; --h-track: 0;
+  --glow: none; --grid: none;
+  --swatch: #ffe14d, #3d5afe, #ff5da2; color-scheme: light;
+}
+
+[data-theme="terminal"] {
+  --bg: #000000; --surface: #050a05; --raised: #0a120a; --ink: #39ff6a; --ink-2: #1fa344; --ink-3: #145c27;
+  --line: #124d22; --line-2: #0a240f; --accent: #39ff6a; --accent-2: #ffb000; --on-accent: #000000;
+  --confirmed: #39ff6a; --prediction-tested: #ffb000; --rejected: #145c27; --superseded: #4fd1ff; --proposed: #ff6ad5; --key: #ffb000;
+  --font-ui: var(--monof); --font-data: var(--monof);
+  --border: 1px; --radius: 0; --shadow: none; --h-weight: 700; --h-case: uppercase; --h-track: 0.06em;
+  --glow: drop-shadow(0 0 4px rgba(57, 255, 106, .7));
+  --grid: repeating-linear-gradient(0deg, rgba(57, 255, 106, .05) 0 1px, transparent 1px 3px);
+  --swatch: #000000, #39ff6a, #ffb000; color-scheme: dark;
+}
+
+[data-theme="blueprint"] {
+  --bg: #0b2a5b; --surface: #0e3270; --raised: #123a7f; --ink: #f2f6ff; --ink-2: #a9bde6; --ink-3: #6f8bc4;
+  --line: #3b62a8; --line-2: #1d4588; --accent: #ffffff; --accent-2: #ffd23f; --on-accent: #0b2a5b;
+  --confirmed: #ffffff; --prediction-tested: #ffd23f; --rejected: #6f8bc4; --superseded: #7fe7ff; --proposed: #ff9fb2; --key: #ffd23f;
+  --font-ui: var(--sans); --font-data: var(--monof);
+  --border: 1px; --radius: 0; --shadow: none; --h-weight: 700; --h-case: uppercase; --h-track: 0.08em;
+  --glow: none;
+  --grid: linear-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .07) 1px, transparent 1px);
+  --swatch: #0b2a5b, #ffffff, #ffd23f; color-scheme: dark;
+}
+
+[data-theme="mono"] {
+  --bg: #fafafa; --surface: #f0f0f0; --raised: #ffffff; --ink: #111111; --ink-2: #666666; --ink-3: #aaaaaa;
+  --line: #d9d9d9; --line-2: #ececec; --accent: #111111; --accent-2: #888888; --on-accent: #ffffff;
+  --confirmed: #111111; --prediction-tested: #777777; --rejected: #bbbbbb; --superseded: #555555; --proposed: #999999; --key: #555555;
+  --font-ui: var(--sans); --font-data: var(--monof);
+  --border: 1px; --radius: 6px; --shadow: none; --h-weight: 600; --h-case: none; --h-track: -0.01em;
+  --glow: none; --grid: none;
+  --swatch: #fafafa, #111111, #888888; color-scheme: light;
+}
+
+[data-theme="synthwave"] {
+  --bg: #140a24; --surface: #1d0f33; --raised: #26143f; --ink: #f8e9ff; --ink-2: #b694d6; --ink-3: #6e4f91;
+  --line: #3a2160; --line-2: #24133d; --accent: #ff3ea5; --accent-2: #2de2e6; --on-accent: #140a24;
+  --confirmed: #ff3ea5; --prediction-tested: #2de2e6; --rejected: #6e4f91; --superseded: #ffd319; --proposed: #9d7bff; --key: #ffd319;
+  --font-ui: var(--sans); --font-data: var(--monof);
+  --border: 1px; --radius: 4px; --shadow: 0 0 0 1px #3a2160, 0 8px 24px rgba(255, 62, 165, .12);
+  --h-weight: 800; --h-case: none; --h-track: -0.01em;
+  --glow: drop-shadow(0 0 4px rgba(255, 62, 165, .7));
+  --grid: linear-gradient(rgba(255, 62, 165, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(45, 226, 230, .06) 1px, transparent 1px);
+  --swatch: #140a24, #ff3ea5, #2de2e6; color-scheme: dark;
+}

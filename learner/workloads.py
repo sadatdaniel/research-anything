@@ -66,3 +66,43 @@ class FocusedWorkload:
         for note in result:
             notebook.save_note(conn, note, texts[note.record_id], self.loops)
         return 0.0  # reading alone adds no sleep pressure; confirmed findings from dreams do (Phase 3)
+
+
+class LearnerWorkload:
+    """The whole learner for the cycle engine: day reading (FocusedWorkload) and dreaming (DreamWorkload)
+    share one copy of the model, loaded once per worker process."""
+
+    def __init__(self, loops: int = 4, dream_loops: int = 4, max_batch: int = 4, model_dir: str | None = None) -> None:
+        from learner.dream import DreamWorkload
+
+        self.day = FocusedWorkload(loops=loops, max_batch=max_batch, model_dir=model_dir)
+        self.dream = DreamWorkload(loops=dream_loops, model_dir=model_dir)
+
+    def _for(self, state: State):
+        return self.day if state is State.DAY else self.dream if state is State.DREAM else None
+
+    def has_work(self, store: "Store", state: State) -> bool:
+        part = self._for(state)
+        return bool(part and part.has_work(store, state))
+
+    def plan(self, store: "Store", state: State) -> list[tuple[str, dict]]:
+        part = self._for(state)
+        return part.plan(store, state) if part else []
+
+    def load(self, state: State) -> None:
+        lm = self.day.lm or self.dream.lm
+        if lm is None:
+            from learner.model import DEFAULT_MODEL_DIR, load_ouro
+
+            lm = load_ouro(self.day.model_dir or DEFAULT_MODEL_DIR, loops=self.day.loops)
+        self.day.lm = self.dream.lm = lm
+        lm.set_loops(self.day.loops if state is State.DAY else self.dream.loops)
+
+    def unload(self) -> None:
+        self.day.lm = self.dream.lm = None
+
+    def run(self, item: "WorkItem", ctx: WorkContext) -> Any:
+        return self._for(item.state).run(item, ctx)
+
+    def save(self, item: "WorkItem", result: Any, conn: sqlite3.Connection) -> float:
+        return self._for(item.state).save(item, result, conn)

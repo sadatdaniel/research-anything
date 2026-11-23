@@ -104,6 +104,23 @@ class LoadedModel:
                                   do_sample=do_sample, pad_token_id=tok.pad_token_id, **kwargs)
         return tok.batch_decode(out[:, enc["input_ids"].shape[1]:], skip_special_tokens=True)
 
+    @torch.inference_mode()
+    def p_yes(self, prompts: list[str], batch: int = 8) -> list[float]:
+        """For prompts ending in 'Answer:' (or similar), the model's probability that the next word is
+        'yes' rather than 'no'. One forward pass, no generation and no key/value cache."""
+        tok = self.tokenizer
+        yes = {tok.encode(w, add_special_tokens=False)[0] for w in (" yes", " Yes")}
+        no = {tok.encode(w, add_special_tokens=False)[0] for w in (" no", " No")}
+        out: list[float] = []
+        for i in range(0, len(prompts), batch):
+            enc = tok(prompts[i:i + batch], return_tensors="pt", padding=True).to(self.model.device)
+            logits = self.model(**enc, use_cache=False).logits[:, -1, :].float()
+            probs = torch.softmax(logits, dim=-1)
+            py = probs[:, list(yes)].sum(-1)
+            pn = probs[:, list(no)].sum(-1)
+            out += (py / (py + pn).clamp_min(1e-9)).tolist()
+        return out
+
 
 def load_ouro(model_dir: str | Path = DEFAULT_MODEL_DIR, loops: int = 4,
               device: str = "cuda", dtype: torch.dtype = torch.bfloat16) -> LoadedModel:

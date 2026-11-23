@@ -22,7 +22,8 @@ from engine.worker import WorkerHandle
 WORKLOADS = {
     "dummy": "engine.workload:DummyWorkload",
     "torch-hold": "engine.workload:TorchHoldWorkload",
-    "focused": "learner.workloads:FocusedWorkload",  # day mode: Ouro reads records and takes notes
+    "focused": "learner.workloads:FocusedWorkload",  # day mode only: Ouro reads records and takes notes
+    "learner": "learner.workloads:LearnerWorkload",  # day reading + dreaming (finding and testing connections)
 }
 
 

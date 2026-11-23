@@ -1,0 +1,223 @@
+{
+  "world": "val-000",
+  "loops": 4,
+  "same_kind": {
+    "pairs": 1035,
+    "seconds": 102.7,
+    "at_0.5": {
+      "threshold": 0.5,
+      "yes_when_true": 0.787,
+      "yes_when_false": 0.051,
+      "pos": 47,
+      "neg": 988
+    },
+    "at_0.8": {
+      "threshold": 0.8,
+      "yes_when_true": 0.064,
+      "yes_when_false": 0.003,
+      "pos": 47,
+      "neg": 988
+    },
+    "at_0.9": {
+      "threshold": 0.9,
+      "yes_when_true": 0.021,
+      "yes_when_false": 0.001,
+      "pos": 47,
+      "neg": 988
+    },
+    "mistakes_at_0.8": [
+      [
+        0.905,
+        "dikes broken",
+        "flood"
+      ],
+      [
+        0.867,
+        "locusts",
+        "plague"
+      ],
+      [
+        0.852,
+        "eclipse",
+        "lunar eclipse"
+      ],
+      [
+        0.798,
+        "rebellion",
+        "rising"
+      ],
+      [
+        0.777,
+        "rebellion",
+        "riot"
+      ],
+      [
+        0.755,
+        "envoys",
+        "envoys came"
+      ],
+      [
+        0.755,
+        "envoys",
+        "envoys sent"
+      ],
+      [
+        0.731,
+        "drought",
+        "wells ran dry"
+      ],
+      [
+        0.731,
+        "riot",
+        "rising"
+      ],
+      [
+        0.731,
+        "drought",
+        "wells dried"
+      ],
+      [
+        0.731,
+        "revolt",
+        "riot"
+      ],
+      [
+        0.679,
+        "bridge built",
+        "bridge finished"
+      ],
+      [
+        0.679,
+        "meteor shower",
+        "stars fell"
+      ],
+      [
+        0.623,
+        "building of church",
+        "guildhall built"
+      ],
+      [
+        0.623,
+        "building of church",
+        "watchtower built"
+      ],
+      [
+        0.623,
+        "envoys came",
+        "envoys sent"
+      ],
+      [
+        0.622,
+        "no harvest",
+        "salt spoiled the fields"
+      ],
+      [
+        0.593,
+        "building",
+        "watchtower built"
+      ],
+      [
+        0.593,
+        "bridge finished",
+        "guildhall built"
+      ],
+      [
+        0.593,
+        "bridge finished",
+        "watchtower built"
+      ],
+      [
+        0.593,
+        "blood moon",
+        "lunar eclipse"
+      ],
+      [
+        0.562,
+        "building",
+        "building of church"
+      ],
+      [
+        0.562,
+        "bridge built",
+        "building"
+      ],
+      [
+        0.562,
+        "bridge finished",
+        "granary built"
+      ],
+      [
+        0.531,
+        "building",
+        "guildhall built"
+      ],
+      [
+        0.531,
+        "building",
+        "granary built"
+      ],
+      [
+        0.531,
+        "building of church",
+        "granary built"
+      ],
+      [
+        0.531,
+        "guildhall built",
+        "watchtower built"
+      ],
+      [
+        0.531,
+        "bridge built",
+        "granary built"
+      ],
+      [
+        0.531,
+        "bridge built",
+        "guildhall built"
+      ]
+    ]
+  },
+  "about": {
+    "questions": 244,
+    "seconds": 65.3,
+    "at_0.5": {
+      "threshold": 0.5,
+      "yes_when_true": 1.0,
+      "yes_when_false": 0.016,
+      "pos": 116,
+      "neg": 128
+    },
+    "at_0.8": {
+      "threshold": 0.8,
+      "yes_when_true": 0.784,
+      "yes_when_false": 0.008,
+      "pos": 116,
+      "neg": 128
+    },
+    "figure_of_speech_traps": [
+      0.321,
+      0.06,
+      0.852,
+      0.321,
+      0.223,
+      0.076,
+      0.096,
+      0.095
+    ],
+    "wrong_at_0.5": [
+      [
+        0.623,
+        "salt spoiled the fields",
+        false,
+        "Year 1487. Syis (called Tiasbravun by others) emptied. Some say this happened a year later"
+      ],
+      [
+        0.852,
+        "flood",
+        false,
+        "In the year of grace 858, the sea rose up in anger against Nostia and the boats were split"
+      ]
+    ]
+  }
+}

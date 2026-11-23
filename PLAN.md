@@ -141,6 +141,25 @@ Keyboard and mouse idle detection is optional. It may not be available on Waylan
 
 *Optional experiment (H5):* for the same compute, does sleeping when pressure is high beat sleeping on a fixed timer?
 
+## Evaluation tracks (the real content will mostly be ordinary books)
+
+1. **Fake chronicles** (now): exact answer keys, for building and debugging.
+2. **Public pattern benchmarks:** checks against tests we didn't write. Candidates (license checked before use):
+   - HypoBench's synthetic hypothesis tasks;
+   - temporal-relation sets that use Allen's interval relations;
+   - contradiction sets from natural-language inference.
+3. **Ordinary books, the real target:** public-domain books from Project Gutenberg, mostly undated prose.
+   - **Planted:** insert known changes into a real book and keep the answer key. Examples:
+     - a contradiction;
+     - a character in two far-apart places at once;
+     - a misattributed quote;
+     - an unreliable chapter;
+     - a theme that recurs every N chapters.
+   - **Unplanted:**
+     - compare two authors, or two translations of the same book;
+     - ask questions the book does and doesn't answer, to test "I don't know".
+   - Undated prose has no year on every line, so the checks use the book's own order (chapters, pages) as its timeline, and say so.
+
 ## Baselines
 - **B0, just ask:** Ouro reads the world once and is asked directly. No notebook, no search.
 - **B1, search without testing:** diffuse mode keeps every proposed pattern. This shows what verification adds.
@@ -214,6 +233,13 @@ All results are on test worlds the system never trained on. "Hours" always means
 - LoRA consolidation, a spaced-repetition review scheduler (using perplexity as the "recall" signal, as in SRT), and the optional STARS regularizer.
 - The memory audit after every deep sleep, graded against the source files.
 - Test **H2** (time to 50% recall on new worlds, before and after sleep) and **H4** (questions answered without the notebook; general benchmark before and after).
+- **Compare sleep strategies from the papers** on the same worlds and the same scorer (see [RELATED_WORK.md](RELATED_WORK.md)):
+  - our sleep (LoRA on checked findings and search outcomes);
+  - B4, written notes in the prompt instead of training (in the style of HypoForge, ReasoningBank and Auto-Dreamer);
+  - SEAL-style self-edits (the model writes its own training data);
+  - Google-style sleep (consolidation, then "dreamed" practice data).
+
+  Report which gives the most accuracy, and after how many dreams. Check each paper's code license before reusing any of it.
 
 **Phase 5: depth versus breadth (H3)**
 - Sweep 2, 4, 6 and 8 loops, with and without STARS fine-tuning.
@@ -221,10 +247,48 @@ All results are on test worlds the system never trained on. "Hours" always means
 
 **Phase 6 (stretch)**
 - The disguised real comet test.
-- The "ask" interface, which answers with evidence.
+- The "ask" interface, which answers with evidence: a chat window where you load one or several skills ("1, 2, 3") and ask about what they learned.
+  - **If it knows, it says so, with citations; otherwise it says "I don't know."** Answers come only from confirmed connections, notes and the original passages. When nothing supports an answer well enough, it declines instead of guessing.
+  - **Tested with answerable and unanswerable questions:** each fake world gets questions its material answers and questions it doesn't (about years, places or events that aren't there). We score correct answers, correct "I don't know"s, and bluffs separately. The goal is zero bluffs on unanswerable questions, at a recall we report honestly.
+
+**Phase 6b: deeper connections (planted in the fake worlds first, then scored)**
+- **Answers only from loaded skills:**
+  - Retrieve only from the loaded skills; cite every sentence; check each sentence against its cited passage; cut what isn't supported; "I don't know" if nothing survives.
+  - Bluff test: names in fake worlds are invented, so any answer about them that isn't in the loaded skills is a bluff by definition. With no skills loaded, every answer must be "I don't know."
+- **Rule flips:** the same subject, with an opposite stance at different points on the timeline ("allowed here, forbidden here, allowed again").
+- **Impossible by the timeline:** one person in two far-apart places in the same year; something described before it existed.
+- **Unreliable source:**
+  - The generator plants a chronicler who misdates or invents events.
+  - The learner re-runs its checks leaving out one source at a time; a source whose removal makes contradictions vanish is flagged, with the evidence ("without this writer, the records agree").
+- **Open questions and new material:**
+  - The learner lists what it can't answer and why: a missing return, a cause with no effect yet, a person whose fate is unknown.
+  - When files are added, it re-checks and reports which gaps closed, which predictions came true, and what now contradicts what (the held-back prediction test, applied to new material you add).
+- **Fun mode, "write like this author":** an adapter trained on one author's works. Output is labelled as imitation, with care for living authors' rights. A 1.4B model gives modest imitations.
+- **Real texts with disputed dates or authorship** (religious texts, for example): the timeline comes from the texts' own markers or a chronology the user picks, and the app says which. Findings are shown as consistency evidence, not verdicts.
+
+**Phase 6c: unexpected patterns (a pattern grammar, not a fixed list)**
+- The four planted types (periodic, cause_effect, chain, identity) are only the measurable start. The 2026-11-23 search found no settled taxonomy of pattern types, so the search has to be generic. The vocabulary to build it from:
+  - sequential and periodic patterns: n-grams, recurring and approximate patterns (temporal data mining);
+  - Allen's 13 interval relations (before, meets, overlaps, during, ...), for reigns, lifetimes and itineraries;
+  - text relations: entailment, paraphrase, contradiction, independence.
+- **Grammar:** a pattern is a relation between sets of events.
+  - A set is any combination of attributes: kind, place, person, a detail word, source, a span of years.
+  - Relations:
+    - recurs, follows within a lag, happens together;
+    - an interval relation;
+    - a trend or change point ("after this year, X stops"; "without this source, things look better");
+    - contradicts or flips;
+    - holds only in one source;
+    - two names are one thing;
+    - an outlier that breaks a strong pattern;
+    - an expected event that is missing.
+- **Testing:** the search walks this space, and shuffle tests decide what is real (shuffle years, labels or sources), with a correction for testing many ideas at once. Findings are ranked by how surprising they are under the shuffles.
+- **Model-proposed ideas:** in dreams, the model reads distant notes and writes a hypothesis in plain words. It's translated into the grammar and tested like anything else; untranslatable ones are kept as labelled guesses, never as findings.
+- **The test of "unexpected":** a "mystery" pattern type is planted in some test worlds, and no detector is written for it. Finding it is the evidence, in the same spirit as the identity type being held out of the training worlds.
 
 **Phase 7: public release** (once H1 holds; H2 isn't required)
 - Finish the app: chat, morning report, and the first-run setup screen.
+- **Skills** (see "Skills: learn a theme, keep it, share it" below): add a theme folder, Learn, the Skills learned list, select or delete, export and import, versions, and the "this needs about N nights" estimate.
 - Build the Linux AppImage and the Windows zip (same folder layout, same code).
 - Write docs.
 - Test it on a fresh machine (see "Making it shareable").
@@ -335,6 +399,72 @@ sandbox-learner ui                       # optional local web page for asking qu
 - **Speed:** on a 6 GB GPU, an overnight run covers roughly a book or two, not a whole library. Phase 0 measures the real number.
 - **Best content type:** it works best on dated material (chronicles, news archives, diaries, lab notes, incident logs), because the prediction test needs time order. On undated material, links get weaker checks, and the output says so.
 - **Real content is messy:** turning real documents into clean records is the hardest part beyond the fake worlds. Phase 7 tests ingestion on public-domain chronicles, such as the Anglo-Saxon Chronicle.
+
+## Skills: learn a theme, keep it, share it
+
+_Added 2026-11-23 at your request. This is the modular form of "a trained learner is portable"._
+
+**In one line: a local NotebookLM where the notebook turns into trained behavior you can load, combine and share.** It runs on your own machine and learns by itself (no labels: its own checks against held-back material are its teacher). You chat with the skills you load, and it says "I don't know" when it doesn't.
+
+**A skill is what the learner learned from one theme**, meaning one folder of related material: a set of papers on one topic, one chronicle, one archive.
+- **In the app:**
+  - "Add theme" picks a folder and "Learn" starts it.
+  - Each theme gets its own brain: notes, theories with their evidence and stages, learning history, and, after Phase 4, its own LoRA adapter.
+  - A **Skills learned** section lists them. Select one or several to ask questions with, or delete any. Several adapters can be loaded at once (`peft` supports this), and questions run over the selected skills' notebooks.
+- **Export and import:**
+  - A skill exports to one `.skill` file, a zip containing:
+    - `manifest.json`: name, theme description, version, base model and its hash, the source files' names and hashes, hours of day reading and dreaming, nights slept, check scores (memory audit, how many theories were confirmed or rejected), and license;
+    - the theories with their evidence quotes;
+    - optionally the notes;
+    - the adapter as safetensors.
+  - Importing checks that the base model matches, plus the file hashes and the format version.
+  - Only data formats are used (JSON, SQLite, safetensors), never pickle or code, so a skill someone shares online can be downloaded and imported without running anything from it.
+  - The source material itself is optional in the file. Without it, quotes are shown as quotes, and the recipient can re-check them once they have the files.
+- **Learned behavior you can add and remove:**
+  - The base model is never changed. A skill's behavior is its own adapter file plus its notebook.
+  - Adding a skill loads its adapter next to the others; deleting it unloads it and removes its files. Nothing has to be un-trained.
+  - To measure: how many adapters can be combined before they interfere.
+- **Only completed chunks:**
+  - Exports contain only finished units: confirmed theories, and completed sleep checkpoints, each with its version.
+  - Work in progress (queued items, theories still being tested) never leaves the machine. This uses the engine's exactly-once work items and the theory stages.
+- **The material travels with the skill, for transparency:**
+  - Source files are included by default (with hashes), so anyone can open the exact passage behind each connection.
+  - For material that can't be shared (copyrighted or private), the files can be left out; quotes and hashes stay, and the manifest says so.
+- **Command line, on Linux and Windows alike** (plain Python and `pathlib`; the folder lock already handles both):
+  ```
+  sandbox-learner skill add ./papers-on-sleep --name "sleep research"
+  sandbox-learner learn [--skill "sleep research"]   # resource-aware engine; stop and resume any time
+  sandbox-learner skill list                         # versions, hours learned, confirmed / rejected, estimate
+  sandbox-learner skill use "sleep research,comets"  # which skills answer questions
+  sandbox-learner skill export "sleep research" [--without-material] -o sleep-research-v3.skill
+  sandbox-learner skill import ./downloads/comets-v2.skill
+  sandbox-learner skill remove comets
+  sandbox-learner ask "..."
+  ```
+  The GUI's Skills section is a thin layer over the same commands' API.
+- **Versioned:** every re-training gives a new version (number plus content hash), and the manifest says what changed (new files read, theories added, confirmed or rejected). Two versions can be compared.
+- **"This needs about N nights":**
+  - The Phase 3 and 4 curves show when a body of material stops yielding new connections.
+  - From those, the learner estimates for a new folder, before and while learning, how long it should learn. The estimate is based on its size, how densely dated it is, and how many comparisons it allows.
+  - It reports when more dreaming stopped paying off: "best result after 3 nights; nothing new since".
+- **Explore what it found** (you often don't know what to ask):
+  - **A graph view** in the spirit of Obsidian's graph and backlinks, Heptabase and Logseq. Nodes are sources, people, places and themes; edges are checked connections, each carrying its quotes. Every source shows its backlinks (everything that connects to it).
+  - **Theme clusters**, and **"start here" questions** the learner proposes from its strongest findings.
+  - **Compare skills:** load one poet, then another, and see the themes they share, the themes only one has, and how each treats a shared theme, quote by quote.
+  - The shuffle test carries over: shuffle which work belongs to which author, and a difference that survives the shuffle is real, not chance.
+- **A findings folder you can open in Obsidian:** plain Markdown with `[[wikilinks]]`: one note per connection, per source record, and per place, person and kind of event. Stage, type and scores go in front matter, and evidence quotes link to their source note. Obsidian's graph view and backlinks then work on it as they are, and it reads fine without Obsidian. It's included in every skill export.
+- **Recipes: choose how to learn before teaching, and compare later.**
+  - A recipe is a named, versioned settings file covering:
+    - which pattern finders, checks and question prompts are used;
+    - loops and thresholds;
+    - the merge rule;
+    - later, the sleep strategy (ours, or the paper-inspired ones in Phase 4).
+  - Every skill records the recipe it was learned with, and experiments compare recipes on the same material with the same scorer.
+  - New approaches are added as new recipe options, behind the same small interfaces the code already has: a pattern finder returns candidates, a check returns pass/fail with a reason, and a workload has plan/run/save.
+- **Honest limit on real themes:**
+  - The checks lean on dates: prediction, shuffle, and the order of events.
+  - A folder of papers on one topic is mostly undated, and its connections are between ideas, not events.
+  - Those links need a different check (for example, "does paper B really cite or restate A's claim?"), plus the same verbatim quote check. Until that exists, connections in undated material are labeled as weaker.
 
 ## Project layout
 
