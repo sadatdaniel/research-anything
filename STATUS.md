@@ -2,7 +2,7 @@
 
 > **Read this first when picking the work back up.** It's updated at every milestone. The full design and success criteria live in [PLAN.md](PLAN.md); this file says what's done, what's in progress, what was decided, and what comes next.
 
-_Last updated: 2026-11-23_
+_Last updated: 2026-11-23 (after the related-work check)_
 
 ## In one paragraph
 A small looped language model ([Ouro-1.4B](https://huggingface.co/ByteDance/Ouro-1.4B)) that lives in a local sandbox and keeps learning from a folder of documents:
@@ -21,7 +21,7 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
 | 1b | Resource-aware cycle engine | ✅ GPU handed back in 0.9 s | [results/phase0/README.md](results/phase0/README.md#cycle-engine-phase-1b-real-gpu-check) |
 | 2 | Notebook and focused reading (day mode) | ✅ GO: untouched test world: events 95%, places 98% correct, kept links 100% true; engine end-to-end passes | [results/phase2/README.md](results/phase2/README.md) |
 | 3 | Dream mode and verification; first app window | ⏳ next (outline below) | n/a |
-| 4 | Sleep (LoRA consolidation, review, memory audit); H2 and H4 | not started | n/a |
+| 4 | Sleep (LoRA consolidation, review, memory audit); H2 and H4, with baseline B4 and the H2 ablations | not started | n/a |
 | 5 | Depth vs breadth (loops vs hours); H3 | not started | n/a |
 | 6 | Disguised real comet test; ask interface | not started | n/a |
 | 7 | Public release: AppImage and Windows zip | not started | n/a |
@@ -52,6 +52,10 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
 - **Only *stated* links are facts** (`links.stated = 1`, from `learner/sourcecheck.py`). Inferred links are hypotheses for dream mode to test.
 - **Development hygiene:** prompt and heuristic work uses `val` worlds; reported numbers come from test worlds never tuned on (`test-001` is spent, `test-002` was used for the Phase 2 final).
 - **Looped models have a 4× key/value cache:** Ouro stores one entry per layer *per loop*, about 0.8 MB per token per prompt at 4 loops. A 700-token few-shot prompt therefore allows a batch of only about 2–3. `LoadedModel.safe_batch()` sizes batches from free memory, and `read_batch` splits a batch in half when it runs out of memory. Retry **outside** the `except` block, because the traceback keeps the failed attempt's tensors alive.
+- **What's new and what isn't** (see [RELATED_WORK.md](RELATED_WORK.md), checked 2026-11-23):
+  - LLM "sleep" with consolidation and dreaming is published (Google 2026, Auto-Dreamer, Lee et al.), and so is "learning how to learn" from self-written training data (SEAL). We cite these; we don't claim them.
+  - H2 is still open only in its narrow form: sleeping on *checked* findings and *search outcomes* makes a small model faster at discovering unstated patterns in new material.
+  - To claim it, Phase 4 must beat **B4** (the same lessons given as written notes in the prompt, no weight update) and must show that sleeping on search outcomes beats sleeping on facts only.
 - **Periodic prediction tolerance** is `max(2 × jitter, 5% of the period)`. Each occurrence is shifted by up to ±jitter, so a correct "last + period" can be off by twice the jitter. Found by blind reader A.
 
 ## Next: Phase 3 (dream mode and verification)
@@ -114,3 +118,4 @@ uv run python experiments/phase0_feasibility.py                     # model spee
   - First commit `c1b4262` (as sadatdaniel, no co-author).
   - Full note-taking run on `test-001`; links source-checked; night policy fixed (read first, rest when there's nothing to dream about); prompt sharpened.
   - End-to-end engine run passes (GPU freed in 1.1 s, 41/41 notes, rests when done). Phase 2 GO on untouched `test-002`.
+  - Related-work check ([RELATED_WORK.md](RELATED_WORK.md)): the sleep framing is published; the narrow H2 test isn't, as far as the check went. Added baseline B4 (written notes instead of sleep) and the H2 ablations to PLAN.md.

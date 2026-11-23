@@ -109,7 +109,7 @@ From moment to moment, the engine decides what the learner does based on what th
 - **Naps.** If the machine sits idle on AC power during the day, it can run a short cycle. When the system can handle it, it learns longer.
 - **Morning report.** It ends the night by writing a short summary of what it found, with evidence, so it's ready when you look.
 
-This split matches the 2026 sleep research: Google's framework has consolidation and dreaming stages, and SCM's "REM dreaming" step generates new connections. It also matches [Omi](https://omi.ekayan.tech/)'s "it thinks while the phone rests" approach.
+This split matches the 2026 sleep research: Google's framework has consolidation and dreaming stages, and SCM's "REM dreaming" step generates new connections. It also matches [Omi](https://omi.ekayan.tech/)'s "it thinks while the phone rests" approach. The sleep framing isn't ours: see [RELATED_WORK.md](RELATED_WORK.md) for what is and isn't already published.
 
 Two drives decide when to switch. They're borrowed from Borbély's two-process model of human sleep:
 - **Sleep pressure** rises with every confirmed finding that hasn't been consolidated yet, and falls during sleep. When pressure is high, the learner goes to sleep as soon as the machine can afford training.
@@ -146,6 +146,10 @@ Keyboard and mouse idle detection is optional. It may not be available on Waylan
 - **B1, search without testing:** diffuse mode keeps every proposed pattern. This shows what verification adds.
 - **B2, a dumb script:** keyword clustering plus a period finder, no ML. If it solves the worlds, the test is too easy and must be made harder.
 - *(Optional)* **B3, non-looped model:** the same pipeline with a normal small model (Qwen3-1.7B). This shows what looping adds.
+- **B4, written notes instead of sleep** (added after the [related-work check](RELATED_WORK.md)). Before a new world, the learner gets a written list in its prompt of the kinds of comparisons that paid off on the training worlds, with no weight update. This is how HypoForge, ReasoningBank and Auto-Dreamer carry skill forward. If B4 does as well as sleep, the speed-up doesn't need the weights.
+- **H2 ablations:**
+  - sleep on facts only vs facts plus search outcomes (which comparisons paid off);
+  - sleep on unchecked findings (B1's output) vs checked ones.
 
 ## What counts as success
 
@@ -161,7 +165,8 @@ All results are on test worlds the system never trained on. "Hours" always means
   - after sleeping on training worlds, it reaches 50% recall on a *new* world in **half the time or less** compared with the version that hasn't slept;
   - precision doesn't drop;
   - general-ability benchmarks drop by at most 2 points;
-  - the speed-up also appears, at least partly, on the transfer set with an unseen pattern type.
+  - the speed-up also appears, at least partly, on the transfer set with an unseen pattern type;
+  - **to call it new:** the slept version beats B4 (written notes instead of sleep), and sleeping on search outcomes beats sleeping on facts only. Otherwise the result repeats published work ([RELATED_WORK.md](RELATED_WORK.md)).
 - **Bonus:** it rediscovers the roughly 76-year period in real comet records with names removed and years shifted by a secret offset.
 
 **Failure signals (each one is a useful result too):**
