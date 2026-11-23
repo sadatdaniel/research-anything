@@ -31,6 +31,7 @@ from typing import TYPE_CHECKING, Any
 from engine.policy import State
 from engine.workload import WorkContext
 from learner import knowledge as kn
+from learner import recipe as R
 from learner import theories as th
 from learner.knowledge import Knowledge
 from learner.patterns import Candidate, propose
@@ -85,10 +86,6 @@ Record: {text}
 Question: Is this record about {kind}?
 Answer:"""
 
-SUPPORTED = kn.SUPPORTED  # a source-check answer at or above this keeps the record
-SCREEN_AT = 0.3           # "same kind?" at or above this: re-read the smaller kind's records to decide
-QUESTIONS_PER_ITEM = 16
-SCREEN_PER_ITEM = 32
 
 
 def kind_phrase(kind: str) -> str:
@@ -129,7 +126,7 @@ def sync(conn: sqlite3.Connection, k: Knowledge, cands: list[Candidate]) -> dict
         need = source_questions(k, current[t["key"]])
         if any(q not in answered for q in need):
             continue
-        if all(answered[q] >= SUPPORTED for q in need):
+        if all(answered[q] >= R.p("supported") for q in need):
             evidence = [evidence_for(k, rid) for rid in t["record_ids"]]
             ok, bad = quotes_check(k, evidence)
             if not ok:
@@ -222,16 +219,17 @@ def screen_pairs(k: Knowledge, screened: set[tuple[str, str]]) -> list[tuple[str
 
 
 def merge_questions(k: Knowledge, screened: dict[tuple[str, str], float], asked: set[tuple[str, str]],
-                    sample: int = 3) -> list[tuple[str, str]]:
+                    sample: int | None = None) -> list[tuple[str, str]]:
     """For pairs of kinds that passed the screen, re-read a few records of each kind and ask about the
     other ("Is this 'wells ran dry' record about a drought?" and "Is this 'drought' record about wells
     running dry?"). A majority vote of the sample decides a merge (Knowledge._vote_merges), so a few
     records per side are enough. The per-record question is far more reliable than the label question,
     which only decides what is worth re-reading."""
+    sample = sample or R.p("merge_sample")
     sizes = k.kinds()
     out = []
     for (a, b), p in sorted(screened.items(), key=lambda x: -x[1]):
-        if p < SCREEN_AT:
+        if p < R.p("screen_at"):
             break
         a, b = k.kind_for(a), k.kind_for(b)
         if a == b or a not in sizes or b not in sizes:
@@ -250,6 +248,7 @@ def merge_questions(k: Knowledge, screened: dict[tuple[str, str], float], asked:
 
 def agenda(conn: sqlite3.Connection, max_items: int = 3) -> list[tuple[str, dict]]:
     """Sync the theories, then choose the next jobs. Called by the worker whenever the queue is empty."""
+    R.for_brain(conn)  # this brain's own recipe, stored the first time it dreams
     k = Knowledge(conn)
     th.ensure_schema(conn)  # before BEGIN: creating tables would commit the transaction
     cands = propose(k)
@@ -272,7 +271,7 @@ def agenda(conn: sqlite3.Connection, max_items: int = 3) -> list[tuple[str, dict
     # own kind, so that one needs asking too.
     for rid, kind, p, purpose in k.about_answers_full():
         e = k.by_id.get(rid)
-        if purpose == "repair" and e and p >= kn.REPAIR_AT and k.kind_for(kind) != e.kind \
+        if purpose == "repair" and e and p >= R.p("repair_at") and k.kind_for(kind) != e.kind \
                 and not e.kind.endswith("(doubted)"):
             if (rid, e.kind) not in asked:
                 questions.append(("own", rid, e.kind))
@@ -292,15 +291,15 @@ def agenda(conn: sqlite3.Connection, max_items: int = 3) -> list[tuple[str, dict
     for q in merge_questions(k, screened, asked):
         add_move("merge", q)
     items: list[tuple[str, dict]] = []
-    for i in range(0, len(questions), QUESTIONS_PER_ITEM):
-        chunk = questions[i:i + QUESTIONS_PER_ITEM]
+    for i in range(0, len(questions), R.p("questions_per_item")):
+        chunk = questions[i:i + R.p("questions_per_item")]
         items.append(("reread", {"questions": [{"purpose": p, "record_id": rid, "kind": kind,
                                                 "text": k.by_id[rid].text} for p, rid, kind in chunk]}))
         if len(items) >= max_items:
             return items
     pairs = screen_pairs(k, set(screened))
-    for i in range(0, len(pairs), SCREEN_PER_ITEM):
-        items.append(("screen", {"pairs": [list(p) for p in pairs[i:i + SCREEN_PER_ITEM]]}))
+    for i in range(0, len(pairs), R.p("screen_per_item")):
+        items.append(("screen", {"pairs": [list(p) for p in pairs[i:i + R.p("screen_per_item")]]}))
         if len(items) >= max_items:
             break
     return items

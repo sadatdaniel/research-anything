@@ -73,6 +73,35 @@ main { padding: 0 var(--pad) 100px; max-width: 1260px; }
 .picklist label { display: flex; gap: 10px; align-items: center; padding: 6px 0; font-weight: 400; }
 .actions .btn { min-height: 32px; padding: 0 10px; font-size: 13px; box-shadow: none; }
 
+/* library, richer */
+.libhead { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.scard { min-height: 0; gap: 12px; }
+.tstrip { display: flex; align-items: flex-end; gap: 1px; height: 34px; margin: 2px 0 0; }
+.tstrip i { flex: 1; background: var(--ink-3); min-height: 1px; border-radius: 1px 1px 0 0; }
+.strip-axis { display: flex; justify-content: space-between; font: 10.5px var(--font-data); color: var(--ink-2); margin-top: 3px; }
+.knows { display: flex; align-items: center; gap: 14px; }
+.spark { width: 96px; height: 30px; flex: none; }
+.spark path { fill: none; stroke: var(--confirmed); stroke-width: 2; filter: var(--glow); }
+.tops p { margin: 4px 0; display: grid; grid-template-columns: 30px 1fr; gap: 8px; font-size: 13.5px; line-height: 1.35; }
+.tops b { font: 700 13px var(--font-data); color: var(--confirmed); }
+.tops span { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.tchip { font: 11px var(--font-data); padding: 2px 7px; border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink-2); }
+.tchip.shared { border-color: var(--accent); color: var(--ink); }
+.verdict { font: 12px var(--font-data); padding: 6px 8px; border-left: 3px solid var(--accent-2); background: var(--raised); }
+.verdict.done { border-left-color: var(--confirmed); }
+#libmap { display: block; width: 100%; height: min(64vh, 560px); }
+#libmap .edge { stroke: var(--line); stroke-width: 1.2; } #libmap .edge.shared { stroke: var(--accent); stroke-width: 1.6; }
+#libmap .skillnode { fill: var(--raised); stroke: var(--ink); stroke-width: 2; cursor: pointer; }
+#libmap .skillnode.picked { stroke: var(--accent); stroke-width: 4; filter: var(--glow); }
+#libmap .themenode { fill: var(--ink-3); } #libmap .themenode.shared { fill: var(--accent); filter: var(--glow); }
+#libmap text { font: 11px var(--font-data); fill: var(--ink-2); } #libmap text.sk { font: 700 13px var(--font-ui); fill: var(--ink); }
+.maplegend { padding: 10px 14px; font-size: 12.5px; border-top: var(--border) solid var(--line); }
+table.lib { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.lib th { text-align: left; font: 600 11px var(--font-data); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); padding: 10px 12px; border-bottom: var(--border) solid var(--line); cursor: pointer; white-space: nowrap; }
+table.lib td { padding: 10px 12px; border-bottom: 1px solid var(--line-2); font-variant-numeric: tabular-nums; }
+table.lib tr:hover td { background: var(--raised); } table.lib td.num { font-family: var(--font-data); }
+
 /* overview */
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); }
 .kpi { padding: 16px 18px; border-right: var(--border) solid var(--line); }
@@ -212,7 +241,7 @@ dialog label { display: grid; gap: 6px; font-weight: 600; } dialog label small {
     <div class="side-h">Skills</div>
     <div id="skill-list"></div>
     <button class="nav-item" data-new>+ New skill <span class="preview">preview</span></button>
-    <button class="nav-item" data-import>Import a .skill file <span class="preview">preview</span></button>
+    <button class="nav-item" data-import>Import a mindpack</button>
     <div class="grow"></div>
     <button class="nav-item" data-go="settings">Settings</button>
   </aside>
@@ -226,9 +255,13 @@ dialog label { display: grid; gap: 6px; font-weight: 600; } dialog label small {
     <main>
       <!-- LIBRARY -->
       <section class="page" id="page-library">
-        <div class="head"><div class="eyebrow">library</div><h1>Your skills</h1><div class="sub">Each skill is what the learner learned from one folder. Tick two or more to combine them into a new skill that looks for connections across them.</div></div>
+        <div class="head libhead"><div><div class="eyebrow">library</div><h1>Your skills</h1><div class="sub">What each skill knows, whether it's still learning, and how your skills relate. Tick two or more to combine or compare them.</div></div>
+          <div class="seg" id="lib-view"><button data-lib="cards" aria-pressed="true">Cards</button><button data-lib="map" aria-pressed="false">Map</button><button data-lib="table" aria-pressed="false">Table</button></div></div>
         <div class="selbar" id="selbar" hidden></div>
         <div class="cards" id="library-cards"></div>
+        <div class="box canvas" id="library-map" hidden><svg id="libmap" role="img" aria-label="Skills and the themes they share"></svg>
+          <div class="maplegend muted">Big squares are skills (size = confirmed findings); small dots are themes. A theme linked to several skills is shared: those skills are worth comparing or combining. Tap a skill to select it.</div></div>
+        <div class="box" id="library-table" hidden></div>
       </section>
 
       <!-- SKILL -->
@@ -333,6 +366,16 @@ dialog label { display: grid; gap: 6px; font-weight: 600; } dialog label small {
   </form>
 </dialog>
 
+<dialog id="import">
+  <form method="dialog" id="import-form">
+    <h2 style="margin:0">Import a mindpack</h2>
+    <p class="muted" style="margin:0">A <b>.mindpack</b> is one skill: its findings with quotes, notes, history, recipe and (usually) its material. Nothing is changed until you confirm, and an update keeps the previous version so you can roll back.</p>
+    <label>Pack file<input type="file" id="import-file" accept=".mindpack,application/zip"></label>
+    <div id="import-preview"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap" id="import-actions"><button class="btn" value="cancel">Close</button></div>
+  </form>
+</dialog>
+
 <dialog id="combine">
   <form method="dialog">
     <h2 style="margin:0">Combine and learn <span class="preview">preview</span></h2>
@@ -368,7 +411,8 @@ const STATE_NAME = {day: "Reading", dream: "Dreaming", deep_sleep: "Sleeping", r
 const S = { page: "library", tab: "overview", view: "timeline", stages: new Set(["confirmed", "prediction-tested"]),
   cxStages: new Set(["confirmed", "prediction-tested"]), show: new Set(["kinds", "places"]), min: 50, search: "",
   key: false, sel: null, gsel: null, pos: new Map(), vb: null, sig: "", fit: false, data: null, settings: null, chat: [],
-  skills: [], skill: null, picked: new Set(), loaded: new Set(), other: null, cache: {} };
+  skills: [], skill: null, picked: new Set(), loaded: new Set(), other: null, cache: {},
+  libView: "cards", libSort: ["confirmed", -1], libPos: new Map() };
 const q = (path, sid = S.skill) => sid ? `${path}?skill=${encodeURIComponent(sid)}` : path;
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 const mins = s => s == null ? "–" : (s < 60 ? `${Math.round(s)} s` : `${(s / 60).toFixed(1)} min`);
@@ -421,28 +465,137 @@ function render() {
 }
 
 // ---- library ---------------------------------------------------------------------------------------
+function verdict(k) {
+  const times = k.confirm_times || [], last = times.length ? Math.max(...times) : null, total = k.dream_seconds || 0;
+  if (!total) return { done: false, text: "not dreamt yet" };
+  if (last == null) return { done: false, text: `no findings after ${mins(total)} of dreaming` };
+  const quiet = total - last;
+  return quiet > 3 * Math.max(last, 30) ? { done: true, text: `done for now: nothing new for ${mins(quiet)}; more material would help` }
+                                         : { done: false, text: `still finding things (last after ${mins(last)})` };
+}
+function sparkPath(k, W = 96, H = 30) {
+  const ts = (k.confirm_times || []).slice().sort((a, b) => a - b), end = Math.max(1, k.dream_seconds || 1, ...ts), n = Math.max(1, ts.length);
+  let d = `M0,${H - 1}`, c = 0;
+  for (const t of ts) { const x = t / end * W; d += ` L${x},${H - 1 - c / n * (H - 4)}`; c++; d += ` L${x},${H - 1 - c / n * (H - 4)}`; }
+  return d + ` L${W},${H - 1 - c / n * (H - 4)}`;
+}
+function sharedThemes() {
+  const count = {};
+  for (const k of S.skills) for (const t of k.themes || []) count[t] = (count[t] || 0) + 1;
+  return count;
+}
 function renderLibrary() {
-  const card = k => { const st = k.reason ? k.state : (k.dream_seconds ? "rest" : k.state), picked = S.picked.has(k.id);
-    return `<article class="box scard ${picked ? "picked" : ""}" data-skill="${esc(k.id)}">
-      <input type="checkbox" class="pick" data-pick="${esc(k.id)}" ${picked ? "checked" : ""} aria-label="select ${esc(k.name)}">
-      <div class="eyebrow"><span class="sdot ${st}"></span><span>${STATE_NAME[st] || st}</span><span>version 1</span>${k.combined_from.length ? `<span class="combo">combined</span>` : ""}</div>
-      <h3 class="h">${esc(k.name)}</h3>
-      <div><span class="big">${k.stages.confirmed || 0}</span> <span class="muted">confirmed connections</span></div>
-      <div class="row"><span>${k.records} records</span><span>${k.span[0]}–${k.span[1]}</span><span>dreamt ${mins(k.dream_seconds)}</span></div>
-      <div class="actions"><button class="btn" data-skill="${esc(k.id)}">Open</button><a class="btn" href="${q("/api/export/obsidian", k.id)}" style="text-decoration:none;display:inline-flex;align-items:center">Export for Obsidian</a>
-        <button class="btn" disabled>Export .skill</button><button class="btn" disabled>Remove</button></div>
-    </article>`; };
-  $("#library-cards").innerHTML = S.skills.map(card).join("") + `
-    <button class="box scard new" data-new><span style="font-size:30px">+</span><b>New skill from a folder</b><span class="preview">preview</span></button>
-    <button class="box scard new" data-import><span style="font-size:30px">⇩</span><b>Import a .skill file</b><span class="muted">a skill someone shared: findings, quotes, and (later) its adapter</span><span class="preview">preview</span></button>`;
+  $$("#lib-view button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lib === S.libView));
+  $("#library-cards").hidden = S.libView !== "cards"; $("#library-map").hidden = S.libView !== "map"; $("#library-table").hidden = S.libView !== "table";
+  const shared = sharedThemes();
+  if (S.libView === "cards") renderLibCards(shared); else if (S.libView === "map") renderLibMap(shared); else renderLibTable();
   const n = S.picked.size, names = S.skills.filter(k => S.picked.has(k.id)).map(k => k.name);
   $("#selbar").hidden = !n;
   $("#selbar").innerHTML = `<b>${n} selected</b><span class="muted">${esc(names.join(" + "))}</span><span style="flex:1"></span>
     <button class="btn primary" data-combine ${n < 2 ? "disabled title='select two or more'" : ""}>Combine and learn</button>
     <button class="btn" data-compare ${n !== 2 ? "disabled title='select exactly two'" : ""}>Compare</button>
     <button class="btn" data-askall>Ask these</button>
-    <button class="btn" disabled>Export</button><button class="btn" disabled>Remove</button>
     <button class="btn" data-clear>Clear</button>`;
+}
+function renderLibCards(shared) {
+  const card = k => { const st = k.reason ? k.state : (k.dream_seconds ? "rest" : k.state), picked = S.picked.has(k.id), v = verdict(k), max = Math.max(1, ...k.hist);
+    return `<article class="box scard ${picked ? "picked" : ""}" data-skill="${esc(k.id)}">
+      <input type="checkbox" class="pick" data-pick="${esc(k.id)}" ${picked ? "checked" : ""} aria-label="select ${esc(k.name)}">
+      <div class="eyebrow"><span class="sdot ${st}"></span><span>${STATE_NAME[st] || st}</span><span>${k.version ? `v${k.version}` : "unversioned"}</span>${k.older_versions ? `<span>${k.older_versions} older kept</span>` : ""}${k.imported ? "<span>imported</span>" : ""}${k.read_only ? "<span>read-only</span>" : ""}${k.combined_from.length ? `<span class="combo">combined</span>` : ""}</div>
+      <h3 class="h">${esc(k.name)}</h3>
+      <div><div class="tstrip" title="where its ${k.records} records sit in time">${k.hist.map(c => `<i style="height:${Math.max(4, c / max * 100)}%"></i>`).join("")}</div>
+        <div class="strip-axis"><span>${k.span[0]}</span><span>${k.records} records</span><span>${k.span[1]}</span></div></div>
+      <div class="knows"><div><span class="big">${k.stages.confirmed || 0}</span> <span class="muted">confirmed${k.mean_confidence ? ` · avg ${k.mean_confidence}` : ""}</span></div>
+        <svg class="spark" viewBox="0 0 96 30" aria-label="confirmed findings over dream time"><path d="${sparkPath(k)}"/></svg></div>
+      <div class="tops">${(k.top || []).map(t => `<p><b>${t.confidence}</b><span>${esc(t.summary)}</span></p>`).join("") || `<p class="muted">No confirmed findings yet.</p>`}</div>
+      <div class="chips">${(k.themes || []).slice(0, 6).map(t => `<span class="tchip ${shared[t] > 1 ? "shared" : ""}" title="${shared[t] > 1 ? `shared with ${shared[t] - 1} other skill(s)` : "only in this skill"}">${esc(t)}</span>`).join("")}${(k.themes || []).length > 6 ? `<span class="tchip">+${k.themes.length - 6}</span>` : ""}</div>
+      <div class="verdict ${v.done ? "done" : ""}">${esc(v.text)}</div>
+      <div class="actions"><button class="btn" data-skill="${esc(k.id)}">Open</button><a class="btn" href="${q("/api/pack/export", k.id)}">Export mindpack</a><a class="btn" href="${q("/api/export/obsidian", k.id)}">Obsidian</a></div>
+    </article>`; };
+  $("#library-cards").innerHTML = S.skills.map(card).join("") + `
+    <button class="box scard new" data-new><span style="font-size:30px">+</span><b>New skill from a folder</b><span class="preview">preview</span></button>
+    <button class="box scard new" data-import><span style="font-size:30px">⇩</span><b>Import a mindpack</b><span class="muted">a skill someone shared, or a newer version of one you have: see what changes before anything is written</span></button>`;
+}
+function renderLibMap(shared) {
+  const svg = $("#libmap"), W = svg.clientWidth || 900, H = svg.clientHeight || 520;
+  const nodes = [], edges = [], at = new Map();
+  for (const k of S.skills) { const n = { id: `s:${k.id}`, type: "skill", k, label: k.name }; nodes.push(n); at.set(n.id, n); }
+  for (const k of S.skills) for (const t of k.themes || []) {
+    if (!at.has(`t:${t}`)) { const n = { id: `t:${t}`, type: "theme", label: t, shared: shared[t] > 1 }; nodes.push(n); at.set(n.id, n); }
+    edges.push([`s:${k.id}`, `t:${t}`]);
+  }
+  // seed: skills spread on a circle, each theme between the skills that have it, so the picture starts readable
+  const skills = nodes.filter(n => n.type === "skill"), R0 = Math.min(W, H) * 0.32;
+  skills.forEach((n, i) => { if (!S.libPos.has(n.id)) { const a = 2 * Math.PI * i / skills.length + Math.PI; S.libPos.set(n.id, { x: W / 2 + Math.cos(a) * R0, y: H / 2 + Math.sin(a) * R0 * 0.7 }); } });
+  nodes.filter(n => n.type === "theme").forEach((n, i) => { if (S.libPos.has(n.id)) return;
+    const owners = edges.filter(e => e[1] === n.id).map(e => S.libPos.get(e[0]));
+    const cx = owners.reduce((s, p) => s + p.x, 0) / owners.length, cy = owners.reduce((s, p) => s + p.y, 0) / owners.length;
+    const a = i * 2.4; S.libPos.set(n.id, { x: cx + Math.cos(a) * 90, y: cy + Math.sin(a) * 90 }); });
+  const keep = S.pos; S.pos = S.libPos; layout(nodes, edges, W, H); S.libPos = S.pos; S.pos = keep;
+  let o = "";
+  for (const [a, b] of edges) { const A = at.get(a), B = at.get(b); o += `<line class="edge ${B.shared ? "shared" : ""}" x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}"/>`; }
+  for (const n of nodes) {
+    if (n.type === "skill") { const r = 12 + Math.sqrt(n.k.stages.confirmed || 0) * 6;
+      o += `<rect class="skillnode ${S.picked.has(n.k.id) ? "picked" : ""}" data-mappick="${esc(n.k.id)}" x="${n.x - r}" y="${n.y - r}" width="${2 * r}" height="${2 * r}" rx="3"><title>${esc(n.label)}: ${n.k.stages.confirmed || 0} confirmed</title></rect>
+        <text class="sk" x="${n.x}" y="${n.y + r + 16}" text-anchor="middle">${esc(n.label)}</text>`; }
+    else o += `<circle class="themenode ${n.shared ? "shared" : ""}" cx="${n.x}" cy="${n.y}" r="${n.shared ? 6 : 4}"/><text x="${n.x + 9}" y="${n.y + 4}">${esc(n.label)}</text>`;
+  }
+  const xs = nodes.map(n => n.x), ys = nodes.map(n => n.y);
+  const x0 = Math.min(...xs) - 120, x1 = Math.max(...xs) + 120, y0 = Math.min(...ys) - 60, y1 = Math.max(...ys) + 60;
+  svg.setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+  svg.innerHTML = o;
+}
+function renderLibTable() {
+  const [key, dir] = S.libSort;
+  const val = k => ({ name: k.name, state: k.state, records: k.records, confirmed: k.stages.confirmed || 0, avg: k.mean_confidence || 0,
+    rejected: k.stages.rejected || 0, dreamt: k.dream_seconds || 0, version: k.version || 0 })[key];
+  const rows = S.skills.slice().sort((a, b) => (val(a) > val(b) ? 1 : val(a) < val(b) ? -1 : 0) * dir);
+  const head = [["", ""], ["name", "Skill"], ["confirmed", "Confirmed"], ["avg", "Avg score"], ["rejected", "Rejected"], ["records", "Records"], ["dreamt", "Dreamt"], ["version", "Version"], ["", "Verdict"]];
+  $("#library-table").innerHTML = `<table class="lib"><thead><tr>${head.map(([k, l]) => `<th ${k ? `data-sort="${k}"` : ""}>${l}${k === key ? (dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("")}</tr></thead><tbody>
+    ${rows.map(k => `<tr data-skill="${esc(k.id)}"><td><input type="checkbox" data-pick="${esc(k.id)}" ${S.picked.has(k.id) ? "checked" : ""} aria-label="select ${esc(k.name)}"></td>
+      <td><b>${esc(k.name)}</b><div class="muted" style="font-size:12px">${(k.themes || []).slice(0, 4).map(esc).join(" · ")}</div></td>
+      <td class="num">${k.stages.confirmed || 0}</td><td class="num">${k.mean_confidence ?? "–"}</td><td class="num">${k.stages.rejected || 0}</td>
+      <td class="num">${k.records}</td><td class="num">${mins(k.dream_seconds)}</td><td class="num">${k.version ? `v${k.version}` : "–"}</td><td class="muted">${esc(verdict(k).text)}</td></tr>`).join("")}</tbody></table>`;
+}
+$("#lib-view").onclick = e => { const b = e.target.closest("button"); if (b) { S.libView = b.dataset.lib; store.set("libView", S.libView); renderLibrary(); } };
+document.addEventListener("click", e => {
+  const m = e.target.closest("[data-mappick]"); if (m) { const id = m.dataset.mappick; S.picked.has(id) ? S.picked.delete(id) : S.picked.add(id); renderLibrary(); }
+  const th_ = e.target.closest("th[data-sort]"); if (th_) { const k = th_.dataset.sort; S.libSort = [k, S.libSort[0] === k ? -S.libSort[1] : -1]; renderLibTable(); }
+});
+S.libView = store.get("libView", "cards");
+
+// ---- import a mindpack ------------------------------------------------------------------------------
+let pendingToken = null;
+$("#import-file").onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  $("#import-preview").innerHTML = `<p class="muted">Checking ${esc(f.name)}…</p>`;
+  const r = await fetch("/api/pack/preview", { method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: await f.arrayBuffer() });
+  const d = await r.json().catch(() => ({ error: "unreadable reply" }));
+  if (!r.ok) { $("#import-preview").innerHTML = `<p class="no">Refused: ${esc(d.error || r.status)}</p><p class="muted">Nothing was changed.</p>`; return; }
+  pendingToken = d.token;
+  const m = d.manifest, th = m.stats.theories || {};
+  const diff = d.diff ? `<div class="box" style="padding:10px 12px"><b>Updates ${esc(d.updates)}</b> (you have v${d.current_version ?? "?"}; this is v${m.version})
+      <p>+${d.diff.added.length} new · ${d.diff.changed.length} changed · ${d.diff.removed.length} gone · <b>${d.diff.new_confirmed} newly confirmed</b></p>
+      ${d.diff.changed.slice(0, 6).map(c => `<p class="muted">${esc(c.summary)}: ${esc(c.from)} → ${esc(c.to)}</p>`).join("")}
+      ${d.diff.added.filter(t => t.stage === "confirmed").slice(0, 6).map(t => `<p>+ ${esc(t.summary)}</p>`).join("")}</div>` : `<p class="muted">A new skill for this library.</p>`;
+  $("#import-preview").innerHTML = `
+    <div class="eyebrow"><span>${esc(m.name)}</span><span>v${m.version}</span><span>${esc(m.created)}</span><span>${d.files} files · ${(d.bytes / 1e6).toFixed(1)} MB</span></div>
+    <p>${m.stats.records} records · <b>${th.confirmed || 0} confirmed</b> · ${th.rejected || 0} rejected · dreamt ${mins(m.stats.dream_seconds)}</p>
+    <p class="muted">Recipe ${esc(d.recipe.name)}@${d.recipe.version} (${esc(d.recipe.fingerprint)}) · material ${m.includes_material ? "included" : "not included (quotes and hashes only)"} · licence ${esc(m.license)}
+      ${m.upstream ? ` · upstream ${esc(m.upstream.url || m.upstream)}` : ""}</p>
+    <p class="${d.same_base_model ? "ok" : "no"}">${d.same_base_model ? "✓ same base model: it can keep learning here" : "✗ different base model: it will import read-only (explore and ask, no training)"}</p>
+    <p class="ok">✓ every file matches its checksum</p>
+    ${diff}
+    ${d.confirmed.length ? `<details><summary>Its confirmed connections (${d.confirmed.length})</summary>${d.confirmed.map(s => `<p class="muted">${esc(s)}</p>`).join("")}</details>` : ""}`;
+  $("#import-actions").innerHTML = `<button class="btn" value="cancel">Cancel</button>
+    ${d.updates ? `<button class="btn primary" data-do-import="update" ${d.can_import ? "" : "disabled"}>Update ${esc(d.updates)} (keep v${d.current_version ?? "old"})</button>` : ""}
+    <button class="btn ${d.updates ? "" : "primary"}" data-do-import="new" ${d.can_import ? "" : "disabled"}>Import as a new skill</button>`;
+};
+async function doImport(asNew) {
+  const r = await fetch("/api/pack/import", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: pendingToken, as_new: asNew }) });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) { $("#import-preview").insertAdjacentHTML("beforeend", `<p class="no">Import failed: ${esc(d.error || r.status)}. Nothing was changed.</p>`); return; }
+  $("#import").close(); await load(); openSkill(d.skill);
 }
 
 // ---- overview -------------------------------------------------------------------------------------
@@ -721,7 +874,9 @@ document.addEventListener("click", e => {
   const t = e.target;
   const goEl = t.closest("[data-go]"); if (goEl) return go(goEl.dataset.go);
   if (t.closest("[data-tab]") && t.closest("#tabs")) return go(t.closest("[data-tab]").dataset.tab);
-  if (t.closest("[data-new]") || t.closest("[data-import]")) return $("#new-skill").showModal();
+  if (t.closest("[data-new]")) return $("#new-skill").showModal();
+  if (t.closest("[data-import]")) { $("#import-file").value = ""; $("#import-preview").innerHTML = ""; $("#import-actions").innerHTML = `<button class="btn" value="cancel">Close</button>`; return $("#import").showModal(); }
+  const imp = t.closest("[data-do-import]"); if (imp) { e.preventDefault(); return doImport(imp.dataset.doImport === "new"); }
   if (t.closest("button[disabled]")) return;
   const open = t.closest("[data-open]"); if (open) { e.preventDefault(); return openEntry(+open.dataset.open); }
   const pick = t.closest("[data-pick]"); if (pick) { e.stopPropagation(); S.picked.has(pick.dataset.pick) ? S.picked.delete(pick.dataset.pick) : S.picked.add(pick.dataset.pick); return renderLibrary(); }

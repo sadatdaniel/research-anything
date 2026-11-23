@@ -102,3 +102,37 @@ def test_library_lists_every_brain_and_picks_one_per_request(brain, tmp_path):
         assert saved["engine"]["night_start"] == "22:00" and (lib / "config.toml").exists()
     finally:
         server.shutdown()
+
+
+def test_pack_export_preview_and_import_over_the_api(brain, tmp_path):
+    import shutil
+
+    from app.server import discover
+
+    db, _ = brain
+    lib = tmp_path / "lib"
+    lib.mkdir()
+    shutil.copy(db, lib / "alpha.sqlite")
+    brains = discover(lib, None, None)
+    server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler(brains, lib))
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    base = f"http://127.0.0.1:{server.server_address[1]}"
+    try:
+        r = urllib.request.urlopen(base + "/api/pack/export?skill=alpha")
+        assert r.headers["Content-Disposition"].endswith('-v1.mindpack"')
+        data = r.read()
+        pv = json.loads(urllib.request.urlopen(urllib.request.Request(base + "/api/pack/preview", data=data, method="POST")).read())
+        assert pv["updates"] == "alpha" and pv["diff"]["added"] == [] and pv["can_import"]
+        req = urllib.request.Request(base + "/api/pack/import", method="POST",
+                                     data=json.dumps({"token": pv["token"], "as_new": True}).encode())
+        done = json.loads(urllib.request.urlopen(req).read())
+        skills = json.loads(urllib.request.urlopen(base + "/api/skills").read())
+        assert done["skill"] in {s["id"] for s in skills} and len(skills) == 2
+        bad = urllib.request.Request(base + "/api/pack/preview", data=b"not a pack", method="POST")
+        try:
+            urllib.request.urlopen(bad)
+            raise AssertionError("a bad pack was accepted")
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 422
+    finally:
+        server.shutdown()

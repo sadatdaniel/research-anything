@@ -18,17 +18,11 @@ import math
 import random
 import re
 
+from learner import recipe as R
 from learner.knowledge import Entry, Knowledge
 from learner.patterns import Candidate, best_periodic, periodic_fit
 from learner.sourcecheck import quote_ok
 
-HOLDBACK = 0.15            # the learner's own held-back share of its latest years
-MIN_CONSISTENCY = 0.75     # share of causes that must be followed by their effect
-MAX_GAP = 1                # periodic: never two missed returns in a row
-CHANCE_P = 1e-4            # cause_effect / chain: binomial chance threshold
-SHUFFLES = 100             # periodic: shuffled copies
-SHUFFLE_P = 0.02           # periodic: at most this share of shuffles may fit as well
-LIFETIME = 60
 
 
 def _binom_tail(n: int, k: int, q: float) -> float:
@@ -49,7 +43,7 @@ def periodic_shape(c: Candidate) -> tuple[bool, str]:
     s = c.stats
     if s["hits"] < 4:
         return False, f"only {s['hits']} returns"
-    if s["max_gap"] > MAX_GAP:
+    if s["max_gap"] > R.p("max_gap"):
         return False, "two returns in a row are missing: the run stopped"
     if s["misses"] > 0.35 * s["hits"]:
         return False, f"{s['misses']} of {s['hits'] + s['misses']} expected returns missing"
@@ -58,12 +52,12 @@ def periodic_shape(c: Candidate) -> tuple[bool, str]:
 
 def periodic_prediction(k: Knowledge, c: Candidate) -> tuple[bool, str, dict]:
     """Refit on years before the learner's own cut, predict the returns after it."""
-    cut = round(k.last_year - HOLDBACK * (k.last_year - k.first_year))
+    cut = round(k.last_year - R.p("holdback") * (k.last_year - k.first_year))
     years = sorted({e.year for e in group_entries(k, c.groups[0])})
     early = [y for y in years if y < cut]
     p_want = c.stats["period_exact"]
     fits = [f for f in best_periodic(early, k.first_year, cut - 1, min_hits=3)
-            if abs(f["period"] - p_want) <= max(2.0, 0.05 * p_want) and f["max_gap"] <= MAX_GAP]
+            if abs(f["period"] - p_want) <= max(2.0, 0.05 * p_want) and f["max_gap"] <= R.p("max_gap")]
     if not fits:
         return False, f"the pattern isn't visible in the records before {cut}", {}
     f = fits[0]
@@ -82,17 +76,18 @@ def periodic_prediction(k: Knowledge, c: Candidate) -> tuple[bool, str, dict]:
     return ok, f"fit on the years before {cut}, it predicted {predicted}; {len(came)} came true", detail
 
 
-def periodic_chance(k: Knowledge, c: Candidate, shuffles: int = SHUFFLES, seed: int = 0) -> tuple[bool, str, float]:
+def periodic_chance(k: Knowledge, c: Candidate, shuffles: int | None = None, seed: int = 0) -> tuple[bool, str, float]:
+    shuffles = shuffles or R.p("shuffles")
     entries = group_entries(k, c.groups[0])
     n_years = len({e.year for e in entries})
     pool = [e.year for e in k.entries]
     rng = random.Random(f"{seed}:{c.key}")
     as_good = 0
-    allowed = int(SHUFFLE_P * shuffles)
+    allowed = int(R.p("shuffle_p") * shuffles)
     for i in range(shuffles):
         ys = rng.sample(pool, min(n_years, len(pool)))
         fits = [f for f in best_periodic(ys, k.first_year, k.last_year, min_hits=c.stats["hits"])
-                if f["max_gap"] <= MAX_GAP and f["misses"] <= 0.35 * f["hits"]]
+                if f["max_gap"] <= R.p("max_gap") and f["misses"] <= 0.35 * f["hits"]]
         as_good += bool(fits)
         if as_good > allowed:
             p = (1 + as_good) / (1 + i + 1)
@@ -105,7 +100,7 @@ def periodic_chance(k: Knowledge, c: Candidate, shuffles: int = SHUFFLES, seed: 
 
 def lagged_prediction(c: Candidate) -> tuple[bool, str]:
     s = c.stats
-    ok = s["consistency"] >= MIN_CONSISTENCY
+    ok = s["consistency"] >= R.p("min_consistency")
     missed = f"; not followed in {s['missed_causes']}" if s["missed_causes"] else ""
     return ok, f"{s['hits']} of {s['eligible']} causes were followed by the effect{missed}"
 
@@ -118,14 +113,14 @@ def lagged_chance(k: Knowledge, c: Candidate) -> tuple[bool, str, float]:
         q *= n / span
     p_one_lag = _binom_tail(c.stats["eligible"], c.stats["hits"], q)
     p = 1 - (1 - p_one_lag) ** (5 ** (len(c.groups) - 1))  # any of the lags we searched
-    return p <= CHANCE_P, f"chance of {c.stats['hits']} such coincidences: {p:.1e}", p
+    return p <= R.p("chance_p"), f"chance of {c.stats['hits']} such coincidences: {p:.1e}", p
 
 
 # ---- identity ---------------------------------------------------------------------------------------
 
 def lifetime(c: Candidate) -> tuple[bool, str]:
     span = c.stats["span_years"]
-    return span <= LIFETIME, f"records span {span} years"
+    return span <= R.p("lifetime"), f"records span {span} years"
 
 
 # ---- quotes ---------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 > **Read this first when picking the work back up.** It's updated at every milestone. The full design and success criteria live in [PLAN.md](PLAN.md); this file says what's done, what's in progress, what was decided, and what comes next.
 
-_Last updated: 2026-11-23 (Phase 3 built; test-world runs pending)_
+_Last updated: 2026-11-23 (Phase 3 built; mindpacks and recipes; test-world runs pending)_
 
 ## In one paragraph
 A small looped language model ([Ouro-1.4B](https://huggingface.co/ByteDance/Ouro-1.4B)) that lives in a local sandbox and keeps learning from a folder of documents:
@@ -97,6 +97,25 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
   - Not-yet-working parts carry a "preview" tag.
   - **Obsidian export** (`python -m app.export_obsidian`, or the zip button) writes linked Markdown notes for every connection, record, kind and place.
 
+**Also built after the first Phase 3 commit:**
+- **Mindpacks** (`learner/pack.py`, `.mindpack`): export, verify, preview and diff, and import.
+  - Data only, with a sha256 for every file.
+  - Refused: path tricks, zip bombs, unknown formats and unknown recipes.
+  - Import builds the new brain in a temporary file and swaps it in with one rename. The previous version is kept under `.versions/`.
+  - A pack from a different base model imports read-only.
+  - CLI: `python -m learner.pack export|preview|import`.
+- **Recipes** (`learner/recipe.py`): a registry of pipeline stages and implementations, plus the `default`, `strict` and `lenient` recipes.
+  - All dream thresholds now come from the active recipe.
+  - Each brain keeps its own recipe (`engine_kv.recipe`), and every pack records the one it was learned with.
+- **App:**
+  - **Library** in three views: Cards, Map, Table.
+    - Cards: time strip, confirmed count, average score, discovery sparkline, top findings, shared themes and the verdict.
+    - Map: skills and the themes they share.
+    - Table: sortable.
+  - Real **Export mindpack** and **Import mindpack**, with a preview and a diff before anything is written.
+  - Server library mode: `--library DIR --worlds worlds`, where each brain is a skill.
+- **PLAN.md** gained the mindpack format, git upstreams for packs, the swappable-pipeline table (papers to try at each stage), and the **rediscovery track**: Halley's comet, eclipse cycles, Semmelweis and John Snow from real records, disguised.
+
 **Dev results on val worlds** (real Ouro, notes from day reading):
 
 | | val-000 | val-001 (never tuned on) |
@@ -143,7 +162,7 @@ Misses come from the reader: two white locusts written as "the winged plague, sn
 cd ~/Documents/claude_projects/sandbox-learner
 uv sync                                    # Python environment (PyTorch cu128, transformers 4.57.1)
 uvx --from "huggingface_hub[cli]>=0.34,<1.0" hf download ByteDance/Ouro-1.4B --local-dir learner-data/models/Ouro-1.4B   # if missing
-CUDA_VISIBLE_DEVICES="" uv run pytest -q chronicles/tests engine/tests learner/tests app/tests   # all 69 tests (~2 min)
+CUDA_VISIBLE_DEVICES="" uv run pytest -q chronicles/tests engine/tests learner/tests app/tests   # all 74 tests (~2.5 min)
 uv run python -m app.server --library results/runs/phase3/library --worlds worlds          # the app, on http://127.0.0.1:8765
 uv run python -m chronicles.generator splits --out worlds           # regenerate the 45 worlds (gitignored)
 uv run python -m chronicles.baseline_b2 --split worlds/test         # baseline score

@@ -18,10 +18,9 @@ from bisect import bisect_left
 from collections import defaultdict
 from dataclasses import dataclass, field
 
+from learner import recipe as R
 from learner.knowledge import Entry, Knowledge
 
-PERIOD_MIN = 15
-MAX_LAG = 5
 
 
 @dataclass
@@ -82,10 +81,10 @@ def periodic_fit(years: list[int], period: float, anchor: float, first: int, las
             if var > 0:
                 p = sum((n - n_mean) * (y - y_mean) for n, y in matched.items()) / var
                 a = y_mean - p * n_mean
-                if p < PERIOD_MIN:
+                if p < R.p("period_min"):
                     break
                 matched = match(a, p)
-    if not matched or p < PERIOD_MIN:
+    if not matched or p < R.p("period_min"):
         return {"hits": 0}
     n_first = min(matched)
     n_last = int((last - a) // p)  # last slot that should be visible
@@ -111,7 +110,7 @@ def best_periodic(years: list[int], first: int, last: int, min_hits: int = 4) ->
         for j in range(i + 1, len(ys)):
             for m in range(1, 5):
                 p = (ys[j] - ys[i]) / m
-                if p < PERIOD_MIN or p > max_p:
+                if p < R.p("period_min") or p > max_p:
                     continue
                 f = periodic_fit(ys, p, ys[i], first, last)
                 if f["hits"] < min_hits or f["max_gap"] > 2:
@@ -170,7 +169,7 @@ def lagged_pairs(k: Knowledge, min_hits: int = 2, min_consistency: float = 0.5):
     groups, years, at_year = _group_index(k)
     out = []
     for a, ya in years.items():
-        for lag in range(1, MAX_LAG + 1):
+        for lag in range(1, R.p("max_lag") + 1):
             counts: dict = defaultdict(set)
             for y in ya:
                 for b in at_year.get(y + lag, ()):
@@ -280,6 +279,15 @@ def find_identity(k: Knowledge) -> list[Candidate]:
 
 
 def propose(k: Knowledge) -> list[Candidate]:
-    pairs = lagged_pairs(k)
-    chains = find_chains(k, pairs)
-    return find_periodic(k) + find_cause_effect(k, pairs) + chains + find_identity(k)
+    """Run the proposers the active recipe names (stage 'proposers')."""
+    out: list[Candidate] = []
+    pairs = lagged_pairs(k) if R.uses("proposers", "cause_effect@1") or R.uses("proposers", "chain@1") else None
+    if R.uses("proposers", "periodic@1"):
+        out += find_periodic(k)
+    if R.uses("proposers", "cause_effect@1"):
+        out += find_cause_effect(k, pairs)
+    if R.uses("proposers", "chain@1"):
+        out += find_chains(k, pairs)
+    if R.uses("proposers", "identity@1"):
+        out += find_identity(k)
+    return out

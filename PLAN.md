@@ -159,6 +159,19 @@ Keyboard and mouse idle detection is optional. It may not be available on Waylan
      - compare two authors, or two translations of the same book;
      - ask questions the book does and doesn't answer, to test "I don't know".
    - Undated prose has no year on every line, so the checks use the book's own order (chapters, pages) as its timeline, and say so.
+4. **Rediscovery: real records where humans really found the pattern, so the answer is known.**
+   - Each set is disguised before the learner sees it: names replaced and years shifted by a secret offset, so the model can't just recall the answer.
+   - Licences are checked before any data is used or redistributed.
+
+   | Discovery | Data (to verify) | What the learner must find | Needs |
+   |---|---|---|---|
+   | Halley's comet | Historical comet records: Williams' list of 372 comets from 613 BC to 1621 AD; Chinese records from 240 BC; NASA's 1986 report on historical apparitions | The ~76-year return among hundreds of unrelated comets | periodic (exists) |
+   | Eclipse cycles (the Babylonian Saros) | NASA Five Millennium catalog, 11,898 solar eclipses (licence unconfirmed; a Hugging Face copy says CC-BY-4.0) | The ~18-year recurrence in "an eclipse was seen at X" records | periodic (exists) |
+   | Semmelweis and handwashing | Monthly deaths by clinic, 1840s (published 1861) | One clinic differs, and its deaths fall after a change in 1847 | change point; contrast between groups (new) |
+   | John Snow's cholera map | Deaths by street and pump, 1854 | Deaths cluster around one pump | place cluster (new) |
+   | Later | Graunt's Bills of Mortality, sunspot counts, cicada broods | Seasonal and periodic patterns | data and licences to check |
+
+   This track is the strongest evidence the project can produce: rediscovering Halley from disguised real records is the original goal.
 
 ## Baselines
 - **B0, just ask:** Ouro reads the world once and is asked directly. No notebook, no search.
@@ -465,6 +478,61 @@ _Added 2026-11-23 at your request. This is the modular form of "a trained learne
   - The checks lean on dates: prediction, shuffle, and the order of events.
   - A folder of papers on one topic is mostly undated, and its connections are between ideas, not events.
   - Those links need a different check (for example, "does paper B really cite or restate A's claim?"), plus the same verbatim quote check. Until that exists, connections in undated material are labeled as weaker.
+
+## The mindpack: a skill you can share, update and roll back
+
+A skill travels as one **`.mindpack`** file. The name was checked against existing extensions on 2026-11-23: no known use, and it avoids `.skill` (taken by many apps) and `.slpack` (too close to Esri's `.slpk`). It's a zip of data only, never code:
+
+```
+mindpack.json       manifest:
+                      format version; skill id; name; version; parent (content hash of the version it updates);
+                      created; base model (name and hash); the recipe it was learned with;
+                      sources (name, sha256, records); stats; license; whether the material is included;
+                      contents (every file with its sha256 and size)
+theories.jsonl      every theory: stage, tests, evidence quotes, confidence, prediction
+history.jsonl       every stage change, with dream time
+notes.jsonl         the day-reading notes
+judgments.jsonl     the model's re-reading answers (what moved, what was doubted, what merged)
+sources.jsonl       the material itself (optional, on by default, for transparency)
+findings/           the same findings as Obsidian-ready Markdown
+adapter/            (Phase 4) the skill's LoRA adapter as safetensors
+```
+
+**Failsafe by design:**
+- **Import never overwrites.** It builds the new brain in a temporary file, checks it, then moves it into place in one step. Updating a skill keeps its previous version, so rollback is a click.
+- **Every file is checked against its sha256 in the manifest.** Members can't escape the archive (no absolute paths, no `..`). Sizes are capped against zip bombs. The format version and the base model are checked.
+- **A different base model** imports read-only: you can explore and ask, but not keep training.
+- **Before anything is written,** the import preview shows what the pack is and what it would change: new connections, changed connections, connections gone, confirmed or rejected counts, its recipe, and its material.
+
+**Upstream (optional):**
+- A mindpack can name an upstream: a git repository (for example on GitHub) that follows the mindpack template, holding released packs and, optionally, the source material.
+- "Check for updates" fetches the newest release, or new material to dream on, and shows the usual import preview and diff before anything changes.
+- It makes network calls, so it obeys the "check for updates" setting (off by default). Every file is checked against the hashes in the release's manifest, and the formats are data only.
+
+**Versioned:**
+- Every export of a skill gets the next version number and its parent's content hash.
+- Two versions can be diffed ("+3 new connections, 1 now rejected"). An update is just a newer pack with the same skill id.
+
+## The pipeline: every stage swappable
+
+The learner is a pipeline of stages, and a **recipe** names the implementation used at each stage plus its settings. The stages and their implementations are listed in `learner/recipe.py`.
+- **A recipe is recorded** in every brain and every mindpack, so any result can be traced to exactly how it was learned.
+- **Comparing two recipes** means running both on the same worlds or books with the same scorer.
+- **Adding an approach** means registering a new implementation of one stage (same inputs and outputs) and naming it in a recipe.
+
+| Stage | Now (recipe `default@1`) | Worth swapping in (papers and methods to try) |
+|---|---|---|
+| reader | few-shot notes at 4 loops | SEAL-style self-edits (the model writes its own study notes); EntiGraph-style "write how A relates to B" |
+| names | capitalised and never lower case; stated aliases only | entity-resolution models |
+| kinds | label screen, then a majority vote both ways from re-reading | embedding clusters; NLI entailment between descriptions |
+| proposers | periodic, lagged, chain, identity | sequential pattern mining (PrefixSpan or SPADE); Allen interval relations; HypoGeniC-style model-proposed hypotheses; the pattern grammar (Phase 6c) |
+| tests | shape, prediction on own held-back years, shuffle or binomial chance, verbatim quotes | Benjamini–Hochberg control of false discoveries across all candidates; permutation tests for every type |
+| source check | "Is this record about X?" yes/no | NLI entailment; RARR-style attribution checks |
+| agenda (what to check first) | fixed order | bandit (UCB) priorities as in HypoGeniC; ReasoningBank or Auto-Dreamer-style learned strategies; **what sleep learns (H2)** |
+| sleep | none yet | ours (LoRA on checked findings and search outcomes); B4 written notes; SEAL; Google-style sleep; STaR; spaced repetition (SRT); STARS for deep loops |
+| ask | search over loaded skills | retrieval, cite every sentence, check each sentence, abstain when unsupported |
+
+**Keeping in touch with papers:** each phase starts with a short related-work check for its stages (like RELATED_WORK.md did for H2). Promising methods enter as recipe options, so "does paper X beat what we have?" is one comparison run, not a rewrite. The aim is to prove or disprove published ideas in this setting, and to find the combination that is both new and the most accurate.
 
 ## Project layout
 

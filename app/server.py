@@ -16,6 +16,9 @@ read-only, so the viewer never gets in the engine's way. Standard library only.
   GET /api/export/obsidian  the findings as a zip of Markdown notes that Obsidian opens (graph view, backlinks)
   GET /api/skills           the library: every skill (brain) the server knows, with its counts
   Every /api/... call takes ?skill=<id> to pick a skill; without it, the first one.
+  GET /api/pack/export      the skill as a .mindpack (versioned, checksummed, data only)
+  POST /api/pack/preview    a .mindpack's bytes -> what it is and what importing it would change (nothing written)
+  POST /api/pack/import     {"token", "as_new"} -> import the previewed pack into the library (library mode)
   GET /api/settings         the learner's settings (config.toml beside the brain), with what each one does today
   POST /api/settings        save settings; engine limits apply when the learner next starts
 """
@@ -74,6 +77,41 @@ class Brain:
         self.db = db
         self.world = world
         self.config = config or db.parent / "config.toml"
+
+    def glance(self, bins: int = 32) -> dict:
+        """What the library shows about a skill without opening it: where its records sit in time, its
+        strongest findings and themes, and when its confirmations came (its discovery curve)."""
+        with self.conn() as c:
+            years = [r[0] for r in c.execute("SELECT year FROM sources")] if self._has(c, "sources") else []
+            ts = th.all_theories(c) if self._has(c, "theories") else []
+            confirms = [r[0] or 0.0 for r in c.execute(
+                "SELECT dream_seconds FROM theory_history WHERE stage = 'confirmed' ORDER BY rowid")] \
+                if self._has(c, "theory_history") else []
+        hist, marks = [0] * bins, []
+        if years:
+            y0, y1 = min(years), max(years)
+            width = max(1, (y1 - y0 + 1) / bins)
+            for y in years:
+                hist[min(bins - 1, int((y - y0) / width))] += 1
+            conf = [t for t in ts if t["stage"] == "confirmed"]
+            for t in conf:
+                if t["prediction"] and t["prediction"].get("year"):
+                    marks.append({"year": t["prediction"]["year"], "kind": "prediction"})
+        conf = sorted((t for t in ts if t["stage"] == "confirmed"), key=lambda t: -t["confidence"])
+        themes: dict[str, int] = {}
+        for t in conf:
+            for g in t["groups"] or []:
+                themes[g[0]] = themes.get(g[0], 0) + 1
+        return {"hist": hist, "marks": marks, "confirm_times": confirms,
+                "top": [{"summary": t["summary"], "confidence": t["confidence"], "type": t["type"]} for t in conf[:3]],
+                "themes": sorted(themes, key=lambda k: -themes[k]),
+                "mean_confidence": round(sum(t["confidence"] for t in conf) / len(conf)) if conf else None}
+
+    def kv(self) -> dict:
+        with self.conn() as c:
+            if not self._has(c, "engine_kv"):
+                return {}
+            return {k: json.loads(v) for k, v in c.execute("SELECT key, value FROM engine_kv")}
 
     def settings(self) -> dict:
         import tomllib
@@ -203,17 +241,25 @@ def discover(library: Path, worlds: Path | None, config: Path | None) -> dict[st
     return out
 
 
-def skill_card(sid: str, brain: "Brain") -> dict:
+def skill_card(sid: str, brain: "Brain", library: Path | None = None) -> dict:
+    from learner.pack import versions
+
     s = brain.summary()
-    return {"id": sid, "name": s["name"], "records": s["records"], "span": s["span"], "stages": s["stages"],
-            "dream_seconds": s["active_seconds"].get("dream", 0.0), "state": s["state"], "reason": s["reason"],
-            "has_answer_key": s["has_answer_key"], "combined_from": []}
+    kv = brain.kv()
+    look = brain.glance()
+    return {**look, "id": sid, "name": kv.get("pack.name") or s["name"], "records": s["records"], "span": s["span"],
+            "stages": s["stages"], "dream_seconds": s["active_seconds"].get("dream", 0.0), "state": s["state"],
+            "reason": s["reason"], "has_answer_key": s["has_answer_key"], "combined_from": [],
+            "version": kv.get("pack.version"), "read_only": bool(kv.get("pack.read_only")),
+            "upstream": kv.get("pack.upstream"), "imported": "pack.imported_at" in kv,
+            "older_versions": len(versions(library, sid)) if library else 0}
 
 
-def make_handler(brains):
+def make_handler(brains, library: Path | None = None, worlds: Path | None = None, config: Path | None = None):
     if isinstance(brains, Brain):
         brains = {brains.db.stem: brains}
     first = next(iter(brains))
+    previews: dict[str, bytes] = {}  # token -> pack bytes, between preview and import
     names = {"/api/summary": "summary", "/api/records": "records", "/api/theories": "theories",
              "/api/history": "history", "/api/answer-key": "answer_key", "/api/settings": "settings"}
 
@@ -242,8 +288,22 @@ def make_handler(brains):
                 return self._send(200, static.read_bytes(), types[static.suffix])
             brain = self._brain()
             if path == "/api/skills":
-                return self._send(200, json.dumps([skill_card(k, b) for k, b in brains.items()]).encode(),
+                return self._send(200, json.dumps([skill_card(k, b, library) for k, b in brains.items()]).encode(),
                                   "application/json")
+            if path == "/api/pack/export":
+                from learner.pack import EXT, export_pack, slug
+
+                with tempfile.TemporaryDirectory() as tmp:
+                    out = Path(tmp) / f"skill{EXT}"
+                    m = export_pack(brain.db, out)
+                    body = out.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/zip")
+                self.send_header("Content-Disposition", f'attachment; filename="{slug(m["name"])}-v{m["version"]}{EXT}"')
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+                return
             if path == "/api/export/obsidian":
                 body = brain.obsidian_zip()
                 name = (brain.world.name if brain.world else brain.db.stem) + "-findings.zip"
@@ -263,16 +323,48 @@ def make_handler(brains):
             self._send(404, b"not found", "text/plain")
 
         def do_POST(self) -> None:  # noqa: N802
-            if self.path.split("?", 1)[0] != "/api/settings":
-                return self._send(404, b"not found", "text/plain")
+            path = self.path.split("?", 1)[0]
             if self.client_address[0] not in ("127.0.0.1", "::1"):
-                return self._send(403, b"settings can only be changed from this computer", "text/plain")
+                return self._send(403, b"changes can only be made from this computer", "text/plain")
+            if path in ("/api/pack/preview", "/api/pack/import"):
+                return self._pack(path)
+            if path != "/api/settings":
+                return self._send(404, b"not found", "text/plain")
             try:
                 body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
                 data = self._brain().save_settings(body)
             except (ValueError, TypeError) as exc:
                 return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
             self._send(200, json.dumps(data).encode(), "application/json")
+
+        def _pack(self, path: str) -> None:
+            from learner.pack import MAX_TOTAL, PackError, import_pack, preview, sha256
+
+            length = int(self.headers.get("Content-Length", 0))
+            if length > MAX_TOTAL:
+                return self._send(413, b"the pack is too large", "text/plain")
+            body = self.rfile.read(length)
+            try:
+                if path == "/api/pack/preview":
+                    token = sha256(body)[:16]
+                    result = preview(body, library)
+                    previews.clear()  # keep one pending pack in memory, not many
+                    previews[token] = body
+                    return self._send(200, json.dumps({**result, "token": token, "can_import": library is not None}).encode(),
+                                      "application/json")
+                req = json.loads(body or b"{}")
+                if library is None:
+                    return self._send(400, b"importing needs the app started with --library", "text/plain")
+                data = previews.get(req.get("token", ""))
+                if data is None:
+                    return self._send(400, b"preview the pack again before importing", "text/plain")
+                result = import_pack(data, library, as_new=bool(req.get("as_new")))
+                previews.clear()
+                brains.clear()
+                brains.update(discover(library, worlds, config))
+                return self._send(200, json.dumps(result).encode(), "application/json")
+            except PackError as exc:
+                return self._send(422, json.dumps({"error": str(exc)}).encode(), "application/json")
 
         def log_message(self, *args) -> None:
             pass
@@ -299,7 +391,9 @@ def main(argv: list[str] | None = None) -> int:
         brains = Brain(Path(args.db).resolve(), Path(args.world).resolve() if args.world else None, config)
     else:
         ap.error("give --db or --library")
-    server = ThreadingHTTPServer((args.host, args.port), make_handler(brains))
+    library = Path(args.library).resolve() if args.library else None
+    worlds = Path(args.worlds).resolve() if args.worlds else None
+    server = ThreadingHTTPServer((args.host, args.port), make_handler(brains, library, worlds, config))
     print(f"Sandbox Learner viewer on http://{args.host}:{args.port}", flush=True)
     try:
         server.serve_forever()

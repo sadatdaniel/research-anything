@@ -22,6 +22,7 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 
 from learner import notebook
+from learner import recipe as R
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS kinds (
@@ -54,10 +55,6 @@ FUNCTION_WORDS = {
     "lord", "lady", "saint", "sir", "abbot", "bishop", "reckoning", "grace", "anno", "domini",
 }
 _WORD = re.compile(r"[A-Za-z][A-Za-z'-]*")
-SUPPORTED = 0.25  # "is this record about <kind>?" below this (a clear no): the record leaves that kind
-REPAIR_AT = 0.8   # a repair answer at or above this for another kind may move the record there
-VOTE_YES = 0.5    # merges: a record "votes yes" at or above this
-VOTE_SHARE = 2 / 3  # merges: this share of a kind's records must say they are about the other kind
 
 
 def ensure_schema(conn: sqlite3.Connection) -> None:
@@ -231,10 +228,10 @@ class Knowledge:
         passed = {}
         for (b, a), ps in votes.items():
             n = sizes[b]
-            if len(ps) < min(n, 3) or (n == 1 and ps[0] < REPAIR_AT):
+            if len(ps) < min(n, 3) or (n == 1 and ps[0] < R.p("repair_at")):
                 continue  # not enough of b's records asked yet; a lone record needs a confident yes
-            share = sum(p >= VOTE_YES for p in ps) / len(ps)
-            if share >= VOTE_SHARE:
+            share = sum(p >= R.p("vote_yes") for p in ps) / len(ps)
+            if share >= R.p("vote_share"):
                 passed[(b, a)] = share
         self.vote_merges: list[tuple[str, str, float]] = []
         for (b, a), share in sorted(passed.items(), key=lambda x: (-x[1], x[0])):
@@ -249,7 +246,7 @@ class Knowledge:
 
     def _judged_label(self, rid: str, label: str) -> str:
         """Apply re-reading answers. A record moves to another kind only if the model is confident it fits
-        (REPAIR_AT) AND prefers it to the record's own kind (so a storm that is a bit flood-like stays a
+        (R.p("repair_at")) AND prefers it to the record's own kind (so a storm that is a bit flood-like stays a
         storm). A clear 'no' for its own kind takes it out of every group (failed source check)."""
         own = self.kind_for(label)
         p_own, moves = None, []
@@ -259,11 +256,11 @@ class Knowledge:
             root = self.kind_for(kind)
             if root == own:
                 p_own = p if p_own is None else max(p_own, p)
-            elif p >= REPAIR_AT:
+            elif p >= R.p("repair_at"):
                 moves.append((p, root))
         if moves and p_own is not None and max(moves)[0] > p_own:
             return max(moves)[1]
-        if p_own is not None and p_own < SUPPORTED:
+        if p_own is not None and p_own < R.p("supported"):
             return f"{label} (doubted)"
         return label
 
