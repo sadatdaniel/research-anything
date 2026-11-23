@@ -19,6 +19,7 @@ read-only, so the viewer never gets in the engine's way. Standard library only.
   GET /api/pack/export      the skill as a .mindpack (versioned, checksummed, data only)
   POST /api/pack/preview    a .mindpack's bytes -> what it is and what importing it would change (nothing written)
   POST /api/pack/import     {"token", "as_new"} -> import the previewed pack into the library (library mode)
+  POST /api/skills/combine  {"ids": [...], "name"} -> a new fusion skill made from them (library mode)
   GET /api/settings         the learner's settings (config.toml beside the brain), with what each one does today
   POST /api/settings        save settings; engine limits apply when the learner next starts
 """
@@ -249,7 +250,7 @@ def skill_card(sid: str, brain: "Brain", library: Path | None = None) -> dict:
     look = brain.glance()
     return {**look, "id": sid, "name": kv.get("pack.name") or s["name"], "records": s["records"], "span": s["span"],
             "stages": s["stages"], "dream_seconds": s["active_seconds"].get("dream", 0.0), "state": s["state"],
-            "reason": s["reason"], "has_answer_key": s["has_answer_key"], "combined_from": [],
+            "reason": s["reason"], "has_answer_key": s["has_answer_key"], "combined_from": kv.get("pack.combined_from") or [],
             "version": kv.get("pack.version"), "read_only": bool(kv.get("pack.read_only")),
             "upstream": kv.get("pack.upstream"), "imported": "pack.imported_at" in kv,
             "older_versions": len(versions(library, sid)) if library else 0}
@@ -328,6 +329,19 @@ def make_handler(brains, library: Path | None = None, worlds: Path | None = None
                 return self._send(403, b"changes can only be made from this computer", "text/plain")
             if path in ("/api/pack/preview", "/api/pack/import"):
                 return self._pack(path)
+            if path == "/api/skills/combine":
+                if library is None:
+                    return self._send(400, b"combining needs the app started with --library", "text/plain")
+                from learner.combine import combine
+
+                try:
+                    req = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
+                    result = combine(library, [str(x) for x in req.get("ids", [])], req.get("name") or None)
+                except (ValueError, TypeError) as exc:
+                    return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
+                brains.clear()
+                brains.update(discover(library, worlds, config))
+                return self._send(200, json.dumps(result).encode(), "application/json")
             if path != "/api/settings":
                 return self._send(404, b"not found", "text/plain")
             try:

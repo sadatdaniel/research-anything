@@ -65,6 +65,8 @@ SETTINGS_HELP = {
     "shuffles": "periodic: shuffled copies in the chance test",
     "shuffle_p": "periodic: largest share of shuffles allowed to fit as well",
     "lifetime": "identity: years one person's records may span",
+    "dedupe_gate_first": "when overlapping candidates are thinned out, prefer those that already pass the consistency gate",
+    "assemble_chains": "also build A -> B -> C from two consistent links A -> B and B -> C that share the middle group, even when few full A-B-C runs are visible",
 }
 
 DEFAULT = {
@@ -79,7 +81,7 @@ DEFAULT = {
         "loops": 4, "supported": 0.25, "repair_at": 0.8, "vote_yes": 0.5, "vote_share": 2 / 3, "merge_sample": 3,
         "screen_at": 0.3, "questions_per_item": 16, "screen_per_item": 32, "period_min": 15, "max_lag": 5,
         "holdback": 0.15, "min_consistency": 0.75, "max_gap": 1, "chance_p": 1e-4, "shuffles": 100,
-        "shuffle_p": 0.02, "lifetime": 60,
+        "shuffle_p": 0.02, "lifetime": 60, "dedupe_gate_first": False, "assemble_chains": False,
     },
 }
 
@@ -91,9 +93,16 @@ def _variant(name: str, description: str, **params) -> dict:
     return r
 
 
-DEFAULT["description"] = "what Phase 3 was built and measured with"
+DEFAULT["description"] = "what Phase 3 was first measured with (results/phase3: test-000, 002-006)"
+DEFAULT_2 = _variant(
+    "default", "Phase 3 fixes: consistent chains are kept over broader inconsistent ones, and a family-wise chance "
+    "test for cycles (about 30-60 groups are tested per world), and chains assembled from two consistent links",
+    shuffles=1000, shuffle_p=0.002, dedupe_gate_first=True, assemble_chains=True)
+DEFAULT_2["version"] = 2
 RECIPES = {
-    "default": DEFAULT,
+    "default@1": DEFAULT,
+    "default@2": DEFAULT_2,
+    "default": DEFAULT_2,
     "strict": _variant("strict", "fewer, surer findings: stricter chance and consistency, a firmer source check",
                        chance_p=1e-5, min_consistency=0.9, supported=0.4, shuffle_p=0.01),
     "lenient": _variant("lenient", "more candidates survive: looser chance and consistency (more false finds expected)",
@@ -125,7 +134,7 @@ def fingerprint(r: dict) -> str:
     return hashlib.sha256(body.encode()).hexdigest()[:12]
 
 
-_active = validate(DEFAULT)
+_active = validate(DEFAULT_2)
 
 
 def active() -> dict:

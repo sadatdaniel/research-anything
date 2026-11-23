@@ -58,6 +58,7 @@ def main() -> int:
     ap.add_argument("--max-minutes", type=float, default=60.0)
     ap.add_argument("--loops", type=int, default=4)
     ap.add_argument("--fresh", action="store_true", help="start from the plain notebook even if a run exists")
+    ap.add_argument("--recipe", default="default", help="a name from learner.recipe.RECIPES (default@1, default@2, ...)")
     args = ap.parse_args()
     world = Path(args.world)
     src = RUNS / f"{world.name}.sqlite"
@@ -68,6 +69,10 @@ def main() -> int:
             Path(str(db) + suffix).unlink(missing_ok=True)
         shutil.copy(src, db)
     store = Store(db)
+    from learner import recipe as R
+
+    R.use(R.RECIPES[args.recipe])
+    R.for_brain(store.conn)  # a fresh brain takes this recipe; a resumed one keeps its own
     wl = DreamWorkload(loops=args.loops)
     t_load = time.perf_counter()
     wl.load(State.DREAM)
@@ -111,7 +116,8 @@ def main() -> int:
     k = Knowledge(store.conn)
     b1 = score_world(truth, [c.to_claim() for c in propose(k)])
     report = {
-        "world": str(world), "tag": args.tag, "finished": active < budget, "dream_seconds": round(active, 1),
+        "world": str(world), "tag": args.tag, "recipe": f"{R.active()['name']}@{R.active()['version']}",
+        "finished": active < budget, "dream_seconds": round(active, 1),
         "model_load_seconds": round(load_s, 1), "counts": {k_: round(v, 1) for k_, v in counts.items()},
         "confirmed": summary(final), "b1_all_proposals": summary(b1),
         "curve": curve(store.conn, truth, active, step=max(10.0, active / 40)),

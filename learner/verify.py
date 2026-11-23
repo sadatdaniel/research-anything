@@ -108,6 +108,11 @@ def lagged_prediction(c: Candidate) -> tuple[bool, str]:
 def lagged_chance(k: Knowledge, c: Candidate) -> tuple[bool, str, float]:
     span = max(1, k.last_year - k.first_year)
     sizes = [len({e.year for e in group_entries(k, g)}) for g in c.groups]
+    if c.stats.get("assembled"):  # two links, each needing its own coincidences: both flukes at once
+        p = 1.0
+        for (hits, eligible), n in zip(c.stats["links"], sizes[1:]):
+            p *= 1 - (1 - _binom_tail(eligible, hits, n / span)) ** 5
+        return p <= R.p("chance_p"), f"chance of both links being coincidences: {p:.1e}", p
     q = 1.0
     for n in sizes[1:]:
         q *= n / span

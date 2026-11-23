@@ -186,7 +186,11 @@ def _rank_key(k: Knowledge, c: Candidate):
     named = sum(1 for g in c.groups if g[1] is not None)
     related = int(all(k.related(c.groups[i][1], c.groups[i + 1][1]) for i in range(len(c.groups) - 1)
                       if c.groups[i][1] and c.groups[i + 1][1]))
-    return (-c.stats["hits"], -c.stats["consistency"], -named, -related, c.stats.get("group_sizes", 0))
+    # recipe default@2: a candidate that already passes the consistency gate beats a broader one that
+    # doesn't (e.g. "drought at X -> locusts at X -> famine at Y", 2 of 2, over "drought -> locusts -> famine"
+    # anywhere, 3 of 8), so thinning out overlapping candidates never throws away the one that can pass
+    gate = int(c.stats["consistency"] >= R.p("min_consistency")) if R.p("dedupe_gate_first") else 0
+    return (-gate, -c.stats["hits"], -c.stats["consistency"], -named, -related, c.stats.get("group_sizes", 0))
 
 
 def _dedupe(cands: list[Candidate], k: Knowledge) -> list[Candidate]:
@@ -250,7 +254,47 @@ def find_chains(k: Knowledge, pairs=None) -> list[Candidate]:
                 summary=f"{_gname(a)} -> {_gname(b)} after {l1} -> {_gname(c)} after {l2} more "
                         f"({len(full)} of {len(eligible)} times)",
                 prediction=pred, groups=[a, b, c], years=sorted(full)))
+    if R.p("assemble_chains"):
+        out += _assembled_chains(k, pairs, groups, years, {c.key for c in out})
     return _dedupe(out, k)
+
+
+def _assembled_chains(k: Knowledge, pairs, groups, years, have: set[str]) -> list[Candidate]:
+    """A -> B -> C built from two links that each hold on their own and share the middle group B. Full
+    A-B-C runs can be rare in the visible records (one step worded differently, the last effect after the
+    last record), but two consistent links through the same B are strong evidence of the chain. The
+    chain's statistics are the weaker link's, and its chance is both links being flukes at once."""
+    gate = R.p("min_consistency")
+    by_cause: dict = defaultdict(list)
+    for a, b, lag, hit, eligible in pairs:
+        if len(hit) / len(eligible) >= gate:
+            by_cause[a].append((b, lag, hit, eligible))
+    out = []
+    for a, links in list(by_cause.items()):
+        for b, l1, hit1, el1 in links:
+            for c, l2, hit2, el2 in by_cause.get(b, ()):
+                if c[0] in (a[0], b[0]) or b[1] is None:  # the shared middle step must be a specific place
+                    continue
+                key = f"chain:{_gname(a)}->{_gname(b)}->{_gname(c)}:{l1},{l2}"
+                if key in have:
+                    continue
+                full = {y for y in hit1 if y + l1 in hit2}
+                pending = sorted(y for y in years[a] if y + l1 + l2 > k.last_year and (y + l1 > k.last_year or y + l1 in years[b]))
+                rids = {e.record_id for e in groups[a] if e.year in hit1 or e.year in pending}
+                rids |= {e.record_id for e in groups[b] if e.year - l1 in hit1 or e.year in hit2}
+                rids |= {e.record_id for e in groups[c] if e.year - l2 in hit2}
+                hits, eligible = min(len(hit1), len(hit2)), max(len(el1), len(el2))
+                pred = {"year": pending[0] + l1 + l2, "description": f"{_gname(c)} after {_gname(a)} in {pending[0]}"} if pending else None
+                out.append(Candidate(
+                    type="chain", key=key, record_ids=sorted(rids), params={"lags": [l1, l2]},
+                    stats={"hits": hits, "eligible": eligible, "consistency": round(min(len(hit1) / len(el1), len(hit2) / len(el2)), 3),
+                           "missed_causes": sorted((el1 - hit1) | {y - l1 for y in el2 - hit2}), "assembled": True,
+                           "links": [[len(hit1), len(el1)], [len(hit2), len(el2)]], "full_runs": len(full),
+                           "group_sizes": len(years[a]) + len(years[b]) + len(years[c])},
+                    summary=f"{_gname(a)} -> {_gname(b)} after {l1} -> {_gname(c)} after {l2} more "
+                            f"(links {len(hit1)} of {len(el1)} and {len(hit2)} of {len(el2)} times)",
+                    prediction=pred, groups=[a, b, c], years=sorted(hit1)))
+    return out
 
 
 # ---- identity ------------------------------------------------------------------------------------

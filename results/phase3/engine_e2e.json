@@ -1,0 +1,78 @@
+{
+  "records": 41,
+  "all_read_after_s": 200.1,
+  "dreaming_after_s": 209.6,
+  "gpu_freed_after_s": 1.9,
+  "back_after_game_s": 7.8,
+  "rests_when_done": true,
+  "finished_after_s": 269.1,
+  "notes": 41,
+  "work_items": {
+    "day/done": 11,
+    "dream/done": 10
+  },
+  "records_planned_twice": 0,
+  "questions_answered": 87,
+  "active_seconds": {
+    "day": 199.1,
+    "dream": 41.5
+  },
+  "theories": {
+    "confirmed": 2,
+    "rejected": 7,
+    "superseded": 2
+  },
+  "score": {
+    "claims": 2,
+    "found": 2,
+    "planted": 3,
+    "recall": 0.6666666666666666,
+    "precision": 1.0,
+    "decoy_hits": 0,
+    "predictions": 2,
+    "predictions_correct": 2
+  },
+  "confirmed": [
+    "comet returns about every 32 years (7 times, 435-626); next about 661",
+    "drought is followed by fire at Hawoumia 1 year(s) later (3 of 3 times)"
+  ],
+  "timeline": [
+    {
+      "state": "day",
+      "reason": "night; reading new material first",
+      "start": 1795439902.6585906,
+      "end": 1795440102.7919014
+    },
+    {
+      "state": "dream",
+      "reason": "night; hunting for connections",
+      "start": 1795440102.7919014,
+      "end": 1795440115.9549227
+    },
+    {
+      "state": "rest",
+      "reason": "python using 1.1 GB of GPU memory",
+      "start": 1795440115.9549227,
+      "end": 1795440141.4949155
+    },
+    {
+      "state": "dream",
+      "reason": "night; hunting for connections",
+      "start": 1795440141.4949155,
+      "end": 1795440169.8351376
+    },
+    {
+      "state": "rest",
+      "reason": "night; nothing to dream about yet",
+      "start": 1795440169.8351376,
+      "end": 1795440171.7000675
+    },
+    {
+      "state": "off",
+      "reason": "learner stopped",
+      "start": 1795440171.7000675,
+      "end": 1795440171.7000675
+    }
+  ],
+  "pass": true
+}

@@ -169,6 +169,7 @@ Keyboard and mouse idle detection is optional. It may not be available on Waylan
    | Eclipse cycles (the Babylonian Saros) | NASA Five Millennium catalog, 11,898 solar eclipses (licence unconfirmed; a Hugging Face copy says CC-BY-4.0) | The ~18-year recurrence in "an eclipse was seen at X" records | periodic (exists) |
    | Semmelweis and handwashing | Monthly deaths by clinic, 1840s (published 1861) | One clinic differs, and its deaths fall after a change in 1847 | change point; contrast between groups (new) |
    | John Snow's cholera map | Deaths by street and pump, 1854 | Deaths cluster around one pump | place cluster (new) |
+   | The Bengal famines (1770, 1943, 1974) | Historical accounts and price, harvest and weather records (public-domain or open sources, to find) | Shared precursors across the famines, and Amartya Sen's finding for 1943: famine without a large fall in total food, after prices outran what people could pay ("entitlement failure") | convergence; contrast (new) |
    | Later | Graunt's Bills of Mortality, sunspot counts, cicada broods | Seasonal and periodic patterns | data and licences to check |
 
    This track is the strongest evidence the project can produce: rediscovering Halley from disguised real records is the original goal.
@@ -297,7 +298,18 @@ All results are on test worlds the system never trained on. "Hours" always means
     - an expected event that is missing.
 - **Testing:** the search walks this space, and shuffle tests decide what is real (shuffle years, labels or sources), with a correction for testing many ideas at once. Findings are ranked by how surprising they are under the shuffles.
 - **Model-proposed ideas:** in dreams, the model reads distant notes and writes a hypothesis in plain words. It's translated into the grammar and tested like anything else; untranslatable ones are kept as labelled guesses, never as findings.
+- **Convergence (many points lead to one):** C happens when A *and* B both happened, or separate chains end at the same outcome.
+  - Tested like the rest: C must be clearly likelier after A and B together than after either alone, and the difference must survive shuffling.
+  - The generator plants it; the graph shows it as several arrows into one node.
+  - It shows a reliable association in time, not causation, so the app says "consistently precedes", never "causes".
 - **The test of "unexpected":** a "mystery" pattern type is planted in some test worlds, and no detector is written for it. Finding it is the evidence, in the same spirit as the identity type being held out of the training worlds.
+
+**Online lookup (opt-in, after Phase 6)**
+- **Off by default**, and each lookup needs your approval. The learner shows the exact query first, which you can edit or cancel. Only the query leaves the computer, never files or notes.
+- **A fetched page becomes a new source, not a fact.** It's stored with its URL, the fetch date, a hash and the text, and goes through the same checks (verbatim quotes, re-reading). Answers cite it separately: "from the web, fetched on …".
+- **Web text is data, never instructions:** it can only be quoted, never acted on.
+- **It enters the skill as new material** with a version bump, so the mindpack diff shows exactly what came from the web.
+- **Multi-step claims across sources** (for example "famine → lasting health effects → a later epidemic") are labelled speculative unless every step has evidence in the material.
 
 **Phase 7: public release** (once H1 holds; H2 isn't required)
 - Finish the app: chat, morning report, and the first-run setup screen.

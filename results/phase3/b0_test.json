@@ -1,0 +1,146 @@
+{
+  "baseline": "B0 just ask",
+  "window": 70,
+  "aggregate": {
+    "worlds": 6,
+    "claims": 6,
+    "planted": 26,
+    "found": 0,
+    "true_claims": 0,
+    "duplicates": 0,
+    "decoy_hits": 0,
+    "false_claims": 6,
+    "predictions": 0,
+    "predictions_correct": 0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "prediction_accuracy": null,
+    "per_type": {
+      "periodic": {
+        "planted": 10,
+        "found": 0,
+        "recall": 0.0
+      },
+      "cause_effect": {
+        "planted": 10,
+        "found": 0,
+        "recall": 0.0
+      },
+      "chain": {
+        "planted": 6,
+        "found": 0,
+        "recall": 0.0
+      }
+    }
+  },
+  "worlds": [
+    {
+      "world": "test-000",
+      "seconds": 66.0,
+      "claims": 0,
+      "found": 0,
+      "planted": 4,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "answers": [
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120"
+      ]
+    },
+    {
+      "world": "test-002",
+      "seconds": 111.6,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "answers": [
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a flood on the Kiarymild is followed by a flood on the Gaesky one year later (1204 -> 1205, 1244 -> 1245)\n\nPattern: a battle at Skouzysk is followed by a battle at Salddeis one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a flood of pilgrims is followed by a flood of pilgrims one year later (1204 -> 1205, 1244 -> 1245)\n\nPattern: a great frost is followed by a great frost one year later (1204 -> 1",
+        " a comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a flood in Thosould is followed by a flood in Birkstel two years later (1201 -> 1203, 1241 -> 1243)\nPattern: a pestilence in Thaegei is followed by a pestilence in Veizeheth one year later (1210 -> 1211, 1250 -> ",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120"
+      ]
+    },
+    {
+      "world": "test-003",
+      "seconds": 138.4,
+      "claims": 3,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "answers": [
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a red moon appears above Thorkvon every 10 years (1200, 1210, 1220, 1230, 1240, 1250, 1260, 1270, 1280, 1290)\nPattern: a red moon appears above Wogryrn every 1",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a pestilence in Wogryrn is followed by a pestilence in Eivald one year later (1221 -> 1222, 1261 -> 1262)\nPattern: a pestilence in Wogryrn is followed by a pestilence in Eivald one year later (1221 -> 1222, 12",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a pestilence in Raskond is followed by a pestilence in Gebyrk one year later (1440 -> 1441, 1488 -> 1489)\nPattern: a flood of pilgrims to Wogryrn is followed by a flood of pilgrims to Thorkvon one year later (1437 -> 1438, 14",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a flood of complaints reaches the court every 10 years (1599, 1609, 1619)\nPattern: a two-headed calf is born every 10 years (1582, 1592, 1602)\nPattern: a flood of pilgrims comes to Thorkvon on the Laenakrox for the feast every 10",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a flood on the Wunynno is followed by a flood on the Laenakrox one year later (1202 -> 1203, 1242 -> 1243)\nPattern: a pestilence at Fohondgrul is followed by a pestilence at Gebyrk one year later (1213 -> 1214, 1"
+      ]
+    },
+    {
+      "world": "test-004",
+      "seconds": 79.0,
+      "claims": 0,
+      "found": 0,
+      "planted": 5,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "answers": [
+        " a flood on the Pidetan occurs every 10 years (1201, 1211, 1221, 1231, 1241, 1251, 1261, 1271, 1281, 1291)\nPattern: a pestilence in Skyve is followed by a pestilence in Savkrousk one year later (1201 -> 1202, 1211 -> 1212, 1221 -> 1222, 1231 -> 1232, 1241 -> 1242, ",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a flood of complaints reaches the court every 10 years (1078, 1088, 1098)\nPattern: a red moon over Kriskork is followed by a red moon over Gruskiazon one year later (1095 -> 1096, 1105 -> 1106)\nPattern: a revolt at Fiatarn is followed by a revolt at Fiatarn one year later (1048 -> 1049, 1058 -> 1059)\nPattern: a flood of complaints reaches the court every 10 years (1078, 1088, 1098)\nPattern:"
+      ]
+    },
+    {
+      "world": "test-005",
+      "seconds": 80.0,
+      "claims": 3,
+      "found": 0,
+      "planted": 4,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "answers": [
+        " a flood on the Kesdaern is followed by a flood on the Gowaerthal a few years later (1205 -> 1208, 1245 -> 1248)\n\nPattern: a battle with Douwoth is followed by a battle with Briandrex a few years later (1201 -> 1204, 1241 -> 1244)\n\nPattern: a new star above the noon road is followed by a new star above the pole a few years later (1208 -> 1212, 1248 -> 1252)\n\nPattern: a fire at Fevskald is followed by a fire at K",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red moon over Newouzoun in Dapeth is followed by a red moon over Bylex (1211 -> 1213, 1251 -> 1253)\nPattern: a pestilence in Myfei is followed by a pestilence in Fevskald (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red moon over Newouzoun on the Skarnviax is followed by a red moon over Bylex (1211 -> 1213, 1251 -> 1253)\nPattern: a pestilence in Myfei is followed by a pestil",
+        " a pestilence in Bylex is followed by a pestilence in Raeldkren one year later (1205 -> 1206, 1245 -> 1246)\n\nPattern: a flood of complaints to the court is followed by a flood of pilgrims to Kedond on the Kroguld for the feast one year later (1199 -> 1200, 1239 -> 1240)\n\nPattern: a storm at Drasksask is followed by a storm at Mysyark one year later (1198 -> 1199, 1238 -> 1239)\n\nPattern: a pestilence in My",
+        " a flood on the Gowaerthal (called Skarnviax by others) over its banks (1164, 1167, 1169)\nPattern: a great fire breaks out in Brinosold and the watchtower is lost (1171, 1173, 1175)\nPattern: a great flood on the Skarnviax (called Gowaerthal by others), and the lower fields of Greiskkyld are lost (1185, 1186, 1187)\nPattern: a great flood on the Kesdaern (called Imdikarn by others) and the Imdikarn becomes a road of ice (109"
+      ]
+    },
+    {
+      "world": "test-006",
+      "seconds": 115.1,
+      "claims": 0,
+      "found": 0,
+      "planted": 3,
+      "recall": 0.0,
+      "precision": 0.0,
+      "decoy_hits": 0,
+      "answers": [
+        " a flood on the Grurnseind is followed by a flood on the Aegogrern one year later (1201 -> 1202, 1241 -> 1242)\n\nPattern: a battle at Steziand is followed by a battle at Brianu one year later (1201 -> 1202, 1241 -> 1242)\n\nPattern: a drought in Wafihask is followed by a drought in Woutethgir one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a flood on the Sovouskoun is followed by a flood on the",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red moon appears every 10 years (1201, 1211, 1221, 1231, 1241, 1251, 1261, 1271, 1281, 1291)\nPattern: a flood of pilgrims to Wouhar occurs every 5 years (1201, 1206, 1211, 1216, 1221, 1226, 1231, 1236, 1241, 1246, 1251, 1256, 12",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\nPattern: a drought in Velsham",
+        " a flood of pilgrims to Pebiadork is followed by a pestilence in Wafihask (1201 -> 1202, 1241 -> 1242)\n\nPattern: a pestilence in Wafihask is followed by a pestilence in Wosothaeld (1202 -> 1203, 1242 -> 1243)\n\nPattern: a pestilence in Wosothaeld is followed by a pestilence in Wafihask (1203 -> 1204, 1243 -> 1244)\n\nPattern: a pestilence in Wafihask is followed",
+        " a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (1201, 1241, 1282)\nPattern: a drought in Velsham is followed by a famine one year later (1210 -> 1211, 1250 -> 1251)\n\nPattern: a red comet returns about every 40 years (120"
+      ]
+    }
+  ]
+}

@@ -110,6 +110,7 @@ main { padding: 0 var(--pad) 100px; max-width: 1160px; margin: 0 auto; }
 .spark { width: 100px; height: 30px; flex: none; } .spark path { fill: none; stroke: var(--accent); stroke-width: 2; }
 .tops p { margin: 5px 0; display: grid; grid-template-columns: 32px 1fr; gap: 8px; font-size: 13.5px; line-height: 1.35; }
 .tops b { font-size: 13px; color: var(--confirmed); font-variant-numeric: tabular-nums; }
+.tops p.muted { display: block; }
 .tops span { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .tchip { font-size: 12px; padding: 2px 9px; border-radius: 999px; background: var(--fill); color: var(--ink-2); }
@@ -117,18 +118,48 @@ main { padding: 0 var(--pad) 100px; max-width: 1160px; margin: 0 auto; }
 .verdict { font-size: 13px; color: var(--ink-2); display: flex; gap: 8px; align-items: center; }
 .verdict::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); flex: none; }
 .verdict.done::before { background: var(--proposed); }
-#libmap { display: block; width: 100%; height: min(64vh, 560px); }
-#libmap .edge { stroke: var(--line); stroke-width: 1.2; } #libmap .edge.shared { stroke: var(--accent); stroke-width: 1.6; }
-#libmap .skillnode { fill: var(--card); stroke: var(--ink-2); stroke-width: 1.5; cursor: pointer; }
-#libmap .skillnode.picked { stroke: var(--accent); stroke-width: 3; }
-#libmap .themenode { fill: var(--ink-3); } #libmap .themenode.shared { fill: var(--accent); }
-#libmap text { font-size: 11.5px; fill: var(--ink-2); } #libmap text.sk { font-weight: 700; font-size: 13px; fill: var(--ink); }
 .maplegend { padding: 10px 16px; font-size: 13px; border-top: 1px solid var(--line-2); }
-#library-map, #library-table { margin-top: 18px; overflow: hidden; }
 table.lib { width: 100%; border-collapse: collapse; }
 table.lib th { text-align: left; font-size: 13px; font-weight: 700; color: var(--ink-2); padding: 10px 14px; border-bottom: 1px solid var(--line-2); cursor: pointer; white-space: nowrap; }
 table.lib td { padding: 10px 14px; border-bottom: 1px solid var(--line-2); }
 table.lib tr:last-child td { border-bottom: 0; } table.lib tbody tr { cursor: pointer; } table.lib tbody tr:hover td { background: var(--sel-soft); }
+
+/* library sections, fusions, list rows */
+.libsec { margin: 26px 0 0; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.libsec small { font-weight: 400; color: var(--ink-2); font-size: 13px; }
+.cards.first { margin-top: 12px; }
+.scard.fusion { box-shadow: 6px 6px 0 -1px var(--card), 6px 6px 0 0 var(--line), 11px 11px 0 -1px var(--card), 11px 11px 0 0 var(--line), var(--shadow); margin: 0 11px 11px 0; }
+.scard.fusion.picked { box-shadow: 0 0 0 2px var(--accent), 6px 6px 0 -1px var(--card), 6px 6px 0 0 var(--line), 11px 11px 0 -1px var(--card), 11px 11px 0 0 var(--line); }
+.fusetag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--accent-2); }
+.from { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--ink-2); }
+.srcchip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px 2px 7px; border-radius: 999px; background: var(--fill); color: var(--ink); font-size: 12.5px; font-weight: 600; }
+.srcchip i { width: 9px; height: 9px; border-radius: 3px; }
+.mixbar { display: flex; height: 6px; border-radius: 3px; overflow: hidden; } .mixbar i { display: block; height: 100%; }
+.lrows { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: var(--card-border) solid var(--line); overflow: hidden; margin-top: 12px; }
+.lrow { display: grid; grid-template-columns: 26px 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line-2); cursor: pointer; }
+.lrow:last-child { border-bottom: 0; } .lrow:hover { background: var(--sel-soft); } .lrow.picked { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.lrow .ic { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; font-size: 16px; color: #fff; }
+.lrow .ic.fuse { background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.lrow b { display: block; font-weight: 600; } .lrow small { display: block; color: var(--ink-2); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lrow .end { text-align: right; } .lrow .end b { font-size: 18px; font-weight: 800; color: var(--accent); } .lrow .end small { font-size: 12px; }
+.lrow.fusion { border-left: 4px solid var(--accent-2); padding-left: 10px; }
+.sortby { display: flex; gap: 8px; align-items: center; justify-content: flex-end; margin-top: 14px; font-size: 13px; color: var(--ink-2); }
+.skillmap { display: block; width: 100%; height: 300px; }
+.skillmap .edge { stroke: var(--line); stroke-width: 1.2; } .skillmap .edge.shared { stroke: var(--accent); stroke-width: 1.6; }
+.skillmap .skillnode { fill: var(--card); stroke: var(--ink-2); stroke-width: 1.5; }
+.skillmap .themenode { fill: var(--ink-3); } .skillmap .themenode.shared { fill: var(--accent); }
+.skillmap text { font-size: 11.5px; fill: var(--ink-2); } .skillmap text.sk { font-weight: 700; font-size: 13px; fill: var(--ink); }
+/* selection mode: an action bar at the bottom */
+.selbar { position: fixed; z-index: 15; top: auto; left: calc(264px + 50%); transform: translateX(calc(-50% - 132px)); bottom: 18px; width: min(760px, calc(100vw - 300px));
+  display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 6px; margin: 0; border-radius: 14px; background: var(--card);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .06), 0 8px 28px rgba(0, 0, 0, .22); }
+body.noside .selbar { left: 50%; transform: translateX(-50%); width: min(760px, calc(100vw - 32px)); }
+.selbar .count { font-weight: 700; white-space: nowrap; } .selbar .names { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 1; }
+.selbar .more { display: none; }
+.selbar .menuwrap .popover { top: auto; bottom: 44px; }
+dialog.wide { width: min(720px, 96vw); }
+dialog .dbody { padding: 4px 24px 18px; max-height: 70vh; overflow: auto; }
+dialog .dfoot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px 16px; }
 
 /* overview */
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -223,13 +254,22 @@ dialog form { display: grid; gap: 14px; padding: 20px 22px; }
 dialog form h2 { font-size: 17px; text-align: center; }
 dialog label { display: grid; gap: 6px; font-weight: 600; } dialog label small { font-weight: 400; color: var(--ink-2); }
 .dlg-head { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; height: 47px; padding: 0 6px; text-align: center; font-weight: 700; }
-/* preferences window: a fixed size, whatever page is open */
-dialog.prefs { width: min(680px, 96vw); height: min(620px, 92vh); display: none; flex-direction: column; overflow: hidden; }
-dialog.prefs[open] { display: flex; }
-.pswitch { display: flex; justify-content: center; flex-wrap: wrap; gap: 2px; padding: 0 12px 10px; border-bottom: 1px solid var(--line); flex: none; }
-.pswitch button { min-height: 32px; padding: 0 12px; border: 0; background: none; border-radius: var(--r-sm); cursor: pointer; font-weight: 600; color: var(--ink-2); }
-.pswitch button[aria-selected="true"] { background: var(--sel-soft); color: var(--ink); }
-.pbody { flex: 1; overflow: auto; padding: 18px 24px 28px; }
+/* preferences window, the GNOME way: a split header bar, pages in a sidebar, a fixed size, draggable */
+dialog.prefs { width: min(860px, 96vw); height: min(620px, 92vh); padding: 0; overflow: hidden; }
+dialog.prefs::backdrop { background: rgba(0, 0, 0, .18); }
+.pwin { display: grid; grid-template-columns: 240px minmax(0, 1fr); height: 100%; }
+.pside { background: var(--sidebar); border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+.pmain { display: flex; flex-direction: column; min-height: 0; background: var(--bg); }
+.phead { height: 47px; flex: none; display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; padding: 0 6px; text-align: center; cursor: grab; user-select: none; }
+.pmain .phead { border-bottom: 1px solid var(--line); background: var(--headerbar); }
+.pside .phead { border-bottom: 1px solid transparent; }
+.pback { visibility: hidden; font-size: 22px; }
+.pnav { padding: 6px 8px; overflow: auto; }
+.pnav button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 40px; padding: 0 10px; border: 0; background: none; border-radius: var(--r-sm); cursor: pointer; text-align: left; }
+.pnav button:hover { background: var(--sel-soft); }
+.pnav button[aria-selected="true"] { background: var(--sel-soft); font-weight: 700; }
+.pnav svg { width: 16px; height: 16px; flex: none; opacity: .8; }
+.pbody { flex: 1; overflow: auto; padding: 20px 28px 28px; min-height: 0; }
 .sgroup { margin-top: 20px; } .sgroup:first-child { margin-top: 0; }
 .sgroup > h2 { margin: 0 0 8px 2px; font-size: 15px; font-weight: 700; }
 .sgroup > .rows { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: var(--card-border) solid var(--line); overflow: hidden; }
@@ -256,11 +296,26 @@ dialog.prefs[open] { display: flex; }
 
 /* narrow screens: the sidebar becomes a drawer, tabs move to a bottom view switcher */
 .bottom { display: none; }
+.scrim { display: none; position: fixed; inset: 0; z-index: 19; background: rgba(0, 0, 0, .32); }
 [data-motion="reduce"] * { transition: none !important; }
+@media (max-width: 700px) {
+  .pwin { grid-template-columns: 1fr; }
+  dialog.prefs:not(.at-page) .pmain { display: none; }
+  dialog.prefs.at-page .pside { display: none; }
+  .pback { visibility: visible; }
+  .phead { cursor: default; }
+  .pside .phead { grid-template-columns: 40px 1fr 40px; }
+}
 @media (max-width: 860px) {
+  .selbar { left: 8px; right: 8px; transform: none; width: auto; bottom: 66px; }
+  .selbar .wideonly { display: none; } .selbar .more { display: inline-flex; } .selbar .names { display: none; }
+  .selbar .count { flex: 1; }
+  .lrow { grid-template-columns: 24px 36px minmax(0, 1fr) auto; gap: 10px; padding: 10px 12px; } .lrow .ic { width: 36px; height: 36px; }
+  .scard.fusion { margin-right: 11px; }
   .app { grid-template-columns: 1fr; }
   .side { display: none; position: fixed; z-index: 20; left: 0; top: 0; bottom: 0; width: 82vw; max-width: 320px; box-shadow: 4px 0 24px rgba(0, 0, 0, .3); }
   body.drawer .side { display: flex; }
+  body.drawer .scrim { display: block; }
   .kpis { grid-template-columns: repeat(2, 1fr); } .kpi:nth-child(2) { border-right: 0; } .kpi:nth-child(-n+2) { border-bottom: 1px solid var(--line-2); }
   .cols, .ask, .compare { grid-template-columns: 1fr; }
   .head h1 { font-size: 22px; }
@@ -277,6 +332,7 @@ dialog.prefs[open] { display: flex; }
 </head>
 <body>
 <div class="app">
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
   <aside class="side" aria-label="Library">
     <div class="side-head">Sandbox Learner</div>
     <button class="nav-item" data-go="library">Library</button>
@@ -306,12 +362,10 @@ dialog.prefs[open] { display: flex; }
       <!-- LIBRARY -->
       <section class="page" id="page-library">
         <div class="head libhead"><div><div class="eyebrow">library</div><h1>Your skills</h1><div class="sub">What each skill knows, whether it's still learning, and how your skills relate. Tick two or more to combine or compare them.</div></div>
-          <div class="seg" id="lib-view"><button data-lib="cards" aria-pressed="true">Cards</button><button data-lib="map" aria-pressed="false">Map</button><button data-lib="table" aria-pressed="false">Table</button></div></div>
+          <div class="seg" id="lib-view"><button data-lib="cards" aria-pressed="true">Cards</button><button data-lib="list" aria-pressed="false">List</button></div></div>
         <div class="selbar" id="selbar" hidden></div>
         <div class="cards" id="library-cards"></div>
-        <div class="box canvas" id="library-map" hidden><svg id="libmap" role="img" aria-label="Skills and the themes they share"></svg>
-          <div class="maplegend muted">Big squares are skills (size = confirmed findings); small dots are themes. A theme linked to several skills is shared: those skills are worth comparing or combining. Tap a skill to select it.</div></div>
-        <div class="box" id="library-table" hidden></div>
+        <div id="library-list" hidden></div>
       </section>
 
       <!-- SKILL -->
@@ -374,6 +428,8 @@ dialog.prefs[open] { display: flex; }
 
         <div class="tab" id="tab-compare" hidden>
           <div class="toolbar"><span class="muted">Compare this skill with</span><select class="mini" id="cmp-with" aria-label="skill to compare with"></select></div>
+          <div class="box canvas" style="margin-bottom:18px"><svg class="skillmap" id="cmp-map" role="img" aria-label="The two skills and the themes they share"></svg>
+            <div class="maplegend muted">Squares are the skills, dots their themes. Blue dots are themes both have.</div></div>
           <div class="compare">
             <div class="block box"><h2>Only in this skill</h2><div class="body" id="cmp-a"></div></div>
             <div class="block box"><h2>In both</h2><div class="body" id="cmp-both"></div></div>
@@ -421,27 +477,38 @@ dialog.prefs[open] { display: flex; }
   </form>
 </dialog>
 
-<dialog id="combine">
-  <form method="dialog">
-    <h2 style="margin:0">Combine and learn <span class="preview">preview</span></h2>
-    <p class="muted" style="margin:0">A new skill made from the selected ones. It keeps every finding they already have, then dreams on what lies <i>between</i> them: patterns that only appear when their material is read together.</p>
-    <label>Name<input type="text" id="combo-name"></label>
-    <div class="picklist" id="combo-list"></div>
-    <label>Look for<small>What the combined skill should dream about.</small>
-      <span class="picklist"><label><input type="checkbox" checked> Connections across the skills (one skill's events followed by another's)</label>
-      <label><input type="checkbox" checked> Re-check each skill's findings against the others' material</label>
-      <label><input type="checkbox"> Differences: themes one has and the other lacks (shuffle-tested)</label>
-      <label><input type="checkbox"> Contradictions between them</label></span></label>
-    <label>Recipe<select><option>Default</option><option>Thorough</option></select></label>
-    <p class="muted" style="margin:0">Training a combined skill comes with the skill manager (Phase 7). Compare and Ask already work across skills.</p>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" value="cancel">Close</button><button class="btn primary" disabled>Combine and learn</button></div>
-  </form>
+<dialog id="combine" class="wide">
+  <div class="dlg-head"><span></span><span>New fusion</span><button class="iconbtn" data-close aria-label="Close">✕</button></div>
+  <div class="dbody">
+    <p class="muted" style="margin-top:0">A fusion is a new skill made from the selected ones. It reads their material together and dreams on what lies <i>between</i> them: patterns that only appear when they're read side by side. The source skills stay as they are.</p>
+    <div class="box canvas"><svg class="skillmap" id="combo-map" role="img" aria-label="The selected skills and the themes they share"></svg>
+      <div class="maplegend muted">The selected skills and their themes. Blue dots are shared themes: the likeliest places for connections across them.</div></div>
+    <div class="sgroup"><h2>Fusion</h2><div class="rows">
+      <div class="set"><div><b>Name</b></div><input type="text" id="combo-name" style="width:260px"></div>
+      <div class="set"><div><b>Made from</b><small id="combo-list"></small></div><span></span></div>
+      <div class="set"><div><b>Recipe</b><small>How it learns; recorded in the fusion so results can be compared.</small></div><select id="combo-recipe"><option value="default">default</option></select></div>
+    </div></div>
+    <div class="sgroup"><h2>Look for <span class="preview">dreaming options come with Phase 4</span></h2><div class="rows">
+      <div class="set"><div><b>Connections across the skills</b><small>One skill's events followed by another's.</small></div><input type="checkbox" class="toggle" checked disabled></div>
+      <div class="set"><div><b>Differences</b><small>Themes one has and the other lacks, shuffle-tested.</small></div><input type="checkbox" class="toggle" disabled></div>
+      <div class="set"><div><b>Contradictions</b><small>Records that can't both be true.</small></div><input type="checkbox" class="toggle" disabled></div>
+    </div></div>
+    <p class="muted" id="combo-note" style="font-size:13px">Creating the fusion is instant. It learns when the learner runs: with the app runner in Phase 7, or for now <code>uv run python experiments/phase3_dream.py</code>.</p>
+  </div>
+  <div class="dfoot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="combo-go">Create fusion</button></div>
 </dialog>
 
 <dialog id="prefs" class="prefs" aria-label="Preferences">
-  <div class="dlg-head"><span></span><span>Preferences</span><button class="iconbtn" data-close aria-label="Close">✕</button></div>
-  <div class="pswitch" id="pswitch"></div>
-  <div class="pbody"><div id="settings-body"></div><p class="muted" id="settings-file" style="font-size:12.5px"></p><p><span class="saved" id="saved"></span></p></div>
+  <div class="pwin">
+    <aside class="pside">
+      <div class="phead" data-drag><span></span><b>Preferences</b><span></span></div>
+      <nav class="pnav" id="pswitch" aria-label="Preference pages"></nav>
+    </aside>
+    <section class="pmain">
+      <div class="phead" data-drag><button class="iconbtn pback" id="pback" aria-label="Back to the pages">‹</button><b id="ptitle">Appearance</b><button class="iconbtn" data-close aria-label="Close">✕</button></div>
+      <div class="pbody"><div id="settings-body"></div><p class="muted" id="settings-file" style="font-size:12.5px"></p><p><span class="saved" id="saved"></span></p></div>
+    </section>
+  </div>
 </dialog>
 
 <dialog id="about" aria-label="About Sandbox Learner">
@@ -502,7 +569,7 @@ async function skillData(sid) {  // another skill's findings and records, for Co
   if (!S.cache[sid]) { const [theories, records] = await Promise.all([getJSON(q("/api/theories", sid)), getJSON(q("/api/records", sid))]); S.cache[sid] = { theories, records }; }
   return S.cache[sid];
 }
-function openSkill(sid) { if (sid !== S.skill) { S.skill = sid; S.pos = new Map(); S.vb = null; S.chat = []; S.loaded = new Set([sid]); S.data = null; } go("overview"); load(); }
+function openSkill(sid) { document.body.classList.remove("drawer"); if (sid !== S.skill) { S.skill = sid; S.pos = new Map(); S.vb = null; S.chat = []; S.loaded = new Set([sid]); S.data = null; } go("overview"); load(); }
 
 function liveState() { const s = S.data.summary; return s.reason ? s.state : (s.active_seconds.dream ? "rest" : s.state); }
 function render() {
@@ -537,89 +604,120 @@ function sparkPath(k, W = 96, H = 30) {
   for (const t of ts) { const x = t / end * W; d += ` L${x},${H - 1 - c / n * (H - 4)}`; c++; d += ` L${x},${H - 1 - c / n * (H - 4)}`; }
   return d + ` L${W},${H - 1 - c / n * (H - 4)}`;
 }
-function sharedThemes() {
+function sharedThemes(skills = S.skills) {
   const count = {};
-  for (const k of S.skills) for (const t of k.themes || []) count[t] = (count[t] || 0) + 1;
+  for (const k of skills) for (const t of k.themes || []) count[t] = (count[t] || 0) + 1;
   return count;
 }
+const SRC_COLORS = ["var(--accent)", "var(--accent-2)", "var(--superseded)", "var(--proposed)", "var(--prediction-tested)", "var(--key)"];
+const srcColor = id => SRC_COLORS[Math.max(0, S.skills.findIndex(k => k.id === id)) % SRC_COLORS.length];
+const isFusion = k => (k.combined_from || []).length > 0;
+const fromChips = k => k.combined_from.map(m => `<span class="srcchip"><i style="background:${srcColor(m.id)}"></i>${esc(m.name)}</span>`).join(`<span>+</span>`);
+const mixBar = k => { const total = k.combined_from.reduce((s, m) => s + (m.records || 0), 0) || 1;
+  return `<div class="mixbar" title="share of the material from each skill">${k.combined_from.map(m => `<i style="width:${(m.records || 0) / total * 100}%;background:${srcColor(m.id)}"></i>`).join("")}</div>`; };
 function renderLibrary() {
+  if (!["cards", "list"].includes(S.libView)) S.libView = "cards";
   $$("#lib-view button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lib === S.libView));
-  $("#library-cards").hidden = S.libView !== "cards"; $("#library-map").hidden = S.libView !== "map"; $("#library-table").hidden = S.libView !== "table";
+  $("#library-cards").hidden = S.libView !== "cards"; $("#library-list").hidden = S.libView !== "list";
   const shared = sharedThemes();
-  if (S.libView === "cards") renderLibCards(shared); else if (S.libView === "map") renderLibMap(shared); else renderLibTable();
+  S.libView === "cards" ? renderLibCards(shared) : renderLibList();
   const n = S.picked.size, names = S.skills.filter(k => S.picked.has(k.id)).map(k => k.name);
   $("#selbar").hidden = !n;
-  $("#selbar").innerHTML = `<b>${n} selected</b><span class="muted">${esc(names.join(" + "))}</span><span style="flex:1"></span>
-    <button class="btn primary" data-combine ${n < 2 ? "disabled title='select two or more'" : ""}>Combine and learn</button>
-    <button class="btn" data-compare ${n !== 2 ? "disabled title='select exactly two'" : ""}>Compare</button>
-    <button class="btn" data-askall>Ask these</button>
-    <button class="btn" data-clear>Clear</button>`;
+  $("#selbar").innerHTML = `<button class="iconbtn" data-clear aria-label="Leave selection" title="Leave selection">✕</button>
+    <span class="count">${n} selected</span><span class="names">${esc(names.join(" + "))}</span>
+    <button class="btn wideonly" data-compare ${n !== 2 ? "disabled title='select exactly two'" : ""}>Compare</button>
+    <button class="btn wideonly" data-askall>Ask these</button>
+    <div class="menuwrap more"><button class="iconbtn" id="sel-more" aria-label="More actions">⋯</button>
+      <div class="popover" id="sel-menu" hidden><button class="mi" data-compare ${n !== 2 ? "disabled" : ""}>Compare${n !== 2 ? " (pick two)" : ""}</button><button class="mi" data-askall>Ask these</button></div></div>
+    <button class="btn primary" data-combine ${n < 2 ? "disabled title='select two or more'" : ""}>Combine…</button>`;
+}
+function libCard(k, shared) {
+  const st = k.reason ? k.state : (k.dream_seconds ? "rest" : k.state), picked = S.picked.has(k.id), v = verdict(k), max = Math.max(1, ...k.hist), fusion = isFusion(k);
+  return `<article class="box scard ${fusion ? "fusion" : ""} ${picked ? "picked" : ""}" data-skill="${esc(k.id)}">
+    <input type="checkbox" class="pick" data-pick="${esc(k.id)}" ${picked ? "checked" : ""} aria-label="select ${esc(k.name)}">
+    <div class="eyebrow">${fusion ? `<span class="fusetag">⧉ Fusion</span>` : ""}<span class="sdot ${st}"></span><span>${STATE_NAME[st] || st}</span><span>${k.version ? `v${k.version}` : "unversioned"}</span>${k.older_versions ? `<span>${k.older_versions} older kept</span>` : ""}${k.imported ? "<span>imported</span>" : ""}${k.read_only ? "<span>read-only</span>" : ""}</div>
+    <h3 class="h">${esc(k.name)}</h3>
+    ${fusion ? `<div class="from">fused from ${fromChips(k)}</div>${mixBar(k)}` : ""}
+    <div><div class="tstrip" title="where its ${k.records} records sit in time">${k.hist.map(c => `<i style="height:${Math.max(4, c / max * 100)}%"></i>`).join("")}</div>
+      <div class="strip-axis"><span>${k.span[0] ?? ""}</span><span>${k.records} records</span><span>${k.span[1] ?? ""}</span></div></div>
+    <div class="knows"><div><span class="big">${k.stages.confirmed || 0}</span> <span class="muted">confirmed${k.mean_confidence ? ` · avg ${k.mean_confidence}` : ""}</span></div>
+      <svg class="spark" viewBox="0 0 96 30" aria-label="confirmed findings over dream time"><path d="${sparkPath(k)}"/></svg></div>
+    <div class="tops">${(k.top || []).map(t => `<p><b>${t.confidence}</b><span>${esc(t.summary)}</span></p>`).join("") || `<p class="muted">${fusion && !k.dream_seconds ? "Not dreamt yet: its connections across the skills appear here once it learns." : "No confirmed findings yet."}</p>`}</div>
+    ${(k.themes || []).length ? `<div class="chips">${k.themes.slice(0, 6).map(t => `<span class="tchip ${shared[t] > 1 ? "shared" : ""}" title="${shared[t] > 1 ? `shared with ${shared[t] - 1} other skill(s)` : "only in this skill"}">${esc(t)}</span>`).join("")}${k.themes.length > 6 ? `<span class="tchip">+${k.themes.length - 6}</span>` : ""}</div>` : ""}
+    <div class="verdict ${v.done ? "done" : ""}">${esc(v.text)}</div>
+    <div class="actions"><button class="btn" data-skill="${esc(k.id)}">Open</button><a class="btn" href="${q("/api/pack/export", k.id)}">Export mindpack</a><a class="btn" href="${q("/api/export/obsidian", k.id)}">Obsidian</a></div>
+  </article>`;
 }
 function renderLibCards(shared) {
-  const card = k => { const st = k.reason ? k.state : (k.dream_seconds ? "rest" : k.state), picked = S.picked.has(k.id), v = verdict(k), max = Math.max(1, ...k.hist);
-    return `<article class="box scard ${picked ? "picked" : ""}" data-skill="${esc(k.id)}">
-      <input type="checkbox" class="pick" data-pick="${esc(k.id)}" ${picked ? "checked" : ""} aria-label="select ${esc(k.name)}">
-      <div class="eyebrow"><span class="sdot ${st}"></span><span>${STATE_NAME[st] || st}</span><span>${k.version ? `v${k.version}` : "unversioned"}</span>${k.older_versions ? `<span>${k.older_versions} older kept</span>` : ""}${k.imported ? "<span>imported</span>" : ""}${k.read_only ? "<span>read-only</span>" : ""}${k.combined_from.length ? `<span class="combo">combined</span>` : ""}</div>
-      <h3 class="h">${esc(k.name)}</h3>
-      <div><div class="tstrip" title="where its ${k.records} records sit in time">${k.hist.map(c => `<i style="height:${Math.max(4, c / max * 100)}%"></i>`).join("")}</div>
-        <div class="strip-axis"><span>${k.span[0]}</span><span>${k.records} records</span><span>${k.span[1]}</span></div></div>
-      <div class="knows"><div><span class="big">${k.stages.confirmed || 0}</span> <span class="muted">confirmed${k.mean_confidence ? ` · avg ${k.mean_confidence}` : ""}</span></div>
-        <svg class="spark" viewBox="0 0 96 30" aria-label="confirmed findings over dream time"><path d="${sparkPath(k)}"/></svg></div>
-      <div class="tops">${(k.top || []).map(t => `<p><b>${t.confidence}</b><span>${esc(t.summary)}</span></p>`).join("") || `<p class="muted">No confirmed findings yet.</p>`}</div>
-      <div class="chips">${(k.themes || []).slice(0, 6).map(t => `<span class="tchip ${shared[t] > 1 ? "shared" : ""}" title="${shared[t] > 1 ? `shared with ${shared[t] - 1} other skill(s)` : "only in this skill"}">${esc(t)}</span>`).join("")}${(k.themes || []).length > 6 ? `<span class="tchip">+${k.themes.length - 6}</span>` : ""}</div>
-      <div class="verdict ${v.done ? "done" : ""}">${esc(v.text)}</div>
-      <div class="actions"><button class="btn" data-skill="${esc(k.id)}">Open</button><a class="btn" href="${q("/api/pack/export", k.id)}">Export mindpack</a><a class="btn" href="${q("/api/export/obsidian", k.id)}">Obsidian</a></div>
-    </article>`; };
-  $("#library-cards").innerHTML = S.skills.map(card).join("") + `
-    <button class="box scard new" data-new><span style="font-size:30px">+</span><b>New skill from a folder</b><span class="preview">preview</span></button>
-    <button class="box scard new" data-import><span style="font-size:30px">⇩</span><b>Import a mindpack</b><span class="muted">a skill someone shared, or a newer version of one you have: see what changes before anything is written</span></button>`;
+  const plain = S.skills.filter(k => !isFusion(k)), fused = S.skills.filter(isFusion);
+  $("#library-cards").innerHTML = `<div class="cards first">${plain.map(k => libCard(k, shared)).join("")}
+      <button class="box scard new" data-new><span style="font-size:30px">+</span><b>New skill from a folder</b><span class="preview">preview</span></button>
+      <button class="box scard new" data-import><span style="font-size:30px">⇩</span><b>Import a mindpack</b><span class="muted">a skill someone shared, or a newer version of one you have</span></button></div>
+    ${fused.length ? `<div class="libsec">⧉ Fusions <small>skills made from two or more others</small></div><div class="cards">${fused.map(k => libCard(k, shared)).join("")}</div>` : ""}`;
 }
-function renderLibMap(shared) {
-  const svg = $("#libmap"), W = svg.clientWidth || 900, H = svg.clientHeight || 520;
+function renderLibList() {
+  const [key, dir] = S.libSort;
+  const val = k => ({ name: k.name, confirmed: k.stages.confirmed || 0, avg: k.mean_confidence || 0, records: k.records, dreamt: k.dream_seconds || 0 })[key];
+  const sortRows = rows => rows.slice().sort((a, b) => (val(a) > val(b) ? 1 : val(a) < val(b) ? -1 : 0) * dir);
+  const row = k => { const fusion = isFusion(k), picked = S.picked.has(k.id);
+    const sub = fusion ? `fused from ${k.combined_from.map(m => esc(m.name)).join(" + ")} · ${k.records} records`
+                       : `${k.records} records · ${k.span[0]}–${k.span[1]} · ${esc((k.themes || []).slice(0, 4).join(", ") || "no themes yet")}`;
+    return `<div class="lrow ${fusion ? "fusion" : ""} ${picked ? "picked" : ""}" data-skill="${esc(k.id)}">
+      <input type="checkbox" data-pick="${esc(k.id)}" ${picked ? "checked" : ""} aria-label="select ${esc(k.name)}">
+      <span class="ic ${fusion ? "fuse" : ""}" style="${fusion ? "" : `background:${srcColor(k.id)}`}">${fusion ? "⧉" : esc(k.name.slice(0, 1).toUpperCase())}</span>
+      <div><b>${esc(k.name)}${fusion ? ` <span class="fusetag">· Fusion</span>` : ""}</b><small>${sub}</small><small>${esc(verdict(k).text)}</small></div>
+      <div class="end"><b>${k.stages.confirmed || 0}</b><small>confirmed</small></div></div>`; };
+  const plain = sortRows(S.skills.filter(k => !isFusion(k))), fused = sortRows(S.skills.filter(isFusion));
+  $("#library-list").innerHTML = `<div class="sortby">Sort by <select id="lib-sort">${[["confirmed", "Confirmed"], ["avg", "Average score"], ["records", "Records"], ["dreamt", "Dream time"], ["name", "Name"]].map(([k, l]) => `<option value="${k}" ${k === key ? "selected" : ""}>${l}</option>`).join("")}</select></div>
+    <div class="lrows">${plain.map(row).join("")}</div>
+    ${fused.length ? `<div class="libsec">⧉ Fusions</div><div class="lrows">${fused.map(row).join("")}</div>` : ""}`;
+  $("#lib-sort").onchange = e => { S.libSort = [e.target.value, e.target.value === "name" ? 1 : -1]; renderLibList(); };
+}
+function drawSkillMap(svg, skills, posMap = new Map()) {
+  const W = svg.clientWidth || 640, H = svg.clientHeight || 300, shared = sharedThemes(skills);
   const nodes = [], edges = [], at = new Map();
-  for (const k of S.skills) { const n = { id: `s:${k.id}`, type: "skill", k, label: k.name }; nodes.push(n); at.set(n.id, n); }
-  for (const k of S.skills) for (const t of k.themes || []) {
+  for (const k of skills) { const n = { id: `s:${k.id}`, type: "skill", k, label: k.name }; nodes.push(n); at.set(n.id, n); }
+  for (const k of skills) for (const t of k.themes || []) {
     if (!at.has(`t:${t}`)) { const n = { id: `t:${t}`, type: "theme", label: t, shared: shared[t] > 1 }; nodes.push(n); at.set(n.id, n); }
     edges.push([`s:${k.id}`, `t:${t}`]);
   }
-  // seed: skills spread on a circle, each theme between the skills that have it, so the picture starts readable
-  const skills = nodes.filter(n => n.type === "skill"), R0 = Math.min(W, H) * 0.32;
-  skills.forEach((n, i) => { if (!S.libPos.has(n.id)) { const a = 2 * Math.PI * i / skills.length + Math.PI; S.libPos.set(n.id, { x: W / 2 + Math.cos(a) * R0, y: H / 2 + Math.sin(a) * R0 * 0.7 }); } });
-  nodes.filter(n => n.type === "theme").forEach((n, i) => { if (S.libPos.has(n.id)) return;
-    const owners = edges.filter(e => e[1] === n.id).map(e => S.libPos.get(e[0]));
+  const sk = nodes.filter(n => n.type === "skill"), R0 = Math.min(W, H) * 0.34;
+  sk.forEach((n, i) => posMap.set(n.id, { x: W / 2 + Math.cos(2 * Math.PI * i / sk.length + Math.PI) * R0 * 1.4, y: H / 2 + Math.sin(2 * Math.PI * i / sk.length + Math.PI) * R0 * 0.6 }));
+  nodes.filter(n => n.type === "theme").forEach((n, i) => { const owners = edges.filter(e => e[1] === n.id).map(e => posMap.get(e[0]));
     const cx = owners.reduce((s, p) => s + p.x, 0) / owners.length, cy = owners.reduce((s, p) => s + p.y, 0) / owners.length;
-    const a = i * 2.4; S.libPos.set(n.id, { x: cx + Math.cos(a) * 90, y: cy + Math.sin(a) * 90 }); });
-  const keep = S.pos; S.pos = S.libPos; layout(nodes, edges, W, H); S.libPos = S.pos; S.pos = keep;
+    posMap.set(n.id, { x: cx + Math.cos(i * 2.4) * (n.shared ? 40 : 80), y: cy + Math.sin(i * 2.4) * (n.shared ? 60 : 80) }); });
+  const keep = S.pos; S.pos = posMap; layout(nodes, edges, W, H); S.pos = keep;
   let o = "";
   for (const [a, b] of edges) { const A = at.get(a), B = at.get(b); o += `<line class="edge ${B.shared ? "shared" : ""}" x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}"/>`; }
   for (const n of nodes) {
-    if (n.type === "skill") { const r = 12 + Math.sqrt(n.k.stages.confirmed || 0) * 6;
-      o += `<rect class="skillnode ${S.picked.has(n.k.id) ? "picked" : ""}" data-mappick="${esc(n.k.id)}" x="${n.x - r}" y="${n.y - r}" width="${2 * r}" height="${2 * r}" rx="3"><title>${esc(n.label)}: ${n.k.stages.confirmed || 0} confirmed</title></rect>
-        <text class="sk" x="${n.x}" y="${n.y + r + 16}" text-anchor="middle">${esc(n.label)}</text>`; }
+    if (n.type === "skill") { const r = 12 + Math.sqrt(n.k.stages.confirmed || 0) * 5;
+      o += `<rect class="skillnode" x="${n.x - r}" y="${n.y - r}" width="${2 * r}" height="${2 * r}" rx="6" style="stroke:${srcColor(n.k.id)};stroke-width:2.5"/><text class="sk" x="${n.x}" y="${n.y + r + 16}" text-anchor="middle">${esc(n.label)}</text>`; }
     else o += `<circle class="themenode ${n.shared ? "shared" : ""}" cx="${n.x}" cy="${n.y}" r="${n.shared ? 6 : 4}"/><text x="${n.x + 9}" y="${n.y + 4}">${esc(n.label)}</text>`;
   }
   const xs = nodes.map(n => n.x), ys = nodes.map(n => n.y);
-  const x0 = Math.min(...xs) - 120, x1 = Math.max(...xs) + 120, y0 = Math.min(...ys) - 60, y1 = Math.max(...ys) + 60;
+  const x0 = Math.min(...xs) - 90, x1 = Math.max(...xs) + 110, y0 = Math.min(...ys) - 40, y1 = Math.max(...ys) + 40;
   svg.setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
-  svg.innerHTML = o;
-}
-function renderLibTable() {
-  const [key, dir] = S.libSort;
-  const val = k => ({ name: k.name, state: k.state, records: k.records, confirmed: k.stages.confirmed || 0, avg: k.mean_confidence || 0,
-    rejected: k.stages.rejected || 0, dreamt: k.dream_seconds || 0, version: k.version || 0 })[key];
-  const rows = S.skills.slice().sort((a, b) => (val(a) > val(b) ? 1 : val(a) < val(b) ? -1 : 0) * dir);
-  const head = [["", ""], ["name", "Skill"], ["confirmed", "Confirmed"], ["avg", "Avg score"], ["rejected", "Rejected"], ["records", "Records"], ["dreamt", "Dreamt"], ["version", "Version"], ["", "Verdict"]];
-  $("#library-table").innerHTML = `<table class="lib"><thead><tr>${head.map(([k, l]) => `<th ${k ? `data-sort="${k}"` : ""}>${l}${k === key ? (dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("")}</tr></thead><tbody>
-    ${rows.map(k => `<tr data-skill="${esc(k.id)}"><td><input type="checkbox" data-pick="${esc(k.id)}" ${S.picked.has(k.id) ? "checked" : ""} aria-label="select ${esc(k.name)}"></td>
-      <td><b>${esc(k.name)}</b><div class="muted" style="font-size:12px">${(k.themes || []).slice(0, 4).map(esc).join(" · ")}</div></td>
-      <td class="num">${k.stages.confirmed || 0}</td><td class="num">${k.mean_confidence ?? "–"}</td><td class="num">${k.stages.rejected || 0}</td>
-      <td class="num">${k.records}</td><td class="num">${mins(k.dream_seconds)}</td><td class="num">${k.version ? `v${k.version}` : "–"}</td><td class="muted">${esc(verdict(k).text)}</td></tr>`).join("")}</tbody></table>`;
+  svg.innerHTML = o || `<text x="20" y="30">No themes yet.</text>`;
 }
 $("#lib-view").onclick = e => { const b = e.target.closest("button"); if (b) { S.libView = b.dataset.lib; store.set("libView", S.libView); renderLibrary(); } };
-document.addEventListener("click", e => {
-  const m = e.target.closest("[data-mappick]"); if (m) { const id = m.dataset.mappick; S.picked.has(id) ? S.picked.delete(id) : S.picked.add(id); renderLibrary(); }
-  const th_ = e.target.closest("th[data-sort]"); if (th_) { const k = th_.dataset.sort; S.libSort = [k, S.libSort[0] === k ? -S.libSort[1] : -1]; renderLibTable(); }
-});
+$("#combo-go").onclick = async () => {
+  const ids = S.skills.filter(k => S.picked.has(k.id)).map(k => k.id);
+  $("#combo-go").disabled = true;
+  const r = await fetch("/api/skills/combine", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ids, name: $("#combo-name").value.trim() }) });
+  const d = await r.json().catch(() => ({}));
+  $("#combo-go").disabled = false;
+  if (!r.ok) { $("#combo-note").innerHTML = `<span class="no">Couldn't create it: ${esc(d.error || r.status)}</span>`; return; }
+  $("#combine").close(); S.picked.clear(); S.libView = "cards"; await load(); go("library");
+  setTimeout(() => document.querySelector(`[data-skill="${CSS.escape(d.skill)}"]`)?.scrollIntoView({ block: "center" }), 100);
+};
+function openCombine() {
+  const picked = S.skills.filter(k => S.picked.has(k.id));
+  $("#combo-name").value = picked.map(k => k.name).join(" + ");
+  $("#combo-list").innerHTML = `<span class="from">${picked.map(k => `<span class="srcchip"><i style="background:${srcColor(k.id)}"></i>${esc(k.name)}</span>`).join("<span>+</span>")}</span>`;
+  $("#combo-note").innerHTML = `Creating the fusion is instant. It learns when the learner runs: with the app runner in Phase 7, or for now <code>uv run python experiments/phase3_dream.py</code>.`;
+  $("#combine").showModal();
+  drawSkillMap($("#combo-map"), picked);
+}
 S.libView = store.get("libView", "cards");
 
 // ---- import a mindpack ------------------------------------------------------------------------------
@@ -842,6 +940,8 @@ async function renderCompare() {
   const row = (k, list) => `<p><b>${esc(k)}</b> <span class="muted">· ${list.map(t => esc(t.summary)).slice(0, 2).join("; ")}</span></p>`;
   $("#cmp-a").innerHTML = Object.keys(A).filter(k => !B[k]).map(k => row(k, A[k])).join("") || `<p class="muted">Nothing only here.</p>`;
   $("#cmp-both").innerHTML = Object.keys(A).filter(k => B[k]).map(k => `<p><b>${esc(k)}</b><br><span class="muted">here: ${esc(A[k][0].summary)}<br>there: ${esc(B[k][0].summary)}</span></p>`).join("") || `<p class="muted">No shared themes.</p>`;
+  const other = S.skills.find(k => k.id === S.other), me = S.skills.find(k => k.id === S.skill);
+  if (me) drawSkillMap($("#cmp-map"), other ? [me, other] : [me]);
   $("#cmp-b").innerHTML = S.other ? (Object.keys(B).filter(k => !A[k]).map(k => row(k, B[k])).join("") || `<p class="muted">Nothing only there.</p>`) : `<p class="muted">Add a second skill to compare.</p>`;
 }
 $("#cmp-with").onchange = e => { S.other = e.target.value; renderCompare(); };
@@ -865,11 +965,36 @@ function renderJournal() {
 
 // ---- preferences: a fixed-size window with pages -------------------------------------------------------
 const PREF_PAGES = [["appearance", "Appearance"], ["learning", "Learning"], ["machine", "Machine"], ["recipes", "Recipes"], ["privacy", "Privacy"], ["storage", "Storage"]];
+const ICON = {  // small symbolic icons, drawn in the text colour
+  appearance: '<circle cx="8" cy="8" r="6.5"/><path d="M8 1.5a6.5 6.5 0 0 0 0 13z" fill="currentColor" stroke="none"/>',
+  learning: '<path d="M2 3.5h4.5a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 0-1.5-1.5H2zM14 3.5H9.5A1.5 1.5 0 0 0 8 5v8a1.5 1.5 0 0 1 1.5-1.5H14z"/>',
+  machine: '<rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M6 1.5v2.5M10 1.5v2.5M6 12v2.5M10 12v2.5M1.5 6H4M1.5 10H4M12 6h2.5M12 10h2.5"/>',
+  recipes: '<path d="M3 3.5h10M3 8h10M3 12.5h6"/><circle cx="12.5" cy="12.5" r="1.5"/>',
+  privacy: '<path d="M8 1.5 13.5 3.5v4.3c0 3.2-2.4 5.6-5.5 6.7-3.1-1.1-5.5-3.5-5.5-6.7V3.5z"/>',
+  storage: '<path d="M1.5 4.5a1 1 0 0 1 1-1h3.5l1.5 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z"/>',
+};
 S.ppage = "appearance";
-async function openPrefs(page) { if (page) S.ppage = page; S.settings = await fetch(q("/api/settings")).then(r => r.json()); renderSettings(); $("#prefs").showModal(); }
+async function openPrefs(page) {
+  if (page) S.ppage = page;
+  S.settings = await fetch(q("/api/settings")).then(r => r.json());
+  renderSettings();
+  const d = $("#prefs"); d.classList.toggle("at-page", !!page); d.style.translate = ""; d.showModal();
+}
+$("#pback").onclick = () => $("#prefs").classList.remove("at-page");
+(function dragPrefs() {  // drag the window by its header bar, like any window
+  const d = $("#prefs"); let start = null;
+  d.addEventListener("pointerdown", e => {
+    if (!e.target.closest("[data-drag]") || e.target.closest("button") || matchMedia("(max-width: 700px)").matches) return;
+    const [x, y] = (d.style.translate || "0px 0px").split(" ").map(v => parseFloat(v) || 0);
+    start = { px: e.clientX, py: e.clientY, x, y }; d.setPointerCapture(e.pointerId);
+  });
+  d.addEventListener("pointermove", e => { if (start) d.style.translate = `${start.x + e.clientX - start.px}px ${start.y + e.clientY - start.py}px`; });
+  d.addEventListener("pointerup", () => { start = null; });
+})();
 function renderSettings() {
   const { engine: e, app: a, wired, file } = S.settings, cur = store.get("theme", "system");
-  $("#pswitch").innerHTML = PREF_PAGES.map(([id, l]) => `<button data-ppage-go="${id}" aria-selected="${S.ppage === id}">${l}</button>`).join("");
+  $("#pswitch").innerHTML = PREF_PAGES.map(([id, l]) => `<button data-ppage-go="${id}" aria-selected="${S.ppage === id}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[id]}</svg>${l}</button>`).join("");
+  $("#ptitle").textContent = PREF_PAGES.find(x => x[0] === S.ppage)[1];
   $("#settings-file").textContent = `Learning settings are saved to ${file}. Appearance is saved on this device.`;
   const note = k => wired[k] ? `<span class="set-note">${wired[k] === "Phase 7" ? "works in Phase 7" : "next start"}</span>` : "";
   const toggle = (g, k, title, help) => `<div class="set"><div><b>${title}${note(k)}</b><small>${help}</small></div><input type="checkbox" class="toggle" data-g="${g}" data-k="${k}" ${(g === "app" ? a : e)[k] ? "checked" : ""} aria-label="${title}"></div>`;
@@ -932,13 +1057,16 @@ function go(where) {
 document.addEventListener("click", e => {
   const t = e.target;
   if (t.closest("#menu-btn")) { $("#main-menu").hidden = !$("#main-menu").hidden; return; }
+  if (t.closest("#sel-more")) { $("#sel-menu").hidden = !$("#sel-menu").hidden; return; }
   if (!t.closest("#main-menu")) $("#main-menu").hidden = true;
   const st = t.closest("[data-style]"); if (st) { store.set("theme", st.dataset.style); applyAppearance(); return; }
   if (t.closest("[data-about]")) { $("#main-menu").hidden = true; return showAbout(false); }
   if (t.closest("[data-keys]")) { $("#main-menu").hidden = true; return showAbout(true); }
+  if (t.closest("#scrim")) { document.body.classList.remove("drawer"); return; }
   if (t.closest("#side-toggle")) { matchMedia("(max-width: 860px)").matches ? document.body.classList.toggle("drawer") : document.body.classList.toggle("noside"); return; }
   if (t.closest("[data-close]")) { t.closest("dialog").close(); return; }
-  const pg = t.closest("[data-ppage-go]"); if (pg) { S.ppage = pg.dataset.ppageGo; return renderSettings(); }
+  if (t.closest("#combine")) return;
+  const pg = t.closest("[data-ppage-go]"); if (pg) { S.ppage = pg.dataset.ppageGo; $("#prefs").classList.add("at-page"); $(".pbody").scrollTop = 0; return renderSettings(); }
   if (t.closest("#prefs") || t.closest("#about")) return;
   const goEl = t.closest("[data-go]"); if (goEl) return go(goEl.dataset.go);
   if (t.closest("[data-tab]") && t.closest("#tabs")) return go(t.closest("[data-tab]").dataset.tab);
@@ -947,10 +1075,9 @@ document.addEventListener("click", e => {
   const imp = t.closest("[data-do-import]"); if (imp) { e.preventDefault(); return doImport(imp.dataset.doImport === "new"); }
   if (t.closest("button[disabled]")) return;
   const open = t.closest("[data-open]"); if (open) { e.preventDefault(); return openEntry(+open.dataset.open); }
-  const pick = t.closest("[data-pick]"); if (pick) { e.stopPropagation(); S.picked.has(pick.dataset.pick) ? S.picked.delete(pick.dataset.pick) : S.picked.add(pick.dataset.pick); return renderLibrary(); }
+  const pick = t.closest("[data-pick]"); if (pick) { e.stopPropagation(); pick.checked ? S.picked.add(pick.dataset.pick) : S.picked.delete(pick.dataset.pick); return renderLibrary(); }
   if (t.closest("[data-clear]")) { S.picked.clear(); return renderLibrary(); }
-  if (t.closest("[data-combine]")) { const names = S.skills.filter(k => S.picked.has(k.id)).map(k => k.name);
-    $("#combo-name").value = names.join(" + "); $("#combo-list").innerHTML = names.map(n => `<label><input type="checkbox" checked disabled> ${esc(n)}</label>`).join(""); return $("#combine").showModal(); }
+  if (t.closest("[data-combine]")) return openCombine();
   if (t.closest("[data-compare]")) { const [a, b] = [...S.picked]; S.other = b; openSkill(a); return go("compare"); }
   if (t.closest("[data-askall]")) { const ids = [...S.picked]; openSkill(ids[0]); S.loaded = new Set(ids); return go("ask"); }
   const load_ = t.closest("[data-load]"); if (load_) { load_.checked ? S.loaded.add(load_.dataset.load) : S.loaded.delete(load_.dataset.load); return; }
@@ -976,7 +1103,7 @@ $$("[data-show]").forEach(b => b.onclick = () => { const k = b.dataset.show; S.s
 window.addEventListener("resize", () => { if (S.data && S.page === "skill" && S.tab === "explore" && S.view === "timeline") renderTimeline(); });
 document.addEventListener("keydown", e => {
   const ctrl = e.ctrlKey || e.metaKey;
-  if (e.key === "Escape") $("#main-menu").hidden = true;
+  if (e.key === "Escape") { $("#main-menu").hidden = true; document.body.classList.remove("drawer"); }
   if (document.querySelector("dialog[open]")) return;
   if (ctrl && e.key === ",") { e.preventDefault(); return openPrefs(); }
   if (ctrl && (e.key === "?" || (e.shiftKey && e.key === "/"))) { e.preventDefault(); return showAbout(true); }

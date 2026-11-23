@@ -58,19 +58,24 @@ LIVE = ("proposed", "prediction-tested", "confirmed")
 def confidence(t: dict) -> tuple[int, dict]:
     """One 0-100 score summarising how sure the learner is, with its parts. Not a probability: a
     readable summary of the tests. Parts (each 0..1):
-      chance      how far from coincidence (periodic: shuffle test, full marks at p <= 0.01;
-                  cause/effect and chains: binomial chance, full marks at p <= 1e-6)
+      chance      how far from coincidence: full marks at the recipe's own threshold or better
+                  (periodic: shuffle test; cause/effect and chains: binomial chance)
       prediction  share of its predictions that came true (returns predicted from earlier years, or
                   causes followed by their effect)
       support     how many times it happened (full marks at 6)
-      source      re-read and confirmed (1), waiting for the re-reading (0.5), not checked or failed (0)"""
+      source      re-read and confirmed (1), waiting for the re-reading (0.5), not checked or failed (0)
+    A rejected theory is capped at 49: whatever its parts, a failed test outranks them."""
+    from learner import recipe as R
+
     tests = {x["test"]: x for x in (t.get("tests") or [])}
     stats = t.get("stats") or {}
     parts = {}
     ch = tests.get("chance")
     if ch and ch.get("p") is not None:
-        full = 2.0 if t["type"] == "periodic" else 6.0
-        parts["chance"] = round(min(1.0, -math.log10(max(ch["p"], 1e-12)) / full), 2)
+        # full marks at the recipe's own chance threshold or better; less the further above it
+        threshold = R.p("shuffle_p") if t["type"] == "periodic" else R.p("chance_p")
+        p = max(ch["p"], 1e-12)
+        parts["chance"] = round(min(1.0, math.log10(p) / math.log10(threshold)), 2) if p < 1 else 0.0
     elif t["type"] == "identity":
         parts["chance"] = 1.0 if tests.get("lifetime", {}).get("passed") else 0.0
     else:
@@ -86,6 +91,8 @@ def confidence(t: dict) -> tuple[int, dict]:
     parts["source"] = {"confirmed": 1.0, "prediction-tested": 0.5}.get(t["stage"], 1.0 if (
         t["stage"] == "superseded" and t.get("evidence")) else 0.0)
     score = 100 * (0.35 * parts["chance"] + 0.25 * parts["prediction"] + 0.2 * parts["support"] + 0.2 * parts["source"])
+    if t["stage"] == "rejected":
+        score = min(score, 49)  # a failed test is decisive: a rejected idea never outranks a confirmed one
     return round(score), parts
 
 
