@@ -67,7 +67,7 @@ def _toml_value(v) -> str:
 
 
 def write_config(path: Path, engine: dict, app: dict) -> None:
-    lines = ["# Sandbox Learner settings (written by the app). [engine] is read by the cycle engine.", "", "[engine]"]
+    lines = ["# Learn Anything settings (written by the app). [engine] is read by the cycle engine.", "", "[engine]"]
     lines += [f"{k} = {_toml_value(v)}" for k, v in engine.items()]
     lines += ["", "[app]"] + [f"{k} = {_toml_value(v)}" for k, v in app.items()]
     path.write_text("\n".join(lines) + "\n")
@@ -221,6 +221,21 @@ class Brain:
                     z.write(f, f.relative_to(out.parent))
             return buf.getvalue()
 
+    def questions(self) -> list[dict]:
+        from learner.questions import bank
+
+        with self.conn() as c:
+            return bank(c) if self._has(c, "theories") else []
+
+    def connection(self, a: str, b: str) -> dict:
+        from learner.questions import connection
+
+        with self.conn() as c:
+            if not self._has(c, "theories"):
+                return {"verdict": "unknown", "certainty": 0, "a": a, "b": b, "paths": [],
+                        "answer": "I don't know: this memory hasn't dreamt yet."}
+            return connection(c, a, b)
+
     def answer_key(self) -> dict:
         if not self.world:
             return {}
@@ -262,7 +277,8 @@ def make_handler(brains, library: Path | None = None, worlds: Path | None = None
     first = next(iter(brains))
     previews: dict[str, bytes] = {}  # token -> pack bytes, between preview and import
     names = {"/api/summary": "summary", "/api/records": "records", "/api/theories": "theories",
-             "/api/history": "history", "/api/answer-key": "answer_key", "/api/settings": "settings"}
+             "/api/history": "history", "/api/answer-key": "answer_key", "/api/settings": "settings",
+             "/api/questions": "questions"}
 
     class Handler(BaseHTTPRequestHandler):
         def _brain(self) -> "Brain":
@@ -315,6 +331,17 @@ def make_handler(brains, library: Path | None = None, worlds: Path | None = None
                 self.end_headers()
                 self.wfile.write(body)
                 return
+            if path == "/api/connection":
+                from urllib.parse import parse_qs, urlparse
+
+                qs = parse_qs(urlparse(self.path).query)
+                a, b = (qs.get("a") or [""])[0][:80], (qs.get("b") or [""])[0][:80]
+                if not a.strip() or not b.strip():
+                    return self._send(400, b'{"error": "need a and b"}', "application/json")
+                try:
+                    return self._send(200, json.dumps(brain.connection(a, b)).encode(), "application/json")
+                except sqlite3.Error as exc:
+                    return self._send(503, json.dumps({"error": str(exc)}).encode(), "application/json")
             if path in names:
                 try:
                     data = getattr(brain, names[path])()
@@ -342,6 +369,35 @@ def make_handler(brains, library: Path | None = None, worlds: Path | None = None
                 brains.clear()
                 brains.update(discover(library, worlds, config))
                 return self._send(200, json.dumps(result).encode(), "application/json")
+            if path == "/api/skills/remove":
+                # Never a hard delete: the brain moves to the library's .trash folder (moving it back restores
+                # it), and a skill the engine is working on right now is refused.
+                if library is None:
+                    return self._send(400, b"removing needs the app started with --library", "text/plain")
+                try:
+                    req = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
+                except ValueError as exc:
+                    return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
+                sid = str(req.get("id", ""))
+                b = brains.get(sid)
+                if b is None or b.db.parent != library.resolve():
+                    return self._send(404, json.dumps({"error": f"no skill called {sid!r}"}).encode(), "application/json")
+                s = b.summary()
+                if s["reason"] and s["state"] in ("day", "dream", "deep_sleep"):
+                    return self._send(409, json.dumps({"error": "it's learning right now; pause it first"}).encode(),
+                                      "application/json")
+                import time as _time
+
+                trash = library / ".trash"
+                trash.mkdir(exist_ok=True)
+                dest = trash / f"{sid}-{_time.strftime('%Y%m%d-%H%M%S')}.sqlite"
+                for suffix in ("", "-wal", "-shm"):
+                    src = Path(str(b.db) + suffix)
+                    if src.exists():
+                        src.replace(Path(str(dest) + suffix))
+                brains.clear()
+                brains.update(discover(library, worlds, config))
+                return self._send(200, json.dumps({"removed": sid, "moved_to": str(dest)}).encode(), "application/json")
             if path != "/api/settings":
                 return self._send(404, b"not found", "text/plain")
             try:
@@ -408,7 +464,7 @@ def main(argv: list[str] | None = None) -> int:
     library = Path(args.library).resolve() if args.library else None
     worlds = Path(args.worlds).resolve() if args.worlds else None
     server = ThreadingHTTPServer((args.host, args.port), make_handler(brains, library, worlds, config))
-    print(f"Sandbox Learner viewer on http://{args.host}:{args.port}", flush=True)
+    print(f"Learn Anything on http://{args.host}:{args.port}", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

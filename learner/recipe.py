@@ -44,7 +44,17 @@ REGISTRY: dict[str, dict[str, str]] = {
     "source_check": {"about-question@1": "the model re-reads each record: 'Is this record about <kind>?'"},
     "agenda": {"fixed-order@1": "source checks, own-kind checks, repairs, merges, screens"},
     "sleep": {"none@0": "no consolidation yet (Phase 4 adds LoRA sleep and the paper-inspired strategies)"},
+    # Read-time stages: they change how findings are shown and asked about, not what is learned, so they
+    # aren't part of a brain's recipe or its fingerprint (the app picks them).
+    "questions": {"from-findings@1": "the question bank, derived from the theories: answered, needs material (gaps, "
+                  "predictions past the last record), open, ruled out, consequences; and across findings: "
+                  "convergence, places in several findings, findings across skills (learner/questions.py)"},
+    "ask": {"connection@1": "is A connected to B: a finding linking both, a chain of findings, a shared cause or "
+            "effect, still testing, tested and failed; otherwise \"I don't know\" with untested co-occurrence"},
+    "calibration": {"none@0": "the score is a weighted ranking of the tests, not a probability (on the first test "
+                    "worlds 57% of findings scored 80+ were true: results/phase3/calibration-final.json)"},
 }
+READ_TIME = ("questions", "ask", "calibration")
 
 SETTINGS_HELP = {
     "loops": "how many times Ouro runs its layers per token, for reading and dreaming",

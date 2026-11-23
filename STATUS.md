@@ -1,8 +1,8 @@
-# STATUS: where Sandbox Learner stands
+# STATUS: where Learn Anything stands
 
 > **Read this first when picking the work back up.** It's updated at every milestone. The full design and success criteria live in [PLAN.md](PLAN.md); this file says what's done, what's in progress, what was decided, and what comes next.
 
-_Last updated: 2026-11-23 (Phase 3 built; mindpacks and recipes; test-world runs pending)_
+_Last updated: 2026-11-23 (Phase 3: first test evaluation done; recipe default@2 being compared on fresh test worlds; question bank; app restructured around memories)_
 
 ## In one paragraph
 A small looped language model ([Ouro-1.4B](https://huggingface.co/ByteDance/Ouro-1.4B)) that lives in a local sandbox and keeps learning from a folder of documents:
@@ -20,7 +20,7 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
 | 1 | Fake-chronicle generator, scorer, keyword baseline (B2) | ✅ GO: B2 9–12% (< 30%); blind readers found 7/7 patterns, 0 false, 0 decoys | [results/phase1/README.md](results/phase1/README.md) |
 | 1b | Resource-aware cycle engine | ✅ GPU handed back in 0.9 s | [results/phase0/README.md](results/phase0/README.md#cycle-engine-phase-1b-real-gpu-check) |
 | 2 | Notebook and focused reading (day mode) | ✅ GO: untouched test world: events 95%, places 98% correct, kept links 100% true; engine end-to-end passes | [results/phase2/README.md](results/phase2/README.md) |
-| 3 | Dream mode and verification; first app window | 🔄 built; val worlds 75–80% recall at 75–100% precision; test-world runs and H1 report pending | below; `results/phase3/` |
+| 3 | Dream mode and verification; first app window | 🔄 first test evaluation (default@1, 6 untouched worlds): recall 54%, precision 56%, 0 decoys, predictions 14/14. default@2 vs default@1 running on test-007…009 | below; `results/phase3/` |
 | 4 | Sleep (LoRA consolidation, review, memory audit); H2 and H4, with baseline B4 and the H2 ablations | not started | n/a |
 | 5 | Depth vs breadth (loops vs hours); H3 | not started | n/a |
 | 6 | Disguised real comet test; ask interface | not started | n/a |
@@ -88,21 +88,14 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
 
   A chain's own cause→effect links are marked "a consequence of chain N". `LearnerWorkload` combines day and dream with one shared model; the engine CLI calls it `--workload learner`.
 - `learner/model.py`: `p_yes()` is one forward pass comparing yes and no logits (no generation, no KV cache).
-- **App** (`app/`), opened read-only over the brain:
-  - **Library** of skills: every brain in a folder; select several to combine (preview), compare, or ask across them.
-  - **Status bar.**
-  - **Skill view:** Overview (big numbers, strongest findings, start-here questions, open questions, "nothing new for N minutes"), Explore (Timeline and an **Obsidian-style Graph** with filters, search, zoom and backlinks), Connections (confidence score with parts, tests, evidence), Ask (search across the loaded skills until Phase 6), Compare (themes only here, in both, only there), and Journal.
-  - **Settings** (Learning, Machine limits, Appearance, Recipes, Updates and privacy, Storage, About) are saved to `config.toml`; the engine reads `[engine]`.
-  - **Themes** are one block of variables each in `app/web/themes.css`. The default follows the system and uses **Adwaita**, light or dark (GNOME's libadwaita look), with seven more available. The picker previews each theme in its own colours.
-  - **Layout is the GNOME pattern:**
-    - a flat header bar showing the title and what the engine is doing, a Pause pill, and a main menu (style switcher, Preferences, Keyboard Shortcuts, About);
-    - a sidebar with rounded rows;
-    - a view switcher for the skill tabs, toggle groups, soft cards, switches;
-    - Preferences as a **fixed-size window** (680×620) with pages: Appearance, Learning, Machine, Recipes, Privacy, Storage.
-    - On a phone, the sidebar becomes a drawer and the tabs move to a bottom view switcher.
-  - A classic three-pane desktop layout (menu bar, list, reading pane) was tried and dropped at your request.
+- **App** (`app/`), opened read-only over the brain. What a person learns from is called a **memory** on screen (your choice, 2026-11-23; the code and API still say `skill`). Where things live:
+  - **Sidebar:** Library, Settings, About. Nothing else.
+  - **Library:** every memory as a card or a list row. New memory…, Import… (mindpack, with preview and diff), and per memory: Open, Export (.mindpack), Findings for Obsidian, Remove… (moves it to the library's `.trash/` folder; refused while the engine works on it). Tick two or more to Combine (a fusion), Compare, or Ask across them.
+  - **Inside a memory** (‹ goes back): **Overview** (number cards, strongest findings, start here, open questions), **Explore** (Timeline, Graph, List: the old Connections), **Questions** (Its questions: the question bank; Ask your own: "is A connected to B?" and word search, across ticked memories), **Compare**, **Journal**.
+  - On narrow screens the five sections move from the top to the bottom bar (never both), the sidebar becomes a drawer, and every card grid reflows.
+  - **Preferences** is a fixed-size GNOME-style window (Appearance, Learning, Machine, Recipes, Privacy, Storage). Themes are one block of variables each in `app/web/themes.css`.
+  - **Adwaita colours follow libadwaita's published values:** surfaces exactly, and text uses its "standalone" colours, so every coloured label is at least 4.4:1 (before: 2.5–3.8:1 for the yellow, green, blue and faint text). There's a high-contrast variant for GNOME's High Contrast setting (`prefers-contrast: more`).
   - Not-yet-working parts carry a "preview" tag.
-  - **Obsidian export** (`python -m app.export_obsidian`, or the zip button) writes linked Markdown notes for every connection, record, kind and place.
 
 **Also built after the first Phase 3 commit:**
 - **Mindpacks** (`learner/pack.py`, `.mindpack`): export, verify, preview and diff, and import.
@@ -140,12 +133,34 @@ Misses come from the reader: two white locusts written as "the winged plague, sn
 - "Is this record about X?" says yes to 99–100% of true cases and 1–2% of false ones at 0.5, after adding one figurative example to the prompt.
 - "Are these two labels the same kind?" is poorly calibrated: at a usable threshold it would make about 50 false merges per world. So it only *chooses which pairs to re-read*; merges are decided by the record question.
 
+**First test evaluation (default@1; untouched test-000 and 002–006; `results/phase3/summary_test-final.json`):**
+- Recall 14/26 (54%); precision 56%; 0 decoys believed; predictions 14/14.
+- By type: periodic 8/10, cause→effect 4/10, chain 2/6.
+- Baselines: B1 (every proposal, untested) 65% recall at 4.6% precision; B0 (ask the model directly) 0%; B2 (keyword script) 0%.
+- Recall against dream time saturates by 60 s, so the "8 h vs 1 h" criterion can't be tested on worlds this size, and precision is below the 70% target.
+- False claims were 7 chain pieces, 2 chance cycles, 1 harmonic and 1 junk chain.
+
+**default@2** fixes these: chains assembled from two consistent links, a family-wise shuffle threshold, and consistent candidates kept over broader ones. It's being compared with default@1 on three fresh test worlds (test-007…009) by `experiments/phase3_v2.sh` (log: `results/runs/phase3/v2.log`).
+
+**Question bank** (`learner/questions.py`; API `/api/questions` and `/api/connection`; CLI `python -m learner.questions BRAIN [--ask A B]`):
+- Built from the theories each time: answered; needs material (gaps in a cycle, a cause without its effect, a return due after the last record); being tested; ruled out; consequence; and across findings (many paths to one outcome, a place in several findings, findings across memories).
+- "Is A connected to B?" answers, best first: a finding, a chain of findings (certainties multiply), a shared cause or effect, still testing, tested and failed; otherwise "I don't know", with untested co-occurrence.
+
+**Is the score calibrated?** (`experiments/phase3_calibration.py`, on the first test runs): **no, not yet.** It ranks well, but it isn't a probability. Findings scored 80–100 were true 57% of the time; 40–60, 5%. ECE 0.225, Brier 0.078. The app calls it a score. A calibration stage (isotonic or Platt, fitted on validation worlds only) is planned; see REFERENCES.md.
+
+**Phase 3 quality check** ([results/phase3/QA.md](results/phase3/QA.md)). A UI audit (`app/web/qa/ui_audit.js`) covers 31 views at 5 widths, light and dark. It found:
+- the page's fallback variables were silently overriding the whole Adwaita theme (grey cards, white entries);
+- the library's card grid was nested inside another grid (cards stacked, the fusion card stretched);
+- the Ask entries were unstyled;
+- 379 contrast failures;
+- phone toggles were too small.
+
+All are fixed, and the audit now reports 0 issues. A regression test guards the theme bug. Ask your own was redesigned around one composer. **Every phase now ends with this check** (PLAN.md).
+
 **Next (in order):**
-1. Day-read test-000 and test-003…006. This is running in the background; it's resumable (`experiments/phase3_read_worlds.py`).
-2. Dream on test-000, 002, 003, 004, 005 and 006 (`experiments/phase3_dream.py <world> --tag final`).
-3. B0 (`experiments/phase3_b0.py`), then `experiments/phase3_report.py --tag final <worlds>`, giving the H1 curves against B0, B1 and B2.
-4. Engine end to end with the full learner (`experiments/phase3_engine_e2e.py`).
-5. Write `results/phase3/README.md` and decide GO or NO-GO.
+1. When `phase3_v2.sh` finishes: compare default@1 and default@2 on test-007…009 (recall, precision, curves, calibration).
+2. Try BH-FDR across candidates as `default@3` (REFERENCES.md, "To try").
+3. Write `results/phase3/README.md` (the honest Phase 3 verdict) and decide GO or NO-GO for Phase 4.
 
 **Honest note for H1:** on worlds this size, dreaming runs out of useful comparisons within minutes (all findings by about 1–4 min, then merge checks that add little). "Recall at 8 h ≥ recall at 1 h + 20 points" can't be tested as written on 200–400-record worlds. The report should show recall against dream time and say so. Bigger worlds, or real books, are where time should matter.
 
@@ -202,3 +217,7 @@ uv run python experiments/phase0_feasibility.py                     # model spee
   - End-to-end engine run passes (GPU freed in 1.1 s, 41/41 notes, rests when done). Phase 2 GO on untouched `test-002`.
   - Related-work check ([RELATED_WORK.md](RELATED_WORK.md)): the sleep framing is published; the narrow H2 test isn't, as far as the check went. Added baseline B4 (written notes instead of sleep) and the H2 ablations to PLAN.md.
   - Phase 3 built: knowledge index, proposers, tests, theory stages with confidence, dream workload, Obsidian export, and the app (library, overview, explore with timeline and graph, connections, ask-as-search, compare, journal, settings, seven themes). val-000: 3/4 found; val-001: 4/5, all claims true. Test-world runs pending.
+  - Phase 3 first test evaluation on 6 untouched worlds: recall 54%, precision 56%, 0 decoys. default@2 written; clean comparison on test-007…009 started.
+  - Question bank and "is A connected to B?" (answers only from findings; otherwise "I don't know"). Calibration check: the score ranks but isn't a probability yet (ECE 0.225). REFERENCES.md added.
+  - App: "skills" became **memories** on screen; sidebar has Library, Settings, About only; each memory has five sections (Overview, Explore, Questions, Compare, Journal), at the top on wide screens and at the bottom on narrow ones; cards reflow; Remove moves to the trash; libadwaita's text colours and a high-contrast mode.
+  - Phase 3 quality check (results/phase3/QA.md): the UI audit found the theme override bug, nested library grids, unstyled entries, 379 contrast failures and small phone toggles; all fixed (0 issues at 5 widths, light and dark). Ask your own redesigned around one composer. A quality check now ends every phase.

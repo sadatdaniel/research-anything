@@ -1,4 +1,6 @@
-# Sandbox Learner: a small looped model that learns how to learn
+# Learn Anything: a small looped model that learns how to learn
+
+_Named **Learn Anything** on 2026-11-23 (it was "Sandbox Learner"). The folder, the Python package and the `sandbox-learner` command keep the old name for now._
 
 ## Context
 
@@ -211,6 +213,14 @@ All results are on test worlds the system never trained on. "Hours" always means
 **My honest expectation:** H1 is likely, because search plus testing on generated worlds is plausible. H2 is about a coin flip, and it's the interesting one. H3 probably gives modest gains. H4 is likely achievable with LoRA plus review.
 
 ## Phases (each ends with a go/no-go check)
+
+**Every phase also ends with a quality check before the next one starts** (added 2026-11-23 at your request):
+- the full test suite;
+- the UI audit (`app/web/qa/ui_audit.js`): every view, at 375, 768, 1046, 1440 and 1920 px, in light and dark, with zero issues;
+- screenshots reviewed by eye for what the audit can't judge;
+- a short `results/phaseN/QA.md` saying what was checked, what was found and fixed, and what isn't covered yet.
+
+The first one is [results/phase3/QA.md](results/phase3/QA.md).
 
 **Phase 0: setup and feasibility (about 1 day)** — ✅ done, verdict GO (`results/phase0/README.md`)
 - `uv` project with PyTorch (CUDA) and transformers. *(Done: the card's "<4.56" advice is out of date; 4.57.1 works. See `results/phase0/README.md`.)*
@@ -429,6 +439,8 @@ sandbox-learner ui                       # optional local web page for asking qu
 
 _Added 2026-11-23 at your request. This is the modular form of "a trained learner is portable"._
 
+**Called a "memory" in the app** (decided 2026-11-23): what sleep consolidates, and what each LoRA adapter will hold, is a memory; the neuroscience word for one memory trace is an *engram*, but that's jargon. This plan and the code still say "skill" in places; they mean the same thing. The file stays a `.mindpack`.
+
 **In one line: a local NotebookLM where the notebook turns into trained behavior you can load, combine and share.** It runs on your own machine and learns by itself (no labels: its own checks against held-back material are its teacher). You chat with the skills you load, and it says "I don't know" when it doesn't.
 
 **A skill is what the learner learned from one theme**, meaning one folder of related material: a set of papers on one topic, one chronicle, one archive.
@@ -491,6 +503,57 @@ _Added 2026-11-23 at your request. This is the modular form of "a trained learne
   - A folder of papers on one topic is mostly undated, and its connections are between ideas, not events.
   - Those links need a different check (for example, "does paper B really cite or restate A's claim?"), plus the same verbatim quote check. Until that exists, connections in undated material are labeled as weaker.
 
+## The question bank: it asks the questions, so you don't have to
+
+_Added 2026-11-23 at your request: "most of the time humans will not know what question to ask"._
+
+As it finds things, the learner writes down the questions its findings answer, and the questions its gaps leave open. Each comes with its answer, a score, when it was asked and answered, and (if open) what material would settle it. It's built from the theories every time (`learner/questions.py`), so it always matches the findings and travels in every mindpack.
+
+| Kind | Example | Score |
+|---|---|---|
+| **Answered** | "How often does the comet come back?" About every 96 years: 7 times, 437–1108 | the finding's confidence |
+| **Needs material**: a gap | "Was there a comet around 1013?" The cycle says yes, but no record mentions it | how sure it is one was due |
+| **Needs material**: a cause without its effect | "Did a famine follow the flood at Kroguld in 1050?" | the same |
+| **Needs material**: a prediction | "When is the comet due next?" About 1205, after the last record | the same |
+| **Being tested** | "Is a storm followed by fire a year later?" Maybe: still re-reading its records | its confidence so far |
+| **Ruled out** | "Does the plague come back every 97 years?" No: shuffled years fit as well | 100 − its confidence |
+| **Consequence** | "Is a drought followed by locusts?" Yes, but only as a step in a chain | its confidence |
+| **Across findings**: convergence | "What leads to famine?" 2 separate paths: flood at Kroguld; drought → locusts | the weakest path |
+| **Across findings**: a place | "What keeps happening around Zaesanisk?" | the weakest finding |
+| **Across skills** (fusions) | "What connects val-000 and val-001?" a finding with records from both | the finding's |
+
+**Asking it yourself: "is there a connection between A and B?"** (Questions → Ask your own; `connection()`). A and B can each be a theme, a place or a name. It answers only from what the loaded skills found, best first:
+1. a finding that links them;
+2. a chain of findings (each step confirmed; the certainty multiplies);
+3. a shared effect or a shared cause ("both lead to famine");
+4. something still being tested;
+5. something tested that failed;
+6. otherwise "I don't know", together with any co-occurrence it can see, labeled as untested.
+
+**The score is honest about itself.** On the first test worlds it ranks well, but it isn't a probability yet: 57% of findings scored 80+ were true (`experiments/phase3_calibration.py`). A calibration stage (isotonic or Platt, fitted on validation worlds only) will turn it into "the chance it's true". Until then the app calls it a score.
+
+**Next, so the questions do work:**
+- **Questions drive the agenda.** Check first where an answer would change the most (active learning, value of information).
+- **Your pair questions become hypotheses.** "Ask it to check" queues A→B for the next dream, as a targeted proposal, with the same tests.
+- **Needs-material questions become a reading list.** "These 6 questions need records from 1000–1020", to add yourself or (opt-in) to look up online.
+- **Versions compare by questions:** "this update answered 3 open questions and opened 2".
+- **Real books (Phase 6):** the model writes "why" and "how" questions, but answers only from loaded skills, with citations, or says "I don't know".
+- **Scoring on fake worlds:** each answered question's answer is checked against the answer key (the calibration test above). Needs-material questions are checked against the world's hidden records ("was there really a comet in 1013?").
+
+## The app: where things live (decided 2026-11-23)
+
+Two levels, each in one place only:
+
+| Level | Holds | Where it's shown |
+|---|---|---|
+| The app | **Library**, Settings, About | the sidebar (a drawer on narrow screens) |
+| The library | every memory, as cards or a list; New memory, Import; per memory: Open, Export, Findings for Obsidian, Remove (to the trash); tick several to Combine, Compare or Ask across them | the Library page |
+| One memory | **Overview · Explore** (Timeline, Graph, List) **· Questions** (Its questions, Ask your own) **· Compare · Journal** | tabs at the top on wide screens; the same five move to a bottom bar on narrow ones, never both. ‹ goes back to the library |
+
+- Five sections rather than seven, so they fit a phone's bottom bar (GNOME's view switcher moves the same way).
+- Card grids reflow by width (`auto-fit`), not at fixed breakpoints.
+- Colours follow libadwaita's published variables. Text uses its "standalone" colours (at least 4.5:1), and there's a high-contrast variant.
+
 ## The mindpack: a skill you can share, update and roll back
 
 A skill travels as one **`.mindpack`** file. The name was checked against existing extensions on 2026-11-23: no known use, and it avoids `.skill` (taken by many apps) and `.slpack` (too close to Esri's `.slpk`). It's a zip of data only, never code:
@@ -532,7 +595,7 @@ The learner is a pipeline of stages, and a **recipe** names the implementation u
 - **Comparing two recipes** means running both on the same worlds or books with the same scorer.
 - **Adding an approach** means registering a new implementation of one stage (same inputs and outputs) and naming it in a recipe.
 
-| Stage | Now (recipe `default@1`) | Worth swapping in (papers and methods to try) |
+| Stage | Now (recipe `default@2`) | Worth swapping in (papers and methods to try) |
 |---|---|---|
 | reader | few-shot notes at 4 loops | SEAL-style self-edits (the model writes its own study notes); EntiGraph-style "write how A relates to B" |
 | names | capitalised and never lower case; stated aliases only | entity-resolution models |
@@ -542,7 +605,9 @@ The learner is a pipeline of stages, and a **recipe** names the implementation u
 | source check | "Is this record about X?" yes/no | NLI entailment; RARR-style attribution checks |
 | agenda (what to check first) | fixed order | bandit (UCB) priorities as in HypoGeniC; ReasoningBank or Auto-Dreamer-style learned strategies; **what sleep learns (H2)** |
 | sleep | none yet | ours (LoRA on checked findings and search outcomes); B4 written notes; SEAL; Google-style sleep; STaR; spaced repetition (SRT); STARS for deep loops |
-| ask | search over loaded skills | retrieval, cite every sentence, check each sentence, abstain when unsupported |
+| questions | `from-findings@1`: answered, needs material, open, ruled out, consequences; convergence, places, across skills | value-of-information ordering (active learning); model-written "why" questions for real books |
+| ask | `connection@1`: "is A connected to B?" (direct, chain, shared cause/effect, or "I don't know"), plus word search | retrieval, cite every sentence, check each sentence, abstain when unsupported |
+| calibration | `none@0` (the score is a ranking) | isotonic or Platt scaling fitted on validation worlds (see REFERENCES.md) |
 
 **Keeping in touch with papers:** each phase starts with a short related-work check for its stages (like RELATED_WORK.md did for H2). Promising methods enter as recipe options, so "does paper X beat what we have?" is one comparison run, not a rewrite. The aim is to prove or disprove published ideas in this setting, and to find the combination that is both new and the most accurate.
 

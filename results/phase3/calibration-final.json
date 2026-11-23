@@ -1,0 +1,74 @@
+{
+  "tag": "final",
+  "theories": 471,
+  "true": 17,
+  "bands": [
+    {
+      "band": "0-20",
+      "theories": 265,
+      "true": 0,
+      "share_true": 0.0,
+      "mean_score": 0.15
+    },
+    {
+      "band": "20-40",
+      "theories": 125,
+      "true": 0,
+      "share_true": 0.0,
+      "mean_score": 0.29
+    },
+    {
+      "band": "40-60",
+      "theories": 56,
+      "true": 3,
+      "share_true": 0.05,
+      "mean_score": 0.45
+    },
+    {
+      "band": "60-80",
+      "theories": 2,
+      "true": 1,
+      "share_true": 0.5,
+      "mean_score": 0.77
+    },
+    {
+      "band": "80-100",
+      "theories": 23,
+      "true": 13,
+      "share_true": 0.57,
+      "mean_score": 0.88
+    }
+  ],
+  "brier": 0.078,
+  "ece": 0.225,
+  "confirmed": {
+    "n": 25,
+    "true": 14
+  },
+  "rejected_but_true": [
+    {
+      "world": "test-004",
+      "id": 24,
+      "type": "periodic",
+      "stage": "rejected",
+      "confidence": 46,
+      "true": true
+    },
+    {
+      "world": "test-004",
+      "id": 45,
+      "type": "cause_effect",
+      "stage": "rejected",
+      "confidence": 49,
+      "true": true
+    },
+    {
+      "world": "test-004",
+      "id": 49,
+      "type": "cause_effect",
+      "stage": "rejected",
+      "confidence": 49,
+      "true": true
+    }
+  ]
+}

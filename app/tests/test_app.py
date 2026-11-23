@@ -32,7 +32,7 @@ def test_api_serves_the_page_and_json(brain):
     threading.Thread(target=server.serve_forever, daemon=True).start()
     base = f"http://127.0.0.1:{server.server_address[1]}"
     try:
-        assert b"Sandbox Learner" in urllib.request.urlopen(base + "/").read()
+        assert b"Learn Anything" in urllib.request.urlopen(base + "/").read()
         summary = json.loads(urllib.request.urlopen(base + "/api/summary").read())
         assert summary["records"] > 100 and summary["stages"].get("confirmed", 0) >= 2
         theories = json.loads(urllib.request.urlopen(base + "/api/theories").read())
@@ -42,6 +42,13 @@ def test_api_serves_the_page_and_json(brain):
         assert key["patterns"]
         records = json.loads(urllib.request.urlopen(base + "/api/records").read())
         assert {"id", "year", "text", "kind"} <= set(records[0])
+        qs = json.loads(urllib.request.urlopen(base + "/api/questions").read())
+        assert qs and {"text", "answer", "certainty", "status"} <= set(qs[0])
+        assert any(q["status"] == "answered" for q in qs)
+        g = confirmed[0]["groups"]
+        a, b = (g[0][0], g[-1][0]) if len(g) > 1 else (g[0][0], g[0][0])
+        r = json.loads(urllib.request.urlopen(base + f"/api/connection?a={a}&b={b}".replace(" ", "%20")).read())
+        assert r["verdict"] in ("yes", "indirect", "related")
     finally:
         server.shutdown()
 
@@ -136,3 +143,48 @@ def test_pack_export_preview_and_import_over_the_api(brain, tmp_path):
             assert exc.code == 422
     finally:
         server.shutdown()
+
+
+def test_remove_moves_a_skill_to_the_trash_not_away(brain, tmp_path):
+    import shutil
+
+    from app.server import discover
+
+    db, _ = brain
+    lib = tmp_path / "lib"
+    lib.mkdir()
+    shutil.copy(db, lib / "alpha.sqlite")
+    shutil.copy(db, lib / "beta.sqlite")
+    brains = discover(lib, None, None)
+    server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler(brains, lib))
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    base = f"http://127.0.0.1:{server.server_address[1]}"
+    post = lambda body: urllib.request.urlopen(urllib.request.Request(  # noqa: E731
+        base + "/api/skills/remove", method="POST", data=json.dumps(body).encode()))
+    try:
+        done = json.loads(post({"id": "beta"}).read())
+        assert done["removed"] == "beta" and not (lib / "beta.sqlite").exists()
+        trashed = list((lib / ".trash").glob("beta-*.sqlite"))
+        assert len(trashed) == 1 and trashed[0].stat().st_size > 0
+        assert [s["id"] for s in json.loads(urllib.request.urlopen(base + "/api/skills").read())] == ["alpha"]
+        try:
+            post({"id": "../alpha"})
+            raise AssertionError("an unknown skill was removed")
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 404
+        assert (lib / "alpha.sqlite").exists()
+    finally:
+        server.shutdown()
+
+
+def test_theme_values_are_not_overridden_by_page_defaults():
+    """The page's fallback variables must have no specificity (:where), or they replace every theme's own
+    values. That bug hid the whole Adwaita look (grey cards, white entries) until the Phase 3 quality check."""
+    import re
+    from pathlib import Path
+
+    page = (Path(__file__).resolve().parents[1] / "web" / "index.html").read_text()
+    style = page[page.index("<style>"):page.index("</style>")]
+    plain_root = [m.group(0) for m in re.finditer(r"(?m)^\s*:root\s*\{[^}]*\}", style)]
+    assert not any("--card" in r or "--fill" in r for r in plain_root), plain_root
+    assert ":where(:root)" in style
