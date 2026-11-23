@@ -169,7 +169,7 @@ All are fixed, and the audit now reports 0 issues. A regression test guards the 
   - That's a tie at this size. The careful checker didn't turn into more findings, and the fast readers dream longer because their labels are less consistent.
   - The split design (fast reader, Ouro checking) did worst (4 of 10): the checker re-sorted a locust record into the reader's vocabulary and broke a cycle. So: one model per memory, and a robustness fix for the cycle finder.
 - **LFM3-1.7B** (added at your request) can't follow the shared note format: 0 of 10 found, 41% false yes.
-- **Next:** the deciding comparison on test-v2, Ouro against Qwen3-1.7B.
+- **Next:** the deciding comparison on test-v2, Ouro against Qwen3-1.7B. **Running since 2026-11-23 23:2x** (`experiments/eval_v2.sh`, log `results/runs/eval_v2/log.txt`; report `experiments/eval_v2_report.py`). Qwen3 reads and dreams first (about 10 h), then Ouro (about 14 h). It resumes from where it stopped if interrupted.
 - The 8B LittleBit model at 0.55 bits wasn't tested: its own card reports ARC-Challenge at chance, and it's CC BY-NC.
 
 **Next (in order):**
