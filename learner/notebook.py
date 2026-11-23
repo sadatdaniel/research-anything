@@ -7,7 +7,7 @@ Tables:
   sources  the original records exactly as read (the source check always goes back to these)
   notes    one row per record: event, places, people, details, summary, quiz question and answer
   links    what records say about the map and about names: same_as / located_in / on_river
-           (each link keeps the record it came from, as evidence)
+           (each link keeps the record it came from, and whether that record states it word for word)
 
   python -m learner.notebook ingest --db learner-data/brain/brain.sqlite --world worlds/test/test-001
   python -m learner.notebook show   --db learner-data/brain/brain.sqlite [--limit 10]
@@ -51,7 +51,8 @@ CREATE TABLE IF NOT EXISTS links (
     kind       TEXT NOT NULL,           -- same_as / located_in / on_river
     a          TEXT NOT NULL,
     b          TEXT NOT NULL,
-    record_id  TEXT NOT NULL REFERENCES sources(record_id)
+    record_id  TEXT NOT NULL REFERENCES sources(record_id),
+    stated     INTEGER NOT NULL DEFAULT 0  -- 1 if the record says it word for word; 0 = the model inferred it
 );
 CREATE INDEX IF NOT EXISTS links_ab ON links (kind, a, b);
 """
@@ -59,6 +60,9 @@ CREATE INDEX IF NOT EXISTS links_ab ON links (kind, a, b);
 
 def ensure_schema(conn: sqlite3.Connection) -> None:
     conn.executescript(SCHEMA)
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(links)")}
+    if "stated" not in cols:  # notebooks made before links were source-checked
+        conn.execute("ALTER TABLE links ADD COLUMN stated INTEGER NOT NULL DEFAULT 0")
 
 
 def ingest_world(conn: sqlite3.Connection, world_dir: str | Path) -> int:
@@ -94,6 +98,7 @@ def unread_count(conn: sqlite3.Connection) -> int:
 def save_note(conn: sqlite3.Connection, note, record_text: str, loops: int) -> None:
     """Write one note and its links. Call inside a transaction (the engine's run_one provides one)."""
     from learner.focused import check_answer
+    from learner.sourcecheck import link_stated
 
     conn.execute(
         "INSERT OR REPLACE INTO notes VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -103,8 +108,8 @@ def save_note(conn: sqlite3.Connection, note, record_text: str, loops: int) -> N
     conn.execute("DELETE FROM links WHERE record_id = ?", (note.record_id,))
     for kind, pairs in (("same_as", note.same_as), ("located_in", note.located_in), ("on_river", note.on_river)):
         for a, b in pairs:
-            conn.execute("INSERT INTO links (kind, a, b, record_id) VALUES (?, ?, ?, ?)",
-                         (kind, a, b, note.record_id))
+            conn.execute("INSERT INTO links (kind, a, b, record_id, stated) VALUES (?, ?, ?, ?, ?)",
+                         (kind, a, b, note.record_id, int(link_stated(record_text, kind, a, b))))
 
 
 def notes(conn: sqlite3.Connection) -> list[dict]:
@@ -121,9 +126,12 @@ def notes(conn: sqlite3.Connection) -> list[dict]:
     return out
 
 
-def links(conn: sqlite3.Connection) -> list[dict]:
-    return [dict(zip(("kind", "a", "b", "record_id"), r))
-            for r in conn.execute("SELECT kind, a, b, record_id FROM links ORDER BY id")]
+def links(conn: sqlite3.Connection, stated_only: bool = False) -> list[dict]:
+    """Links between names and places. stated_only: just the ones a record says word for word
+    (inferred links are kept as hypotheses for dream mode to test, never used as facts)."""
+    where = " WHERE stated = 1" if stated_only else ""
+    return [dict(zip(("kind", "a", "b", "record_id", "stated"), r))
+            for r in conn.execute(f"SELECT kind, a, b, record_id, stated FROM links{where} ORDER BY id")]
 
 
 def main(argv: list[str] | None = None) -> int:

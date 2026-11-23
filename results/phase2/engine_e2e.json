@@ -1,0 +1,47 @@
+{
+  "records": 41,
+  "first_notes_after_s": 41.7,
+  "gpu_freed_after_s": 1.1,
+  "back_after_game_s": 6.1,
+  "all_notes_after_s": 224.8,
+  "rests_when_done": true,
+  "notes": 41,
+  "distinct_records_noted": 41,
+  "work_items": {
+    "done": 11
+  },
+  "records_planned_twice": 0,
+  "timeline": [
+    {
+      "state": "day",
+      "reason": "new material to read",
+      "start": 1795397242.4322672,
+      "end": 1795397286.8817708
+    },
+    {
+      "state": "rest",
+      "reason": "python using 1.1 GB of GPU memory",
+      "start": 1795397286.8817708,
+      "end": 1795397311.9223113
+    },
+    {
+      "state": "day",
+      "reason": "new material to read",
+      "start": 1795397311.9223113,
+      "end": 1795397466.4803312
+    },
+    {
+      "state": "rest",
+      "reason": "night; nothing to dream about yet",
+      "start": 1795397466.4803312,
+      "end": 1795397467.3399076
+    },
+    {
+      "state": "off",
+      "reason": "learner stopped",
+      "start": 1795397467.3399076,
+      "end": 1795397467.3399076
+    }
+  ],
+  "pass": true
+}

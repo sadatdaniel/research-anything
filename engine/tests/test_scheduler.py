@@ -71,13 +71,14 @@ def test_hard_stop_hands_the_gpu_back_fast(tmp_path):
     assert sched.tick().state is State.DAY  # back to work as soon as the game is gone
 
 
-def test_night_cycle_dream_sleep_dream(tmp_path):
+def test_night_cycle_read_first_then_dream_sleep_dream(tmp_path):
     sched, store, _, clock = make(tmp_path, hour=2, pressure_per_dream=0.25, pressure_per_sleep=0.5)
-    assert sched.tick().state is State.DREAM
+    assert sched.tick().state is State.DAY  # unread material comes first, even at night
+    tick_until(sched, lambda d: d.state is State.DREAM)
     tick_until(sched, lambda d: d.state is State.DEEP_SLEEP)  # pressure reached 1.0
     tick_until(sched, lambda d: d.state is State.DREAM)  # consolidated back to 0
     states = [r["state"] for r in store.timeline()]
-    assert states[:3] == ["dream", "deep_sleep", "dream"]
+    assert states[:4] == ["day", "dream", "deep_sleep", "dream"]
     assert store.active_seconds()["dream"] > 0 and store.active_seconds()["deep_sleep"] > 0
 
 

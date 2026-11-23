@@ -176,7 +176,7 @@ class Policy:
     # ---- the decision -----------------------------------------------------------------------
 
     def _candidate(self, snap: Snapshot, now: datetime, pressure: float, current: State,
-                   has_day_work: bool) -> tuple[State, str]:
+                   has_day_work: bool, has_dream_work: bool) -> tuple[State, str]:
         c = self.config
         idle = self._idle_seconds(snap)
         night = in_window(now, c.night_start, c.night_end)
@@ -188,6 +188,11 @@ class Policy:
             wants_sleep = pressure >= c.sleep_pressure_threshold or (current is State.DEEP_SLEEP and pressure > 0)
             if wants_sleep and room >= c.vram_need_deep_sleep_mb:
                 return State.DEEP_SLEEP, f"{label}; sleep pressure {pressure:.2f}, {room / 1024:.1f} GB free for training"
+            # You can't dream about what you haven't read: unread material comes first, even at night.
+            if has_day_work and room >= c.vram_need_day_mb:
+                return State.DAY, f"{label}; reading new material first"
+            if not has_dream_work:
+                return State.REST, f"{label}; nothing to dream about yet"
             if room >= c.vram_need_dream_mb:
                 extra = f"; sleep pressure {pressure:.2f} but not enough GPU memory to train" if wants_sleep else ""
                 return State.DREAM, f"{label}; hunting for connections{extra}"
@@ -199,25 +204,25 @@ class Policy:
             return State.DAY, "new material to read"
         return State.REST, f"new material waiting, but only {room / 1024:.1f} GB of GPU memory available"
 
-    def _still_valid(self, state: State, snap: Snapshot, has_day_work: bool) -> bool:
+    def _still_valid(self, state: State, snap: Snapshot, has_day_work: bool, has_dream_work: bool) -> bool:
         if state is State.REST:
             return False  # leaving REST is never delayed; hard stops have their own hysteresis
-        if state is State.DAY and not has_day_work:
+        if (state is State.DAY and not has_day_work) or (state is State.DREAM and not has_dream_work):
             return False
         return snap.vram_for_us_mb >= self.config.vram_need(state)
 
     def decide(self, snap: Snapshot, now: datetime, pressure: float, current: State,
-               seconds_in_state: float, has_day_work: bool) -> Decision:
+               seconds_in_state: float, has_day_work: bool, has_dream_work: bool = True) -> Decision:
         stops = self.hard_stops(snap)
         if stops:
             self._idle_since = None
             return Decision(State.REST, "; ".join(stops), 0.0, hard_stop=True)
 
-        state, reason = self._candidate(snap, now, pressure, current, has_day_work)
+        state, reason = self._candidate(snap, now, pressure, current, has_day_work, has_dream_work)
         if (
             state is not current
             and seconds_in_state < self.config.min_state_seconds
-            and self._still_valid(current, snap, has_day_work)
+            and self._still_valid(current, snap, has_day_work, has_dream_work)
         ):
             wait = self.config.min_state_seconds - seconds_in_state
             return Decision(current, f"staying {wait:.0f} s more before switching to {state.value}",

@@ -9,7 +9,6 @@ invented and appear in no world). For each record it writes:
   Details:  telltale details (colour, direction, duration, ...)
   Links:    what the record says about the map or about names:
               "A = B" (two names for the same thing), "A in B" (lies in a region), "A on the B" (on a river)
-  Summary:  one plain sentence
   Q: / A:   a self-quiz question about the record, and its answer in the record's own words
 
 The answer is later checked word for word against the record (the source check), and the quiz
@@ -22,7 +21,7 @@ import re
 from dataclasses import dataclass, field
 
 FEW_SHOT = """Read each chronicle record and take short notes in the same format.
-- Event: what happened, in one to three words.
+- Event: the main thing that happened, named plainly in one to three words. Name the thing itself (locusts, not plague; people left, not its cause). Ignore side remarks, and read figures of speech by their meaning.
 - Places: only real place names written in the record.
 - Details: telltale details such as colour, direction (also when said poetically, like "towards the setting sun" = west), how long it lasted.
 - Links: only what the record itself says about names or the map: two names for one place ("A = B"), a place in a region ("A in B"), a place on a river ("A on the B"), or two names for one person. Otherwise none.
@@ -34,7 +33,6 @@ Places: Dunmere; Kessaly
 People: none
 Details: none
 Links: Dunmere = Kessaly
-Summary: There was famine in Dunmere, also called Kessaly.
 Q: Where was there famine in 930?
 A: Dunmere
 ###
@@ -44,7 +42,6 @@ Places: Tarrow; Velsham
 People: none
 Details: lower town burned
 Links: Tarrow in Velsham
-Summary: A fire burned the lower town of Tarrow, which lies in Velsham.
 Q: What burned in Tarrow in 744?
 A: the lower town
 ###
@@ -54,7 +51,6 @@ Places: none
 People: none
 Details: pale; west (over the evening hills); eleven nights
 Links: none
-Summary: A pale comet hung in the west for eleven nights.
 Q: What hung in the sky in 655?
 A: a pale fiery sword
 ###
@@ -64,9 +60,26 @@ Places: Calloway; Wend
 People: none
 Details: none
 Links: Calloway on the Wend
-Summary: There was hunger in Calloway, which lies on the river Wend.
 Q: Where was there hunger in 977?
 A: Calloway
+###
+Record (year 640): Year 640. Hoppers, grey, Marrowfield.
+Event: locusts
+Places: Marrowfield
+People: none
+Details: grey
+Links: none
+Q: What came to Marrowfield in 640?
+A: Hoppers
+###
+Record (year 882): In 882, Dunmere emptied, and its folk went to the hills. A flood of letters reached the court.
+Event: people left
+Places: Dunmere
+People: none
+Details: went to the hills
+Links: none
+Q: Where did the folk of Dunmere go in 882?
+A: to the hills
 ###
 Record (year 701): Year 701. Garrick, whom men called the Red Fox, gave land at Brennock on the Sallow.
 Event: gift of land
@@ -74,13 +87,12 @@ Places: Brennock; Sallow
 People: Garrick; the Red Fox
 Details: none
 Links: Garrick = the Red Fox; Brennock on the Sallow
-Summary: Garrick, known as the Red Fox, gave land at Brennock on the river Sallow.
 Q: Who gave land at Brennock in 701?
 A: Garrick
 ###
 """
 
-FIELDS = ("event", "places", "people", "details", "links", "summary", "q", "a")
+FIELDS = ("event", "places", "people", "details", "links", "q", "a")  # "summary" is optional (older notes)
 
 
 def prompt_for(record: dict) -> str:
@@ -165,7 +177,23 @@ def check_answer(note: Note, record_text: str) -> bool:
     return bool(answer) and answer.lower() in record_text.lower()
 
 
-def read_batch(lm, records: list[dict], max_new_tokens: int = 110) -> list[Note]:
+def read_records(lm, records: list[dict], should_stop=None, max_new_tokens: int = 110) -> list[Note]:
+    """Take notes on any number of records: batches are sized from the GPU memory free right now.
+    If should_stop() turns true, generation ends early and the partial result is returned; the
+    caller must treat it as cancelled (the engine does)."""
+    tokens = len(lm.tokenizer(FEW_SHOT)["input_ids"]) + 60 + max_new_tokens
+    out: list[Note] = []
+    i = 0
+    while i < len(records):
+        if should_stop is not None and should_stop():
+            break
+        size = lm.safe_batch(tokens)
+        out += read_batch(lm, records[i:i + size], max_new_tokens, should_stop=should_stop)
+        i += size
+    return out
+
+
+def read_batch(lm, records: list[dict], max_new_tokens: int = 110, should_stop=None) -> list[Note]:
     """Take notes on a batch of records with one batched generate call.
 
     A looped model keeps a key/value cache for every layer on every loop (about 0.8 MB per token per
@@ -174,9 +202,15 @@ def read_batch(lm, records: list[dict], max_new_tokens: int = 110) -> list[Note]
     import torch
 
     prompts = [prompt_for(r) for r in records]
+    extra = {}
+    if should_stop is not None:
+        from transformers import StoppingCriteriaList
+
+        extra["stopping_criteria"] = StoppingCriteriaList([_StopWhenAsked(should_stop)])
     outs = None
     try:
-        outs = lm.generate(prompts, max_new_tokens=max_new_tokens, stop_strings=["###"], tokenizer=lm.tokenizer)
+        outs = lm.generate(prompts, max_new_tokens=max_new_tokens, stop_strings=["###"], tokenizer=lm.tokenizer,
+                           **extra)
     except torch.OutOfMemoryError:
         if len(records) == 1:
             raise
@@ -184,5 +218,19 @@ def read_batch(lm, records: list[dict], max_new_tokens: int = 110) -> list[Note]
     if outs is None:
         torch.cuda.empty_cache()
         half = len(records) // 2
-        return read_batch(lm, records[:half], max_new_tokens) + read_batch(lm, records[half:], max_new_tokens)
+        return (read_batch(lm, records[:half], max_new_tokens, should_stop)
+                + read_batch(lm, records[half:], max_new_tokens, should_stop))
     return [parse_note(r, o) for r, o in zip(records, outs)]
+
+
+class _StopWhenAsked:
+    """A transformers StoppingCriteria that ends generation as soon as should_stop() is true."""
+
+    def __init__(self, should_stop) -> None:
+        self.should_stop = should_stop
+
+    def __call__(self, input_ids, scores, **kwargs):
+        import torch
+
+        return torch.full((input_ids.shape[0],), bool(self.should_stop()), dtype=torch.bool,
+                          device=input_ids.device)

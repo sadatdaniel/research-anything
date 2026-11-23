@@ -16,8 +16,9 @@ def snap(**kw) -> Snapshot:
     return replace(base, **kw)
 
 
-def decide(policy, s, now=DAYTIME, pressure=0.0, current=State.REST, in_state=1e9, day_work=True):
-    return policy.decide(s, now, pressure, current, in_state, day_work)
+def decide(policy, s, now=DAYTIME, pressure=0.0, current=State.REST, in_state=1e9, day_work=True,
+           dream_work=True):
+    return policy.decide(s, now, pressure, current, in_state, day_work, dream_work)
 
 
 def test_night_window_crosses_midnight():
@@ -70,20 +71,35 @@ def test_no_gpu():
     assert d.state is State.REST and "no NVIDIA GPU" in d.reason
 
 
+def test_at_night_unread_material_comes_first_and_no_dream_work_means_rest():
+    p = Policy(PolicyConfig(night_idle_seconds=0))
+    d = decide(p, snap(), now=NIGHT, day_work=True)
+    assert d.state is State.DAY and "reading new material first" in d.reason
+    d = decide(p, snap(), now=NIGHT, day_work=False, dream_work=False)
+    assert d.state is State.REST and "nothing to dream about" in d.reason
+    # Already dreaming, and the dream work runs out: leave at once (no minimum-time hold).
+    p2 = Policy(PolicyConfig(night_idle_seconds=0, min_state_seconds=600))
+    d = decide(p2, snap(), now=NIGHT, current=State.DREAM, in_state=5, day_work=False, dream_work=False)
+    assert d.state is State.REST
+    # High sleep pressure still wins over reading.
+    assert decide(p, snap(), now=NIGHT, pressure=2.0, day_work=True).state is State.DEEP_SLEEP
+
+
 def test_night_dreams_then_sleeps_when_pressure_is_high():
     p = Policy(PolicyConfig(night_idle_seconds=0))
-    assert decide(p, snap(), now=NIGHT, pressure=0.3).state is State.DREAM
-    assert decide(p, snap(), now=NIGHT, pressure=1.2).state is State.DEEP_SLEEP
+    assert decide(p, snap(), now=NIGHT, pressure=0.3, day_work=False).state is State.DREAM
+    assert decide(p, snap(), now=NIGHT, pressure=1.2, day_work=False).state is State.DEEP_SLEEP
     # Once asleep, it stays asleep until the pressure is fully relieved...
-    assert decide(p, snap(), now=NIGHT, pressure=0.4, current=State.DEEP_SLEEP).state is State.DEEP_SLEEP
+    assert decide(p, snap(), now=NIGHT, pressure=0.4, current=State.DEEP_SLEEP,
+                  day_work=False).state is State.DEEP_SLEEP
     # ...then goes back to dreaming.
-    assert decide(p, snap(), now=NIGHT, pressure=0.0, current=State.DEEP_SLEEP).state is State.DREAM
+    assert decide(p, snap(), now=NIGHT, pressure=0.0, current=State.DEEP_SLEEP, day_work=False).state is State.DREAM
 
 
 def test_sleep_needs_more_gpu_memory_than_dreaming():
     p = Policy(PolicyConfig(night_idle_seconds=0))
     small = snap(others_on_gpu=(GpuProcess(1, "browser", 150.0),), vram_total_mb=5000)
-    d = decide(p, small, now=NIGHT, pressure=2.0)
+    d = decide(p, small, now=NIGHT, pressure=2.0, day_work=False)
     assert d.state is State.DREAM and "not enough GPU memory to train" in d.reason
 
 
@@ -99,9 +115,13 @@ def test_nap_after_long_idle_by_day():
 
 def test_min_time_in_state_prevents_flapping_but_not_hard_stops():
     p = Policy(PolicyConfig(night_idle_seconds=0, min_state_seconds=120))
-    d = decide(p, snap(), now=NIGHT, current=State.DAY, in_state=30)
-    assert d.state is State.DAY and "staying" in d.reason
-    d = decide(p, snap(gpu_temp_c=90), now=NIGHT, current=State.DAY, in_state=30)
+    # Dreaming for 30 s when new material arrives: finish the minimum dream time before switching to reading.
+    d = decide(p, snap(), now=NIGHT, current=State.DREAM, in_state=30, day_work=True)
+    assert d.state is State.DREAM and "staying" in d.reason
+    d = decide(p, snap(), now=NIGHT, current=State.DREAM, in_state=200, day_work=True)
+    assert d.state is State.DAY
+    # A hard stop never waits.
+    d = decide(p, snap(gpu_temp_c=90), now=NIGHT, current=State.DREAM, in_state=30)
     assert d.state is State.REST and d.hard_stop
 
 

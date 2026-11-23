@@ -1,0 +1,153 @@
+{
+  "counts": {
+    "notes": 237,
+    "complete": 235,
+    "event_scored": 237,
+    "event_ok": 215,
+    "places_true": 293,
+    "places_found": 279,
+    "places_listed": 293,
+    "places_real": 279,
+    "links_stated": 40,
+    "links_captured": 38,
+    "links_made": 52,
+    "links_true": 39,
+    "detail_records": 32,
+    "colour_ok": 31,
+    "direction_ok": 18,
+    "duration_ok": 19,
+    "quiz": 235,
+    "quiz_verbatim": 178
+  },
+  "format_complete": 0.992,
+  "event_accuracy": 0.907,
+  "place_recall": 0.952,
+  "place_precision": 0.952,
+  "link_recall": 0.95,
+  "link_precision": 0.75,
+  "colour_captured": 0.969,
+  "direction_captured": 0.947,
+  "duration_captured": 1.0,
+  "quiz_answer_verbatim": 0.757,
+  "wrong_events": [
+    [
+      "r0020",
+      "building",
+      "watchtower"
+    ],
+    [
+      "r0034",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0049",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0050",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0075",
+      "flood",
+      "sandkark"
+    ],
+    [
+      "r0095",
+      "migration",
+      "flood"
+    ],
+    [
+      "r0096",
+      "migration",
+      "flood"
+    ],
+    [
+      "r0099",
+      "migration",
+      "flood"
+    ],
+    [
+      "r0101",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0106",
+      "flood",
+      "drought"
+    ],
+    [
+      "r0125",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0154",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0156",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0168",
+      "battle",
+      "truce"
+    ],
+    [
+      "r0171",
+      "building",
+      "bridge finished; star rising"
+    ],
+    [
+      "r0176",
+      "flood",
+      "nothing"
+    ],
+    [
+      "r0188",
+      "fair",
+      "flood of pilgrims"
+    ],
+    [
+      "r0192",
+      "locusts",
+      "crop failure"
+    ],
+    [
+      "r0198",
+      "migration",
+      "flood"
+    ],
+    [
+      "r0213",
+      "fair",
+      "flood"
+    ],
+    [
+      "r0217",
+      "locusts",
+      "plague"
+    ],
+    [
+      "r0222",
+      "locusts",
+      "plague"
+    ]
+  ],
+  "run": {
+    "world": "worlds/test/test-001",
+    "records": 237,
+    "loops": 4,
+    "batch": 2,
+    "seconds": 1055.3,
+    "seconds_per_record": 4.45,
+    "peak_gpu_mb": 4061
+  }
+}

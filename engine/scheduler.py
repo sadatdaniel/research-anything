@@ -46,6 +46,7 @@ class Scheduler:
         decision = self.policy.decide(
             snap, self.now(), self.store.pressure(), current,
             t - self.store.entered_at(t), self.planner.has_work(self.store, State.DAY),
+            self.planner.has_work(self.store, State.DREAM),
         )
         decision = self._check_crashes(current, decision, t)
 

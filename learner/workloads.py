@@ -1,7 +1,8 @@
 """Learner workloads that plug into the cycle engine (engine/workload.py describes the contract).
 
-FocusedWorkload is day mode: read unread records in batches and write notes. Generation stops early
-when the engine asks the worker to stop, so a hard stop doesn't wait for a whole batch to finish.
+FocusedWorkload is day mode: read unread records and write notes. Batches are sized from free GPU
+memory inside the worker, and generation stops early when the engine asks the worker to stop, so a
+hard stop doesn't wait for a whole batch to finish.
 """
 
 from __future__ import annotations
@@ -15,19 +16,6 @@ from learner import notebook
 
 if TYPE_CHECKING:
     from engine.store import Store, WorkItem
-
-
-class _StopWhenAsked:
-    """A transformers StoppingCriteria that ends generation as soon as the engine says stop."""
-
-    def __init__(self, should_stop) -> None:
-        self.should_stop = should_stop
-
-    def __call__(self, input_ids, scores, **kwargs):
-        import torch
-
-        return torch.full((input_ids.shape[0],), bool(self.should_stop()), dtype=torch.bool,
-                          device=input_ids.device)
 
 
 class FocusedWorkload:
@@ -65,17 +53,13 @@ class FocusedWorkload:
         self.lm = None  # the worker process exits right after, which frees the GPU completely
 
     def run(self, item: "WorkItem", ctx: WorkContext) -> Any:
-        from transformers import StoppingCriteriaList
-
-        from learner.focused import parse_note, prompt_for
+        from learner.focused import read_records
 
         ctx.check()
         records = item.payload["records"]  # items carry their records, so the worker never needs the DB here
-        prompts = [prompt_for(r) for r in records]
-        outs = self.lm.generate(prompts, max_new_tokens=110, stop_strings=["###"], tokenizer=self.lm.tokenizer,
-                                stopping_criteria=StoppingCriteriaList([_StopWhenAsked(ctx.should_stop)]))
-        ctx.check()  # stopped early: discard the half-written notes, the item stays pending
-        return [parse_note(r, o) for r, o in zip(records, outs)]
+        notes = read_records(self.lm, records, should_stop=ctx.should_stop)
+        ctx.check()  # stopped early: discard the half-written notes; the item stays pending
+        return notes
 
     def save(self, item: "WorkItem", result: Any, conn: sqlite3.Connection) -> float:
         texts = {r["id"]: r["text"] for r in item.payload["records"]}

@@ -18,7 +18,6 @@ Places: Thafupa; Sandkark; Steiskty
 People: none
 Details: burst its banks; drowned the fields
 Links: Thafupa = Sandkark; Steiskty on the Thafupa
-Summary: The Thafupa flooded the fields of Steiskty.
 Q: Which river burst its banks in 910?
 A: the Thafupa
 ###

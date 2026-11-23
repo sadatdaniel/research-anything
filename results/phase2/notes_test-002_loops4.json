@@ -1,0 +1,126 @@
+{
+  "counts": {
+    "notes": 333,
+    "complete": 333,
+    "event_scored": 333,
+    "event_ok": 317,
+    "places_true": 400,
+    "places_found": 358,
+    "places_listed": 367,
+    "places_real": 358,
+    "links_stated": 47,
+    "links_captured": 40,
+    "links_made": 46,
+    "links_true": 42,
+    "kept_links": 42,
+    "kept_true": 42,
+    "detail_records": 45,
+    "colour_ok": 42,
+    "direction_ok": 18,
+    "duration_ok": 20,
+    "quiz": 333,
+    "quiz_verbatim": 283
+  },
+  "format_complete": 1.0,
+  "event_accuracy": 0.952,
+  "place_recall": 0.895,
+  "place_precision": 0.975,
+  "link_recall": 0.851,
+  "link_precision_all": 0.913,
+  "link_precision": 1.0,
+  "colour_captured": 0.933,
+  "direction_captured": 0.9,
+  "duration_captured": 1.0,
+  "quiz_answer_verbatim": 0.85,
+  "wrong_events": [
+    [
+      "r0001",
+      "harvest_fail",
+      "salt"
+    ],
+    [
+      "r0007",
+      "dike_break",
+      "storm"
+    ],
+    [
+      "r0018",
+      "dike_break",
+      "storm"
+    ],
+    [
+      "r0036",
+      "building",
+      "mint"
+    ],
+    [
+      "r0058",
+      "harvest_fail",
+      "salt"
+    ],
+    [
+      "r0063",
+      "dike_break",
+      "storm"
+    ],
+    [
+      "r0077",
+      "dike_break",
+      "storm"
+    ],
+    [
+      "r0107",
+      "fire",
+      "procession"
+    ],
+    [
+      "r0109",
+      "dike_break",
+      "storm"
+    ],
+    [
+      "r0169",
+      "dike_break",
+      "storm"
+    ],
+    [
+      "r0216",
+      "storm",
+      "sea rose up"
+    ],
+    [
+      "r0258",
+      "harvest_fail",
+      "salt poisoning"
+    ],
+    [
+      "r0272",
+      "hard_winter",
+      "famine"
+    ],
+    [
+      "r0314",
+      "harvest_fail",
+      "salt"
+    ],
+    [
+      "r0331",
+      "harvest_fail",
+      "salt poisoning"
+    ],
+    [
+      "r0332",
+      "harvest_fail",
+      "salt poisoning"
+    ]
+  ],
+  "run": {
+    "world": "worlds/test/test-002",
+    "records": 333,
+    "loops": 4,
+    "batch": 2,
+    "seconds": 1120.0,
+    "seconds_per_record": 3.36,
+    "peak_gpu_mb": 4182
+  }
+}

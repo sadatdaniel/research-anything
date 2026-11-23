@@ -1,0 +1,71 @@
+{
+  "counts": {
+    "notes": 227,
+    "complete": 227,
+    "event_scored": 227,
+    "event_ok": 222,
+    "places_true": 280,
+    "places_found": 262,
+    "places_listed": 269,
+    "places_real": 262,
+    "links_stated": 44,
+    "links_captured": 38,
+    "links_made": 48,
+    "links_true": 41,
+    "kept_links": 41,
+    "kept_true": 41,
+    "detail_records": 15,
+    "colour_ok": 14,
+    "direction_ok": 7,
+    "duration_ok": 9,
+    "quiz": 227,
+    "quiz_verbatim": 201
+  },
+  "format_complete": 1.0,
+  "event_accuracy": 0.978,
+  "place_recall": 0.936,
+  "place_precision": 0.974,
+  "link_recall": 0.864,
+  "link_precision_all": 0.854,
+  "link_precision": 1.0,
+  "colour_captured": 0.933,
+  "direction_captured": 0.778,
+  "duration_captured": 1.0,
+  "quiz_answer_verbatim": 0.885,
+  "wrong_events": [
+    [
+      "r0074",
+      "building",
+      "guildhall built; war"
+    ],
+    [
+      "r0107",
+      "building",
+      "granary built"
+    ],
+    [
+      "r0146",
+      "drought",
+      "wells dried"
+    ],
+    [
+      "r0183",
+      "harvest_fail",
+      "salt spoiled the fields"
+    ],
+    [
+      "r0198",
+      "drought",
+      "wells dried"
+    ]
+  ],
+  "run": {
+    "world": "worlds/val/val-000",
+    "records": 227,
+    "loops": 4,
+    "batch": 2,
+    "seconds": 786.0,
+    "seconds_per_record": 3.46,
+    "peak_gpu_mb": 4177
+  }
+}

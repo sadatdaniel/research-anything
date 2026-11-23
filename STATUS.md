@@ -19,8 +19,8 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
 | 0 | Setup and feasibility | ✅ GO | [results/phase0/README.md](results/phase0/README.md) |
 | 1 | Fake-chronicle generator, scorer, keyword baseline (B2) | ✅ GO: B2 9–12% (< 30%); blind readers found 7/7 patterns, 0 false, 0 decoys | [results/phase1/README.md](results/phase1/README.md) |
 | 1b | Resource-aware cycle engine | ✅ GPU handed back in 0.9 s | [results/phase0/README.md](results/phase0/README.md#cycle-engine-phase-1b-real-gpu-check) |
-| 2 | Notebook and focused reading (day mode) | ⏳ in progress: notebook, reader and grader built; measuring on a full world | [results/phase2/](results/phase2/) |
-| 3 | Dream mode and verification; first app window | not started | n/a |
+| 2 | Notebook and focused reading (day mode) | ✅ GO: untouched test world: events 95%, places 98% correct, kept links 100% true; engine end-to-end passes | [results/phase2/README.md](results/phase2/README.md) |
+| 3 | Dream mode and verification; first app window | ⏳ next (outline below) | n/a |
 | 4 | Sleep (LoRA consolidation, review, memory audit); H2 and H4 | not started | n/a |
 | 5 | Depth vs breadth (loops vs hours); H3 | not started | n/a |
 | 6 | Disguised real comet test; ask interface | not started | n/a |
@@ -47,16 +47,32 @@ A resource-aware cycle engine decides when it may use the GPU. The core claim to
 - **Exactly-once work:** an item is computed outside any transaction, and its results are written and the item marked done in one short transaction. A `kill -9` therefore never loses or repeats work.
 - **STARS has no license file**, so we write our own regularizer from the paper. The 730M looped fallback (`ifm-ai/xllm-loop`) is Apache-2.0.
 - **Engine GPU-memory budget** (measured): 4.0 GB to read or dream, 5.2 GB to sleep.
+- **Night rule:** unread material comes first even at night (you can't dream about what you haven't read), and no dream work means REST. Hard stops and the minimum time in a state still apply.
+- **Day reading uses 4 loops.** 2 loops is 2.6× faster but invents details and misses links.
+- **Only *stated* links are facts** (`links.stated = 1`, from `learner/sourcecheck.py`). Inferred links are hypotheses for dream mode to test.
+- **Development hygiene:** prompt and heuristic work uses `val` worlds; reported numbers come from test worlds never tuned on (`test-001` is spent, `test-002` was used for the Phase 2 final).
 - **Looped models have a 4× key/value cache:** Ouro stores one entry per layer *per loop*, about 0.8 MB per token per prompt at 4 loops. A 700-token few-shot prompt therefore allows a batch of only about 2–3. `LoadedModel.safe_batch()` sizes batches from free memory, and `read_batch` splits a batch in half when it runs out of memory. Retry **outside** the `except` block, because the traceback keeps the failed attempt's tensors alive.
 - **Periodic prediction tolerance** is `max(2 × jitter, 5% of the period)`. Each occurrence is shifted by up to ±jitter, so a correct "last + period" can be off by twice the jitter. Found by blind reader A.
 
-## In progress right now
-1. ✅ Blind reader B scored 4/4. It exposed a generator flaw, now fixed: two comet returns in a row went unrecorded, so a real pattern looked like a decoy.
-2. ✅ Geography gap fixed: each city's first written mention names its region and its second names its river; tested. Worlds regenerated and B2 re-measured.
-3. **Phase 2:**
-   - `learner/notebook.py` (SQLite in the engine's database: sources, notes, links), `learner/focused.py` (few-shot reader), `learner/workloads.py` (FocusedWorkload: engine day mode) and `chronicles/notes_eval.py` (grader) are built.
-   - Smoke test on 12 records: events, links and details 100%; places 83% recall and 100% precision; quiz answers 58% word for word.
-   - **Running:** the full world `test-001` (237 records). Then an end-to-end engine run with the real model.
+## Next: Phase 3 (dream mode and verification)
+Nothing is in progress. Phase 2 is closed: see [results/phase2/README.md](results/phase2/README.md).
+
+Outline to start from:
+1. **Group the notes** into canonical events and places.
+   - Places: union-find over *stated* `same_as` links, plus stated `located_in`/`on_river` for the map.
+   - Events: normalise the free-text labels. The model judges "are these the same kind of event?" on short lists.
+2. **Propose candidates** (cheap, no model):
+   - periodic runs within an event group with matching telltale details;
+   - lagged pairs between groups, using the map so that "flood on river R" is linked to "famine in city C on R";
+   - chains from two lagged links;
+   - identity from stated person aliases.
+3. **Test each candidate** (this is the verification design in PLAN.md):
+   - **source check:** quotes verbatim (`learner/sourcecheck.py`), plus the model reading the original passages;
+   - **prediction test:** the learner holds back its own latest about 15% of visible years, and the pattern must predict them;
+   - **shuffle test:** the pattern must vanish when the years are shuffled.
+4. **Store theories** with their stage (proposed → source-checked → prediction-tested → confirmed / rejected (reason)), and emit claims in the scorer's format.
+5. **H1 curves:** recall and precision against active hours on test worlds, with B0, B1 and B2 as baselines.
+6. **First app window:** timeline plus connections, run on fake worlds, so planted and found patterns can be seen together.
 
 ## Open questions for you
 - none right now
@@ -95,3 +111,6 @@ uv run python experiments/phase0_feasibility.py                     # model spee
   - Git repository initialized.
   - Blind reader B scored 4/4, which exposed the "two drops in a row" flaw (fixed). Phase 1 GO.
   - Phase 2 notebook, reader and grader built; 4 loops beats 2 for note-taking.
+  - First commit `c1b4262` (as sadatdaniel, no co-author).
+  - Full note-taking run on `test-001`; links source-checked; night policy fixed (read first, rest when there's nothing to dream about); prompt sharpened.
+  - End-to-end engine run passes (GPU freed in 1.1 s, 41/41 notes, rests when done). Phase 2 GO on untouched `test-002`.

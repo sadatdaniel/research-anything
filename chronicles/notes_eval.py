@@ -6,7 +6,8 @@ What is measured, per note:
   places    recall: share of the real names in the record that the note lists;
             precision: share of listed "places" that really are names written in the record
   links     recall: share of the record's stated links ("A (called B by others)", "A in B", "A on the B") that
-            the note captured; precision: share of the note's links that are true of the world
+            the note captured and kept; precision: share of kept links (those that pass the source check)
+            that are true of the world. link_precision_all also counts the inferred links that were dropped.
   details   for comets and locusts (the periodic kinds): colour, direction and duration captured
   quiz      the quiz answer appears word for word in the record
 """
@@ -121,8 +122,8 @@ def grade(truth: dict, notes: list[dict], sources: dict[str, str]) -> dict:
     rec = truth["records"]
     t = {k: 0 for k in ("notes", "complete", "event_scored", "event_ok", "places_true", "places_found",
                         "places_listed", "places_real", "links_stated", "links_captured", "links_made",
-                        "links_true", "detail_records", "colour_ok", "direction_ok", "duration_ok",
-                        "quiz", "quiz_verbatim")}
+                        "links_true", "kept_links", "kept_true", "detail_records", "colour_ok",
+                        "direction_ok", "duration_ok", "quiz", "quiz_verbatim")}
     wrong_events: list[tuple[str, str, str]] = []
     for n in notes:
         rid, text, info = n["record_id"], sources[n["record_id"]], rec[n["record_id"]]
@@ -147,8 +148,11 @@ def grade(truth: dict, notes: list[dict], sources: dict[str, str]) -> dict:
             t["links_made"] += 1
             ok, key = w.link_true(link["kind"], link["a"], link["b"])
             t["links_true"] += int(ok)
-            if key:
-                captured.add(key)
+            if link.get("stated", 1):  # what the learner keeps as fact after the source check
+                t["kept_links"] += 1
+                t["kept_true"] += int(ok)
+                if key:
+                    captured.add(key)
         t["links_stated"] += len(stated)
         t["links_captured"] += len(stated & captured)
         if info["kind"] in ("comet", "locusts"):
@@ -177,7 +181,8 @@ def grade(truth: dict, notes: list[dict], sources: dict[str, str]) -> dict:
         "place_recall": rate("places_found", "places_true"),
         "place_precision": rate("places_real", "places_listed"),
         "link_recall": rate("links_captured", "links_stated"),
-        "link_precision": rate("links_true", "links_made"),
+        "link_precision_all": rate("links_true", "links_made"),
+        "link_precision": rate("kept_true", "kept_links"),  # after the source check: what is used as fact
         "colour_captured": rate("colour_ok", "detail_records"),
         "direction_captured": round(t["direction_ok"] / comets, 3) if comets else None,
         "duration_captured": round(t["duration_ok"] / comets, 3) if comets else None,
