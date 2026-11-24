@@ -36,7 +36,7 @@ The product side (an app, memories, mindpacks) is how results are inspected and 
   If 1 beats 2, the method does the work. If 3 beats 1, it scales. It's measured hardest on the deep types: chains, convergence, contextual and hidden-design patterns.
 - "Deeper questions" are scored too: the question bank's "needs material" questions are checked against each world's hidden records.
 
-**Name:** Learn Anything. The folder and package are still `sandbox-learner`. What it learns from one theme is a **memory**, and it travels as a `.mindpack`.
+**Name:** **Research Anything**: using an intelligent pipeline to discover hidden patterns (chosen 2026-11-24; earlier working names were Learn Anything, then Sandbox Learner). The folder and package are still `sandbox-learner`. What it learns from one theme is a **memory**, and it travels as a `.mindpack`.
 
 ## What we're trying to prove
 

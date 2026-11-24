@@ -32,7 +32,7 @@ def test_api_serves_the_page_and_json(brain):
     threading.Thread(target=server.serve_forever, daemon=True).start()
     base = f"http://127.0.0.1:{server.server_address[1]}"
     try:
-        assert b"Learn Anything" in urllib.request.urlopen(base + "/").read()
+        assert b"Research Anything" in urllib.request.urlopen(base + "/").read()
         summary = json.loads(urllib.request.urlopen(base + "/api/summary").read())
         assert summary["records"] > 100 and summary["stages"].get("confirmed", 0) >= 2
         theories = json.loads(urllib.request.urlopen(base + "/api/theories").read())

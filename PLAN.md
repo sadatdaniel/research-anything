@@ -1,6 +1,6 @@
-# Learn Anything: a small looped model that learns how to learn
+# Research Anything: using an intelligent pipeline to discover hidden patterns
 
-_Named **Learn Anything** on 2026-11-23 (it was "Sandbox Learner"). The folder, the Python package and the `sandbox-learner` command keep the old name for now._
+_Named **Research Anything** on 2026-11-24 (earlier: "Learn Anything", "Sandbox Learner"). The folder, the Python package and the `sandbox-learner` command keep the old name for now._
 
 ## Context
 

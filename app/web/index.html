@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Learn Anything</title>
+<title>Research Anything</title>
 <link rel="stylesheet" href="/themes.css">
 <style>
 /* Layout and components, drawn the GNOME way (libadwaita): a flat header bar, a sidebar with rounded
@@ -384,7 +384,7 @@ dialog.prefs::backdrop { background: rgba(0, 0, 0, .18); }
 <div class="app">
   <div class="scrim" id="scrim" aria-hidden="true"></div>
   <aside class="side" aria-label="Pages">
-    <div class="side-head">Learn Anything</div>
+    <div class="side-head">Research Anything</div>
     <button class="nav-item" data-go="library"><svg class="nic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2.5" width="4.5" height="11" rx="1"/><rect x="8.5" y="2.5" width="5.5" height="5" rx="1"/><rect x="8.5" y="9.5" width="5.5" height="4" rx="1"/></svg>Library</button>
     <div class="grow"></div>
     <button class="nav-item" data-go="settings"><svg class="nic" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"/></svg>Settings</button>
@@ -567,7 +567,7 @@ dialog.prefs::backdrop { background: rgba(0, 0, 0, .18); }
   </div>
 </dialog>
 
-<dialog id="about" aria-label="About Learn Anything">
+<dialog id="about" aria-label="About Research Anything">
   <div class="dlg-head"><span></span><span id="about-title">About</span><button class="iconbtn" data-close aria-label="Close">✕</button></div>
   <div class="about" id="about-body"></div>
 </dialog>
@@ -634,8 +634,9 @@ function render() {
   $("#st-state").textContent = STATE_NAME[live] || live;
   $("#st-why").textContent = s.reason || (s.active_seconds.dream ? `finished dreaming after ${mins(s.active_seconds.dream)}; nothing left to check` : "");
   $$(".nav-item[data-go]").forEach(b => b.classList.toggle("sel", b.dataset.go === "library"));
-  $("#hb-title").textContent = S.page === "library" ? "Library" : s.name;
-  $("#skill-name").textContent = s.name;
+  const title = S.skills.find(k => k.id === S.skill)?.name || s.name;   // the memory's own name, not its file name
+  $("#hb-title").textContent = S.page === "library" ? "Library" : title;
+  $("#skill-name").textContent = title;
   $("#skill-eyebrow").textContent = s.has_answer_key ? "memory · a fake world with an answer key" : "memory";
   $("#skill-sub").textContent = `${s.records} records · ${s.span[0]}–${s.span[1]} · dreamt ${mins(s.active_seconds.dream)}`;
   $("#key-btn").hidden = !s.has_answer_key;
@@ -1195,7 +1196,7 @@ function showAbout(keys) {
   $("#about-title").textContent = keys ? "Keyboard Shortcuts" : "About";
   $("#about-body").innerHTML = keys
     ? `<div class="keys"><span>Library</span><kbd>Ctrl+0</kbd><span>Overview, Explore, Questions, Compare, Journal</span><kbd>Ctrl+1 … 5</kbd><span>Preferences</span><kbd>Ctrl+,</kbd><span>Show or hide the sidebar</span><kbd>F9</kbd><span>Keyboard shortcuts</span><kbd>Ctrl+?</kbd></div>`
-    : `<div class="logo"></div><h2>Learn Anything</h2><p class="muted">0.3 · Phase 3</p><p>A small looped model (Ouro-1.4B) that reads your files by day, dreams up connections at night, checks every one against the source, and never sends anything off this computer.</p><p><button class="btn" data-keys>Keyboard Shortcuts</button></p>`;
+    : `<div class="logo"></div><h2>Research Anything</h2><p class="muted">0.3 · Phase 3</p><p>An intelligent pipeline that reads your material, dreams up connections nobody wrote down, checks every one against the sources and against chance, and learns from what it verified. Everything stays on this computer.</p><p><button class="btn" data-keys>Keyboard Shortcuts</button></p>`;
   $("#about").showModal();
 }
 
@@ -1277,8 +1278,20 @@ document.addEventListener("keydown", e => {
   if (e.key === "F9") { e.preventDefault(); return document.body.classList.toggle("noside"); }
   if (ctrl && /^[0-5]$/.test(e.key)) { e.preventDefault(); return go(["library", "overview", "explore", "questions", "compare", "journal"][+e.key]); }
 });
+// Deep links, for sharing a view or linking it from documents:
+//   #memory=<id>&tab=overview|explore|questions|compare|journal[&view=timeline|graph|list][&qmode=bank|ask][&ask=A|B]
+async function applyHash() {
+  const h = new URLSearchParams(location.hash.slice(1)), sid = h.get("memory");
+  if (!sid || !S.skills.some(k => k.id === sid)) return;
+  if (sid !== S.skill || !S.data) { S.skill = sid; S.loaded = new Set([sid]); S.pos = new Map(); S.vb = null; S.chat = []; S.data = null; await load(); }
+  if (h.get("view")) S.view = h.get("view");
+  if (h.get("qmode")) S.qmode = h.get("qmode");
+  go(h.get("tab") || "overview");
+  if (h.get("ask")) { const [a, b] = h.get("ask").split("|"); if (a && b) await askPair(a, b); }
+}
+window.addEventListener("hashchange", () => applyHash().catch(() => {}));
 go("library");
-load().catch(err => { $("#st-state").textContent = "Offline"; $("#st-why").textContent = `couldn't reach the learner (${err})`; });
+load().then(applyHash).catch(err => { $("#st-state").textContent = "Offline"; $("#st-why").textContent = `couldn't reach the learner (${err})`; });
 setInterval(() => { if (!document.querySelector("dialog[open]") && !(S.tab === "questions" && S.qmode === "ask")) load().catch(() => {}); }, 15000);
 </script>
 </body>

@@ -84,7 +84,7 @@ What it shows:
 
 `LittleBitLLM/littlebit-qwen3-8b-0.55bpw` is an 8B model compressed with [LittleBit-2](https://arxiv.org/abs/2603.00042) (ICML 2026). It wasn't included, for three reasons:
 - **Its own card reports heavy damage.** ARC-Challenge 19.5% (chance is 25%), ARC-Easy 44 vs 84 for the uncompressed model, and WikiText-2 perplexity 24.5 vs 9.7. It's an early community checkpoint: half an epoch of distillation, where the paper uses five.
-- **License:** CC BY-NC 4.0 (non-commercial), which conflicts with releasing Learn Anything openly.
+- **License:** CC BY-NC 4.0 (non-commercial), which conflicts with releasing Research Anything openly.
 - **Tooling:** it needs a custom loader (SamsungLabs/LittleBit), and LoRA sleep on its binarised factors isn't supported.
 
 A bigger model is still worth trying when the compression keeps its quality: for example a 4B model at standard 4-bit (about 2.5 GB).

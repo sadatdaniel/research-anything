@@ -67,7 +67,7 @@ def _toml_value(v) -> str:
 
 
 def write_config(path: Path, engine: dict, app: dict) -> None:
-    lines = ["# Learn Anything settings (written by the app). [engine] is read by the cycle engine.", "", "[engine]"]
+    lines = ["# Research Anything settings (written by the app). [engine] is read by the cycle engine.", "", "[engine]"]
     lines += [f"{k} = {_toml_value(v)}" for k, v in engine.items()]
     lines += ["", "[app]"] + [f"{k} = {_toml_value(v)}" for k, v in app.items()]
     path.write_text("\n".join(lines) + "\n")
@@ -464,7 +464,7 @@ def main(argv: list[str] | None = None) -> int:
     library = Path(args.library).resolve() if args.library else None
     worlds = Path(args.worlds).resolve() if args.worlds else None
     server = ThreadingHTTPServer((args.host, args.port), make_handler(brains, library, worlds, config))
-    print(f"Learn Anything on http://{args.host}:{args.port}", flush=True)
+    print(f"Research Anything on http://{args.host}:{args.port}", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
