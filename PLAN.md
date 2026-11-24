@@ -324,6 +324,34 @@ The first one is [results/phase3/QA.md](results/phase3/QA.md).
   - It shows a reliable association in time, not causation, so the app says "consistently precedes", never "causes".
 - **The test of "unexpected":** a "mystery" pattern type is planted in some test worlds, and no detector is written for it. Finding it is the evidence, in the same spirit as the identity type being held out of the training worlds.
 
+**Contextual patterns: a quality of the text tracks context from another source** (added 2026-11-24 at your request)
+
+Example: give it ten books by an older writer, plus her letters or a biography, and it notices *"in the years she was struggling, her characters were more despairing."* That's a pattern between two streams, where one of them is a quality the model has to measure, not an event. It takes three steps:
+1. **Who and when.**
+   - Recognise that the works and the life belong to one person (the identity type, across documents).
+   - Date each work by when it was *written*, not published: from the text's own clues, letters, or the edition's front matter. The app shows which it used.
+2. **Measure.**
+   - Break the works into many small units (chapters, scenes, characters' passages), since ten books are only ten data points.
+   - The model scores each unit on a few qualities: mood (despair, hope, anger), themes, who the main character is.
+   - The life becomes a timeline of states (illness, loss, poverty, exile, happiness) taken from the letters or biography.
+   - The scores are calibrated like any other model answer: checked against human-labelled passages first.
+3. **Test, like everything else.**
+   - The pattern is "quality Q in the work co-varies with life state S", at the same time or a few years later.
+   - **Shuffle test:** shift the life timeline in time (keeping its order), so a slow drift in style can't fake it.
+   - **Confounds:** remove the writer's overall trend and compare like with like (genre, novel or poem). Check whether other writers of the same years show the same shift; if they do, it's the times, not her life.
+   - **Held-out prediction:** from the other years, predict the mood of a book left out.
+   - **Evidence:** passages from both sides, the letter and the despairing chapter, word for word.
+   - It's always worded as **"tends to coincide"**, never "because": an association, not a cause.
+
+**Tested on fake writers first, as with everything else.** The generator writes a fake author's life (struggle years and good years) and works whose characters' mood follows her state with noise. It adds decoys:
+- a genre shift over time that has nothing to do with her life;
+- a mood shift that comes from the era and appears in every writer;
+- an unreliable biography that misdates events.
+
+The score is whether it finds the real link and none of the decoys. Then real public-domain writers, where scholars have already written about the link between life and work: a rediscovery test, like Halley.
+
+This generalises beyond writers: **a measured quality of one source, explained by the timeline of another**. Examples: the tone of a newspaper and the economy; the mood of a diary and the seasons; complaints in a log and a change of supplier.
+
 **Online lookup (opt-in, after Phase 6)**
 - **Off by default**, and each lookup needs your approval. The learner shows the exact query first, which you can edit or cancel. Only the query leaves the computer, never files or notes.
 - **A fetched page becomes a new source, not a fact.** It's stored with its URL, the fetch date, a hash and the text, and goes through the same checks (verbatim quotes, re-reading). Answers cite it separately: "from the web, fetched on …".
