@@ -611,6 +611,7 @@ The learner is a pipeline of stages, and a **recipe** names the implementation u
 | reader | few-shot notes at 4 loops | SEAL-style self-edits (the model writes its own study notes); EntiGraph-style "write how A relates to B" |
 | names | capitalised and never lower case; stated aliases only | entity-resolution models |
 | kinds | label screen, then a majority vote both ways from re-reading | embedding clusters; NLI entailment between descriptions |
+| proposers (from the cycle diagnosis) | cycles are searched per kind or place | **group by description before searching** (the model judges whether two records describe the same thing, then clusters); **a silent prediction counts as untested** (with the decoy rate measured): see results/diagnosis/README.md |
 | proposers | periodic, lagged, chain, identity | sequential pattern mining (PrefixSpan or SPADE); Allen interval relations; HypoGeniC-style model-proposed hypotheses; the pattern grammar (Phase 6c) |
 | tests | shape, prediction on own held-back years, shuffle or binomial chance, verbatim quotes | Benjamini–Hochberg control of false discoveries across all candidates; permutation tests for every type |
 | source check | "Is this record about X?" yes/no | NLI entailment; RARR-style attribution checks |

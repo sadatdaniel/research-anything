@@ -1,0 +1,870 @@
+{
+  "tag": "v2-qwen3-1.7b-base",
+  "missed": 27,
+  "causes": {
+    "tests: rejected by the chance test": 11,
+    "material: even perfect notes fail the shape rule (returns never written down)": 6,
+    "tests: rejected by the prediction test": 5,
+    "reading: the notes split or lost the cycle's records": 5
+  },
+  "cycles": [
+    {
+      "world": "test-010",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 97,
+      "records": 9,
+      "learner_kinds": {
+        "comet": 9
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 22,
+      "cycle_years": 8,
+      "perfect_fit": {
+        "hits": 8,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 8,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 422",
+        "summary": "comet returns about every 97 years (8 times, 745-1426); next about 1523"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.027,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-010",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 91,
+      "records": 10,
+      "learner_kinds": {
+        "locusts": 9,
+        "plague": 1
+      },
+      "share_in_main_kind": 0.9,
+      "group_size_years": 18,
+      "cycle_years": 8,
+      "perfect_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "prediction: fit on the years before 1371, it predicted [1458]; 0 came true",
+        "summary": "locusts at Vethax returns about every 91 years (8 times, 728-1368); next about 1549"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.003,
+      "cause": "tests: rejected by the prediction test"
+    },
+    {
+      "world": "test-011",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 108,
+      "records": 7,
+      "learner_kinds": {
+        "comet": 7
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 20,
+      "cycle_years": 6,
+      "perfect_fit": {
+        "hits": 6,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 6,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 7",
+        "summary": "comet returns about every 108 years (6 times, 925-1574); next about 1681"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.355,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-012",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 86,
+      "records": 8,
+      "learner_kinds": {
+        "comet": 8
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 25,
+      "cycle_years": 8,
+      "perfect_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 114",
+        "summary": "comet returns about every 86 years (8 times, 447-1134); next about 1220"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.093,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-012",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 77,
+      "records": 9,
+      "learner_kinds": {
+        "locusts": 6,
+        "sickness": 3
+      },
+      "share_in_main_kind": 0.67,
+      "group_size_years": 20,
+      "cycle_years": 9,
+      "perfect_fit": {
+        "hits": 9,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 6,
+        "misses": 4,
+        "max_gap": 2
+      },
+      "learned_passes_shape": false,
+      "theory": {
+        "stage": "rejected",
+        "reason": "shape: two returns in a row are missing: the run stopped",
+        "summary": "locusts returns about every 75 years (6 times, 455-1134); next about 1207"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.316,
+      "cause": "reading: the notes split or lost the cycle's records"
+    },
+    {
+      "world": "test-015",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 100,
+      "records": 8,
+      "learner_kinds": {
+        "comet": 8
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 18,
+      "cycle_years": 6,
+      "perfect_fit": null,
+      "perfect_passes_shape": false,
+      "learned_fit": {
+        "hits": 7,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 80",
+        "summary": "comet returns about every 100 years (7 times, 425-1126); next about 1227"
+      },
+      "chance_p_whole_kind": 0.03,
+      "cause": "material: even perfect notes fail the shape rule (returns never written down)"
+    },
+    {
+      "world": "test-016",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 88,
+      "records": 8,
+      "learner_kinds": {
+        "comet": 8
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 29,
+      "cycle_years": 8,
+      "perfect_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 65",
+        "summary": "comet returns about every 88 years (8 times, 862-1567); next about 1655"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.243,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-016",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 55,
+      "records": 16,
+      "learner_kinds": {
+        "locusts": 15,
+        "plague": 1
+      },
+      "share_in_main_kind": 0.94,
+      "group_size_years": 21,
+      "cycle_years": 13,
+      "perfect_fit": {
+        "hits": 13,
+        "misses": 2,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 12,
+        "misses": 3,
+        "max_gap": 2
+      },
+      "learned_passes_shape": false,
+      "theory": {
+        "stage": "rejected",
+        "reason": "shape: two returns in a row are missing: the run stopped",
+        "summary": "locusts returns about every 55 years (12 times, 817-1589); next about 1643"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.003,
+      "cause": "reading: the notes split or lost the cycle's records"
+    },
+    {
+      "world": "test-017",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 110,
+      "records": 7,
+      "learner_kinds": {
+        "comet": 7
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 18,
+      "cycle_years": 6,
+      "perfect_fit": {
+        "hits": 6,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 6,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 9",
+        "summary": "comet returns about every 110 years (6 times, 415-1077); next about 1186"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.209,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-017",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 108,
+      "records": 6,
+      "learner_kinds": {
+        "plague": 3,
+        "locusts": 3
+      },
+      "share_in_main_kind": 0.5,
+      "group_size_years": 22,
+      "cycle_years": 6,
+      "perfect_fit": {
+        "hits": 6,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 5,
+        "misses": 3,
+        "max_gap": 1
+      },
+      "learned_passes_shape": false,
+      "theory": {
+        "stage": "rejected",
+        "reason": "shape: 3 of 8 expected returns missing",
+        "summary": "plague returns about every 107 years (5 times, 344-986); next about 1202"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.857,
+      "cause": "reading: the notes split or lost the cycle's records"
+    },
+    {
+      "world": "test-022",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 101,
+      "records": 7,
+      "learner_kinds": {
+        "comet": 7
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 32,
+      "cycle_years": 7,
+      "perfect_fit": {
+        "hits": 7,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 7,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 8",
+        "summary": "comet returns about every 101 years (7 times, 962-1568); next about 1669"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.678,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-022",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 93,
+      "records": 7,
+      "learner_kinds": {
+        "locusts": 6,
+        "plague": 1
+      },
+      "share_in_main_kind": 0.86,
+      "group_size_years": 13,
+      "cycle_years": 7,
+      "perfect_fit": null,
+      "perfect_passes_shape": false,
+      "learned_fit": null,
+      "learned_passes_shape": false,
+      "theory": null,
+      "cause": "material: even perfect notes fail the shape rule (returns never written down)"
+    },
+    {
+      "world": "test-023",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 59,
+      "records": 11,
+      "learner_kinds": {
+        "comet": 11
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 18,
+      "cycle_years": 9,
+      "perfect_fit": {
+        "hits": 9,
+        "misses": 3,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 9,
+        "misses": 3,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "prediction: fit on the years before 1051, it predicted [1054, 1113, 1171]; 1 came true",
+        "summary": "comet returns about every 59 years (9 times, 470-1120); next about 1177"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.003,
+      "cause": "tests: rejected by the prediction test"
+    },
+    {
+      "world": "test-023",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 65,
+      "records": 12,
+      "learner_kinds": {
+        "locusts": 9,
+        "plague": 3
+      },
+      "share_in_main_kind": 0.75,
+      "group_size_years": 14,
+      "cycle_years": 10,
+      "perfect_fit": {
+        "hits": 10,
+        "misses": 2,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "prediction: fit on the years before 1051, it predicted [1110, 1174]; 0 came true",
+        "summary": "locusts returns about every 64 years (8 times, 594-1048); next about 1174"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.003,
+      "cause": "tests: rejected by the prediction test"
+    },
+    {
+      "world": "test-024",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 93,
+      "records": 7,
+      "learner_kinds": {
+        "comet": 7
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 19,
+      "cycle_years": 6,
+      "perfect_fit": null,
+      "perfect_passes_shape": false,
+      "learned_fit": {
+        "hits": 7,
+        "misses": 2,
+        "max_gap": 2
+      },
+      "learned_passes_shape": false,
+      "theory": {
+        "stage": "rejected",
+        "reason": "shape: two returns in a row are missing: the run stopped",
+        "summary": "comet returns about every 89 years (7 times, 772-1482); next about 1574"
+      },
+      "chance_p_whole_kind": 0.037,
+      "cause": "material: even perfect notes fail the shape rule (returns never written down)"
+    },
+    {
+      "world": "test-024",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 88,
+      "records": 10,
+      "learner_kinds": {
+        "plague": 4,
+        "locusts": 6
+      },
+      "share_in_main_kind": 0.6,
+      "group_size_years": 9,
+      "cycle_years": 7,
+      "perfect_fit": {
+        "hits": 7,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 5,
+        "misses": 2,
+        "max_gap": 1
+      },
+      "learned_passes_shape": false,
+      "theory": {
+        "stage": "rejected",
+        "reason": "shape: 2 of 7 expected returns missing",
+        "summary": "locusts at Warnfem returns about every 88 years (5 times, 976-1417); next about 1593"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.033,
+      "cause": "reading: the notes split or lost the cycle's records"
+    },
+    {
+      "world": "test-025",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 97,
+      "records": 9,
+      "learner_kinds": {
+        "comet": 9
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 27,
+      "cycle_years": 7,
+      "perfect_fit": {
+        "hits": 7,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 7,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "prediction: fit on the years before 1450, it predicted [1510]; 0 came true",
+        "summary": "comet returns about every 97 years (7 times, 822-1502); next about 1600"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.392,
+      "cause": "tests: rejected by the prediction test"
+    },
+    {
+      "world": "test-026",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 75,
+      "records": 10,
+      "learner_kinds": {
+        "comet": 10
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 29,
+      "cycle_years": 8,
+      "perfect_fit": {
+        "hits": 8,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 9,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 25",
+        "summary": "comet returns about every 75 years (9 times, 785-1386); next about 1462"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.096,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-028",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 73,
+      "records": 10,
+      "learner_kinds": {
+        "comet": 10
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 34,
+      "cycle_years": 9,
+      "perfect_fit": {
+        "hits": 9,
+        "misses": 2,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 10,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 138",
+        "summary": "comet returns about every 73 years (10 times, 814-1542); next about 1616"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.08,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-029",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 97,
+      "records": 8,
+      "learner_kinds": {
+        "comet": 8
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 19,
+      "cycle_years": 7,
+      "perfect_fit": {
+        "hits": 7,
+        "misses": 2,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 7,
+        "misses": 2,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 46",
+        "summary": "comet returns about every 97 years (7 times, 732-1414); next about 1608"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.053,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-030",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 74,
+      "records": 11,
+      "learner_kinds": {
+        "comet": 11
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 21,
+      "cycle_years": 9,
+      "perfect_fit": {
+        "hits": 9,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 9,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 812",
+        "summary": "comet returns about every 74 years (9 times, 785-1449); next about 1523"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.007,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-031",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 109,
+      "records": 7,
+      "learner_kinds": {
+        "comet": 7
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 26,
+      "cycle_years": 7,
+      "perfect_fit": {
+        "hits": 7,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 7,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "chance: shuffled years fit as well 3 times in 7",
+        "summary": "comet returns about every 109 years (7 times, 982-1633); next about 1743"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.319,
+      "cause": "tests: rejected by the chance test"
+    },
+    {
+      "world": "test-032",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 107,
+      "records": 4,
+      "learner_kinds": {
+        "comet": 4
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 18,
+      "cycle_years": 4,
+      "perfect_fit": {
+        "hits": 4,
+        "misses": 3,
+        "max_gap": 2
+      },
+      "perfect_passes_shape": false,
+      "learned_fit": {
+        "hits": 5,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "prediction: fit on the years before 1394, it predicted [1405, 1511]; 0 came true",
+        "summary": "comet returns about every 109 years (5 times, 875-1419); next about 1524"
+      },
+      "chance_p_cycle_alone": 0.013,
+      "chance_p_whole_kind": 0.565,
+      "cause": "material: even perfect notes fail the shape rule (returns never written down)"
+    },
+    {
+      "world": "test-033",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 105,
+      "records": 10,
+      "learner_kinds": {
+        "locusts": 7,
+        "plague": 2,
+        "trade": 1
+      },
+      "share_in_main_kind": 0.7,
+      "group_size_years": 14,
+      "cycle_years": 8,
+      "perfect_fit": {
+        "hits": 8,
+        "misses": 0,
+        "max_gap": 0
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 6,
+        "misses": 2,
+        "max_gap": 2
+      },
+      "learned_passes_shape": false,
+      "theory": {
+        "stage": "rejected",
+        "reason": "shape: two returns in a row are missing: the run stopped",
+        "summary": "locusts at Bougrarn returns about every 105 years (6 times, 733-1468); next about 1572"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.056,
+      "cause": "reading: the notes split or lost the cycle's records"
+    },
+    {
+      "world": "test-034",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 97,
+      "records": 9,
+      "learner_kinds": {
+        "comet": 9
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 30,
+      "cycle_years": 7,
+      "perfect_fit": {
+        "hits": 7,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "perfect_passes_shape": true,
+      "learned_fit": {
+        "hits": 7,
+        "misses": 1,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "prediction: fit on the years before 1345, it predicted [1442]; 0 came true",
+        "summary": "comet returns about every 100 years (7 times, 744-1447); next about 1548"
+      },
+      "chance_p_cycle_alone": 0.003,
+      "chance_p_whole_kind": 0.525,
+      "cause": "tests: rejected by the prediction test"
+    },
+    {
+      "world": "test-035",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 68,
+      "records": 9,
+      "learner_kinds": {
+        "comet": 9
+      },
+      "share_in_main_kind": 1.0,
+      "group_size_years": 24,
+      "cycle_years": 9,
+      "perfect_fit": null,
+      "perfect_passes_shape": false,
+      "learned_fit": {
+        "hits": 10,
+        "misses": 2,
+        "max_gap": 1
+      },
+      "learned_passes_shape": true,
+      "theory": {
+        "stage": "rejected",
+        "reason": "prediction: fit on the years before 1234, it predicted [1257, 1325]; 0 came true",
+        "summary": "comet returns about every 68 years (10 times, 572-1252); next about 1391"
+      },
+      "chance_p_whole_kind": 0.007,
+      "cause": "material: even perfect notes fail the shape rule (returns never written down)"
+    },
+    {
+      "world": "test-037",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 77,
+      "records": 8,
+      "learner_kinds": {
+        "locusts": 7,
+        "plague": 1
+      },
+      "share_in_main_kind": 0.88,
+      "group_size_years": 16,
+      "cycle_years": 6,
+      "perfect_fit": null,
+      "perfect_passes_shape": false,
+      "learned_fit": null,
+      "learned_passes_shape": false,
+      "theory": null,
+      "cause": "material: even perfect notes fail the shape rule (returns never written down)"
+    }
+  ]
+}
