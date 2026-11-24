@@ -17,6 +17,30 @@ The closest project in spirit is [Omi](https://omi.ekayan.tech/), an on-device A
 
 Hardware: RTX 4050 laptop (6 GB VRAM), 14 GB RAM, 49 GB free disk, Python 3.12, `uv`. There's no code yet, so this is a new project.
 
+## The research program (agreed 2026-11-24)
+
+Three pillars. Every idea in them is a swappable recipe option, judged on fresh test worlds against the current recipe, with paired 95% intervals.
+
+1. **Dreaming with vectors: two dream modes, as in sleep research.** Deep sleep replays and consolidates; REM sleep recombines distant memories into new associations (Lewis, Knoblich and Poe 2018; Cai et al. 2009). Today's dreaming is the first kind (check and confirm). The second kind works in vector space:
+   - every note is embedded with the model's own hidden states, so "chalky light" lands near "white star";
+   - **near in vectors but far apart in time** gives the same thing described differently. That's the comet-signature fix from the cycle diagnosis, with one vector per note instead of a question per pair;
+   - **remote associations:** random walks on the neighbour graph reach non-obvious links, which become hypotheses for the usual tests;
+   - **analogies:** a relation seen between A and B, tried elsewhere.
+2. **Self-learning: change, not just scale.**
+   - Verified sleep (H2) trains its LoRA only on findings that passed every test, plus which searches paid off.
+   - Sleep changes the model's own vectors, so **dream associations should improve after sleep**. That's a fast, direct H2 measurement: after sleep, are a cycle's records closer together in its own vector space (cluster purity, retrieval precision)?
+   - Also: a learned agenda (which checks pay off) and a learned reader (trained on its own confirmed notes).
+   - Everything must beat B4, the same lessons given as notes in the prompt with no training.
+3. **Papers as parts.**
+   - Queued: false-discovery control (Benjamini–Hochberg, online LORD), Hawkes and Granger lags, TLogic rules, AlignScore checking, calibration of the score.
+   - New: the two dream modes, clustering by description, and treating a silent prediction as untested.
+
+Order:
+1. Vector clustering of descriptions (it fixes the biggest cycle failure and is the base of REM-style dreaming).
+2. Silent predictions.
+3. Phase 4 sleep, with the vector measurement as its quickest readout.
+4. The other papers, one at a time.
+
 ## What we are trying to prove
 
 Four hypotheses, in priority order:
