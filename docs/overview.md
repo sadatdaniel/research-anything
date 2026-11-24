@@ -139,6 +139,10 @@ experiments/eval_v2.sh && uv run python experiments/eval_v2_report.py   # the fu
 - [STATUS.md](../STATUS.md): progress, with a dated log.
 - [REFERENCES.md](../REFERENCES.md) and [RELATED_WORK.md](../RELATED_WORK.md): the ideas this builds on, and how it differs from published work on sleep and learning to learn.
 
-## License and citation
+## License
 
-To be decided.
+The code is licensed under the **GNU Affero General Public License, version 3 or later** ([LICENSE](../LICENSE)). If you change it and share it, *or run it as an online service*, your changes must be shared under the same licence. What you learn with it (memories, findings, mindpacks) is yours. Models are downloaded separately under their own licences, and none are included here.
+
+## Citation
+
+To be added with the first preprint.

@@ -95,6 +95,7 @@ The product side (an app, memories, mindpacks) is how results are inspected and 
 - **Every phase ends with a quality check:** the full tests, the UI audit at 5 widths in light and dark with 0 issues, review by eye, and `results/phaseN/QA.md`.
 - **Honesty in the app:** "tends to coincide", never "causes". Untested ideas are labelled. It says "I don't know" when it doesn't.
 - **Repository code from a model** only runs after it's been read, and only for models on a reviewed list.
+- **Licence:** code under **AGPL-3.0-or-later** (chosen 2026-11-24): changes must stay open when shared *or* run as a service. Users' memories and findings are theirs; model weights keep their own licences.
 - **Commits** go out as sadatdaniel, **never with a Claude co-author line**.
 
 ## What you care about (product)

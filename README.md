@@ -82,6 +82,10 @@ uv run python experiments/phase3_dream.py worlds/val/val-000
 
 We'd welcome researchers in learning and memory, statistics, NLP and the digital humanities. You could test your own discovery method on the benchmark, try a consolidation method against our hypotheses, or run a rediscovery test on a collection from your field. Open an issue.
 
-## License and citation
+## License
 
-To be decided.
+The code is licensed under the **GNU Affero General Public License, version 3 or later** ([LICENSE](LICENSE)). If you change it and share it, *or run it as an online service*, your changes must be shared under the same licence. What you learn with it (memories, findings, mindpacks) is yours. Models are downloaded separately under their own licences, and none are included here.
+
+## Citation
+
+To be added with the first preprint.

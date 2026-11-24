@@ -1,7 +1,8 @@
 [project]
 name = "sandbox-learner"
 version = "0.0.1"
-description = "A small looped language model that learns from a folder, dreams up connections at night, and checks them against the source."
+description = "Research Anything: using an intelligent pipeline to discover hidden patterns."
+license = "AGPL-3.0-or-later"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "torch==2.8.0",
