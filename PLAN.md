@@ -352,6 +352,38 @@ The score is whether it finds the real link and none of the decoys. Then real pu
 
 This generalises beyond writers: **a measured quality of one source, explained by the timeline of another**. Examples: the tone of a newspaper and the economy; the mood of a diary and the seasons; complaints in a log and a change of supplier.
 
+**Hidden-design patterns: unrelated-looking events are instances of one scheme** (added 2026-11-24 at your request; think of the film *Se7en*, or Robert Langdon's puzzles)
+
+Separate events turn out to follow one design: murders that enact the seven deadly sins, sites that mark out a shape on a map. Three things set this apart from the other types:
+- **The key is outside the events.** It's a list, a symbol system or a map, so the learner has to link the events to background knowledge. That knowledge can come from:
+  - the material itself (one document describes the list);
+  - the model's own knowledge;
+  - opt-in online lookup.
+
+  The app always says which.
+- **Many weak clues add up.** Each match ("this one is about gluttony") means little alone. The test asks how likely it is that this many events match *distinct* members of the scheme, often *in order*, often with a shared calling card, if the events were unrelated.
+  - Shuffle which event goes with which member, and compare with how often random other events in the material match as well.
+  - Combine the clues' strengths (each likelihood ratio). The calling card is the same "group by description" idea as the comet signature from the cycle diagnosis.
+- **The payoff is prediction:** the scheme's unfilled members say what is likely to come next, and sometimes where (the next point of the shape on the map).
+
+How it's found: the model proposes the unifying explanation ("these follow the seven sins"; inference to the best explanation, or abduction), and the pipeline tests it like everything else. An explanation that doesn't survive the tests stays a labelled guess.
+
+**This is the type most prone to false findings.** Seeing designs in noise is how conspiracy theories are made, and the chance test is the difference between Langdon and a conspiracy theorist. So it gets the strictest checks:
+- shuffles;
+- correction for having tried many schemes;
+- the decoy rate reported next to every finding.
+
+**Tested on fake worlds first.**
+- One chronicler describes an invented list, say the "Seven Woes of Kaldor". The names are invented, so the model can't already know it.
+- Later, events by other chroniclers, in other words, each enact one woe, in the listed order, with a shared calling card.
+- Decoys:
+  - a list that's never enacted;
+  - one event that matches a woe by coincidence;
+  - a series that matches in content but in random order;
+  - a scheme that only fits if the learner cherry-picks.
+- Score: finds the scheme, maps each event to its woe, predicts the remaining ones, and believes none of the decoys.
+- A spatial variant: sites that lie in order along a river or form a shape across the generated map.
+
 **Online lookup (opt-in, after Phase 6)**
 - **Off by default**, and each lookup needs your approval. The learner shows the exact query first, which you can edit or cancel. Only the query leaves the computer, never files or notes.
 - **A fetched page becomes a new source, not a fact.** It's stored with its URL, the fetch date, a hash and the text, and goes through the same checks (verbatim quotes, re-reading). Answers cite it separately: "from the web, fetched on …".
