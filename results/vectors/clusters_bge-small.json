@@ -1,0 +1,423 @@
+{
+  "embedder": "bge-small@1",
+  "recipe": "default@2",
+  "worlds": [
+    "val-000",
+    "val-001",
+    "val-002",
+    "val-003",
+    "val-004"
+  ],
+  "cycles": [
+    {
+      "world": "val-000",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 108,
+      "cycle_in_kind": 8,
+      "kind_size": 11,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 11,
+          "cycle_recall": 1.0,
+          "purity": 0.73
+        },
+        "0.75": {
+          "clusters": 5,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.5,
+          "purity": 1.0
+        },
+        "0.8": {
+          "clusters": 6,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.5,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 8,
+          "best_cluster_size": 3,
+          "cycle_recall": 0.38,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 9,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.25,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-001",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 55,
+      "cycle_in_kind": 16,
+      "kind_size": 25,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 25,
+          "cycle_recall": 1.0,
+          "purity": 0.64
+        },
+        "0.75": {
+          "clusters": 8,
+          "best_cluster_size": 7,
+          "cycle_recall": 0.44,
+          "purity": 1.0
+        },
+        "0.8": {
+          "clusters": 12,
+          "best_cluster_size": 7,
+          "cycle_recall": 0.44,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 16,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.25,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 21,
+          "best_cluster_size": 3,
+          "cycle_recall": 0.19,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-001",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 70,
+      "cycle_in_kind": 7,
+      "kind_size": 18,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 18,
+          "cycle_recall": 1.0,
+          "purity": 0.39
+        },
+        "0.75": {
+          "clusters": 12,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.29,
+          "purity": 1.0
+        },
+        "0.8": {
+          "clusters": 14,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.29,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 16,
+          "best_cluster_size": 1,
+          "cycle_recall": 0.14,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 17,
+          "best_cluster_size": 1,
+          "cycle_recall": 0.14,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-002",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 61,
+      "cycle_in_kind": 13,
+      "kind_size": 23,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 23,
+          "cycle_recall": 1.0,
+          "purity": 0.57
+        },
+        "0.75": {
+          "clusters": 7,
+          "best_cluster_size": 10,
+          "cycle_recall": 0.54,
+          "purity": 0.7
+        },
+        "0.8": {
+          "clusters": 13,
+          "best_cluster_size": 3,
+          "cycle_recall": 0.23,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 17,
+          "best_cluster_size": 3,
+          "cycle_recall": 0.23,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 21,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.15,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-002",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 82,
+      "cycle_in_kind": 9,
+      "kind_size": 14,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 14,
+          "cycle_recall": 1.0,
+          "purity": 0.64
+        },
+        "0.75": {
+          "clusters": 7,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.44,
+          "purity": 1.0
+        },
+        "0.8": {
+          "clusters": 8,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.44,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 10,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.22,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 12,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.22,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-003",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 94,
+      "cycle_in_kind": 8,
+      "kind_size": 20,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 20,
+          "cycle_recall": 1.0,
+          "purity": 0.4
+        },
+        "0.75": {
+          "clusters": 8,
+          "best_cluster_size": 5,
+          "cycle_recall": 0.5,
+          "purity": 0.8
+        },
+        "0.8": {
+          "clusters": 13,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.5,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 15,
+          "best_cluster_size": 3,
+          "cycle_recall": 0.38,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 18,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.25,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-003",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 85,
+      "cycle_in_kind": 9,
+      "kind_size": 19,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 19,
+          "cycle_recall": 1.0,
+          "purity": 0.47
+        },
+        "0.75": {
+          "clusters": 10,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.44,
+          "purity": 1.0
+        },
+        "0.8": {
+          "clusters": 12,
+          "best_cluster_size": 4,
+          "cycle_recall": 0.44,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 14,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.22,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 17,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.22,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-004",
+      "pattern": "p1",
+      "kind": "comet",
+      "period": 65,
+      "cycle_in_kind": 10,
+      "kind_size": 24,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 24,
+          "cycle_recall": 1.0,
+          "purity": 0.42
+        },
+        "0.75": {
+          "clusters": 10,
+          "best_cluster_size": 5,
+          "cycle_recall": 0.5,
+          "purity": 1.0
+        },
+        "0.8": {
+          "clusters": 13,
+          "best_cluster_size": 5,
+          "cycle_recall": 0.5,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 16,
+          "best_cluster_size": 5,
+          "cycle_recall": 0.5,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 19,
+          "best_cluster_size": 3,
+          "cycle_recall": 0.3,
+          "purity": 1.0
+        }
+      }
+    },
+    {
+      "world": "val-004",
+      "pattern": "p2",
+      "kind": "locusts",
+      "period": 67,
+      "cycle_in_kind": 11,
+      "kind_size": 17,
+      "by_threshold": {
+        "none": {
+          "clusters": 1,
+          "best_cluster_size": 17,
+          "cycle_recall": 1.0,
+          "purity": 0.65
+        },
+        "0.75": {
+          "clusters": 12,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.18,
+          "purity": 1.0
+        },
+        "0.8": {
+          "clusters": 12,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.18,
+          "purity": 1.0
+        },
+        "0.85": {
+          "clusters": 15,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.18,
+          "purity": 1.0
+        },
+        "0.9": {
+          "clusters": 16,
+          "best_cluster_size": 2,
+          "cycle_recall": 0.18,
+          "purity": 1.0
+        }
+      }
+    }
+  ],
+  "by_threshold": {
+    "none": {
+      "cycles_found": 7,
+      "of": 9,
+      "false_cycles": 0,
+      "decoys": 0,
+      "groups_tested": 9,
+      "found": [
+        "val-000:find:p1",
+        "val-001:find:p1",
+        "val-002:find:p1",
+        "val-002:find:p2",
+        "val-003:find:p2",
+        "val-004:find:p1",
+        "val-004:find:p2"
+      ]
+    },
+    "0.75": {
+      "cycles_found": 0,
+      "of": 9,
+      "false_cycles": 0,
+      "decoys": 0,
+      "groups_tested": 11,
+      "found": []
+    },
+    "0.8": {
+      "cycles_found": 0,
+      "of": 9,
+      "false_cycles": 0,
+      "decoys": 0,
+      "groups_tested": 6,
+      "found": []
+    },
+    "0.85": {
+      "cycles_found": 0,
+      "of": 9,
+      "false_cycles": 0,
+      "decoys": 0,
+      "groups_tested": 2,
+      "found": []
+    },
+    "0.9": {
+      "cycles_found": 0,
+      "of": 9,
+      "false_cycles": 0,
+      "decoys": 0,
+      "groups_tested": 0,
+      "found": []
+    }
+  }
+}
