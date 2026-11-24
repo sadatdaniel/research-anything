@@ -1,6 +1,6 @@
 # STATUS: where Learn Anything stands
 
-> **Read this first when picking the work back up.** It's updated at every milestone. The full design and success criteria live in [PLAN.md](PLAN.md); this file says what's done, what's in progress, what was decided, and what comes next.
+> **Read [OBJECTIVE.md](OBJECTIVE.md) first (the why and what we've learned), then this file.** It's updated at every milestone. The full design and success criteria live in [PLAN.md](PLAN.md); this file says what's done, what's in progress, what was decided, and what comes next.
 
 _Last updated: 2026-11-23 (Phase 3: first test evaluation done; recipe default@2 being compared on fresh test worlds; question bank; app restructured around memories)_
 
