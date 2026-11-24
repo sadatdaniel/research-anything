@@ -709,7 +709,7 @@ The learner is a pipeline of stages, and a **recipe** names the implementation u
 
 ## Project layout
 
-Folder: `/home/daniel/Documents/claude_projects/sandbox-learner/`. A copy of this plan goes there as `PLAN.md`.
+This plan lives in the repository as `PLAN.md`.
 
 ```
 PLAN.md
