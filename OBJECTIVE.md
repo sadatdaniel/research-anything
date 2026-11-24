@@ -1,4 +1,4 @@
-# OBJECTIVE: what Learn Anything is for, and what we've learned
+# OBJECTIVE: the research question, and what we've learned
 
 > **Read this first, then [STATUS.md](STATUS.md) (where things stand) and [PLAN.md](PLAN.md) (the full design).** This file holds the *why* and the real understanding: the things that must survive when a long session is summarized. It's updated at every milestone. When a finding changes our understanding, it changes here first.
 
@@ -6,15 +6,20 @@ _Last updated: 2026-11-24_
 
 ## The objective
 
-**Build a learning machine, not a bigger model.** It's a small model on an ordinary laptop (RTX 4050, 6 GB) that you point at a folder of material: chronicles, a writer's books and letters, an archive. It:
-- studies the material by itself: it reads by day and **dreams** at night;
-- finds patterns and connections **nobody stated**;
-- **checks every one** against the sources and against chance before believing it;
-- **gets better at learning**: after "sleeping" on what it confirmed, it discovers faster in material it has never seen.
+**This is a research project about a learning pipeline, not a product built around a model** (framing corrected at your request on 2026-11-24: "you're thinking in models, it's a pipeline... think like a research project").
 
-People rarely know what to ask, so it brings the questions too. It answers only from what it learned, and says "I don't know" otherwise.
+**The research question:** can a learning *pipeline* (read → dream → verify → sleep), rather than a larger model:
+- discover patterns that a text collection never states;
+- and get better at discovering (**learning how to learn**) by training itself on what it has verified?
 
-**The selling point:** a private research assistant that studies your archive overnight and hands you checked discoveries you didn't know to ask for. Each comes with its evidence, the odds it's chance, and a prediction you can test. It isn't the model's size that does this, but search, verification and learning. The same small model asked directly found 0% of hidden patterns; inside the pipeline it finds about 50–60%.
+We optimise the pipeline component by component (every stage swappable, every change measured on fresh worlds with paired intervals). We present it the way research is presented: question, hypotheses, method, benchmark, protocol, results (negative ones included), open problems. **Self-learning is the centre**: the system's own tests (held-back predictions, shuffle tests, re-reading) are its teacher, and what passes is what it trains on.
+
+**The audience is researchers first:**
+- people who study self-learning, verification and discovery;
+- people who want a benchmark or testbed;
+- scholars who could later run it on their own corpora.
+
+The product side (an app, memories, mindpacks) is how results are inspected and shared, not the headline. Evidence so far that the method does the work: the same model asked directly found 0% of the hidden patterns; inside the pipeline it finds 50% at 71% precision on 30 fresh test worlds.
 
 **The method is the contribution, not the model** (agreed 2026-11-24). Any capable model should find deeper patterns inside the pipeline than on its own.
 - A model is chosen only when it's measurably better at a job (Ouro is the most careful checker).

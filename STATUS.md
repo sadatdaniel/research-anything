@@ -192,7 +192,7 @@ All are fixed, and the audit now reports 0 issues. A regression test guards the 
 - none right now
 
 ## Git
-- Commits are made as `sadatdaniel <sadatdaniel@gmail.com>`, set in this repository only. **Never add a Claude co-author line.**
+- Commits are made as `sadatdaniel` with the GitHub noreply address (set in this repository only; the history was rewritten to it on 2026-11-24 so no personal email is public). **Never add a Claude co-author line.**
 
 ## How to pick up
 ```bash
